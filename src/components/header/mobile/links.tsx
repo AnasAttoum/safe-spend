@@ -19,12 +19,13 @@ export default function HeaderLinks({ setOpen }: Props) {
         const isActive = link === pathname;
         return (
           <Link
+            key={label}
             href={link}
             className={clsx(
               "relative w-full text-center my-1 p-3 rounded-md transition-all duration-200",
               isActive && "text-blue-secondary bg-gray-700"
             )}
-            onClick={()=>setOpen(false)}
+            onClick={() => setOpen(false)}
           >
             {label}
           </Link>
