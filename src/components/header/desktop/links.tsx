@@ -16,7 +16,8 @@ export default function HeaderLinks() {
         <Link
           href={link}
           className={clsx(
-            isActive && "text-blue-secondary transition-all duration-200"
+            "hover:text-blue-secondary transition-all duration-200",
+            isActive && "text-blue-secondary"
           )}
         >
           {label}
