@@ -79,8 +79,8 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
-  --blue-primary: #023e8a;
-  --blue-secondary: #00b2ca;
+  --blue-primary: #00b2ca;
+  --blue-secondary: #023e8a;
   --blue-light: #bbd1ea;
 }
 
@@ -139,7 +139,7 @@
 /* LOADING */
 .loader {
   display: inline-flex;
-  border: 10px solid var(--color-blue-primary);
+  border: 10px solid var(--color-blue-secondary);
   border-radius: 5px;
   width: 100px;
   height: 100px;
@@ -153,15 +153,17 @@
   height: 100%;
   width: 100%;
   text-align: center;
-  outline:1px solid var(--color-blue-primary);
+  outline: 1px solid var(--color-blue-secondary);
   color: #0000;
-  text-shadow:0 0 0 var(--color-blue-light);
-  overflow: hidden; 
+  text-shadow: 0 0 0 var(--color-blue-light);
+  overflow: hidden;
   animation: l4 2s infinite alternate;
 }
 .loader::before {
   animation-duration: 4s;
 }
 @keyframes l4 {
-  100% {text-shadow:0 -10em 0 #000}
+  100% {
+    text-shadow: 0 -10em 0 #000;
+  }
 }
