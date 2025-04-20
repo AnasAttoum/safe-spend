@@ -84,6 +84,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -135,6 +138,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -165,6 +173,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -172,7 +184,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../../.env",
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -181,18 +193,18 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
   "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": null,
-        "value": "file:./dev.db"
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  // provider  = \"postgresql\"\n  // url       = env(\"DATABASE_URL\")\n  // directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  userId   String @id\n  currency String\n}\n\nmodel Category {\n  userId String\n\n  name String\n  icon String\n  type String @default(\"income\")\n\n  createdAt DateTime @default(now())\n\n  @@unique([name, userId, type])\n}\n\nmodel Transaction {\n  id     String @id @default(uuid()) // To make prisma generate it\n  userId String\n\n  amount      Float\n  description String\n  type        String @default(\"income\")\n\n  category     String\n  categoryIcon String\n\n  date      DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now())\n}\n\nmodel MonthTable {\n  userId String\n\n  day   Int\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([day, month, year, userId])\n}\n\nmodel YearTable {\n  userId String\n\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([month, year, userId])\n}\n",
-  "inlineSchemaHash": "0f510bd744f7cd1348213676d3dc6eb4bed5134e882ef0c8f4bb645b1fd0a9b7",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n  // directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n  // provider = \"sqlite\"\n  // url      = \"file:./dev.db\"\n}\n\nmodel User {\n  userId   String @id\n  currency String\n}\n\nmodel Category {\n  userId String\n\n  name String\n  icon String\n  type String @default(\"income\")\n\n  createdAt DateTime @default(now())\n\n  @@unique([name, userId, type])\n}\n\nmodel Transaction {\n  id     String @id @default(uuid()) // To make prisma generate it\n  userId String\n\n  amount      Float\n  description String\n  type        String @default(\"income\")\n\n  category     String\n  categoryIcon String\n\n  date      DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now())\n}\n\nmodel MonthTable {\n  userId String\n\n  day   Int\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([day, month, year, userId])\n}\n\nmodel YearTable {\n  userId String\n\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([month, year, userId])\n}\n",
+  "inlineSchemaHash": "001c4e4737d7582ffcfd0aa93bc08c95c48c1d6f4e2c3e163cd53ceb4bb9b810",
   "copyEngine": true
 }
 
@@ -233,6 +245,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")
