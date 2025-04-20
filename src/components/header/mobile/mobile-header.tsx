@@ -19,10 +19,10 @@ export default function MobileHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="grid md:hidden grid-cols-4 border-b h-14">
-      <div className="flex justify-end items-center gap-1 pr-1">
+    <header className="grid md:hidden grid-cols-2 border-b h-14">
+      <div className="flex items-center gap-3 pr-1">
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="mr-5">
+          <SheetTrigger asChild>
             <Button variant="outline">
               <Icon icon="hamb" />
             </Button>
@@ -44,10 +44,10 @@ export default function MobileHeader() {
             </SheetFooter> */}
           </SheetContent>
         </Sheet>
+      <Logo />
       </div>
-      <Logo className="-ml-4" />
 
-      <div className="flex items-center justify-end gap-3 col-span-2">
+      <div className="flex items-center justify-end gap-3 ">
         <DarkModeToggle />
         <UserButton />
       </div>
