@@ -127,7 +127,7 @@ exports.Prisma.CategoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.TransationScalarFieldEnum = {
+exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   amount: 'amount',
@@ -166,7 +166,7 @@ exports.Prisma.SortOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Category: 'Category',
-  Transation: 'Transation',
+  Transaction: 'Transaction',
   MonthTable: 'MonthTable',
   YearTable: 'YearTable'
 };

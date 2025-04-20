@@ -14,7 +14,7 @@ CREATE TABLE "Category" (
 );
 
 -- CreateTable
-CREATE TABLE "Transation" (
+CREATE TABLE "Transaction" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
     "amount" REAL NOT NULL,

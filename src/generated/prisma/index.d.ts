@@ -24,10 +24,10 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 /**
- * Model Transation
+ * Model Transaction
  * 
  */
-export type Transation = $Result.DefaultSelection<Prisma.$TransationPayload>
+export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
 /**
  * Model MonthTable
  * 
@@ -185,14 +185,14 @@ export class PrismaClient<
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.transation`: Exposes CRUD operations for the **Transation** model.
+   * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Transations
-    * const transations = await prisma.transation.findMany()
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transaction.findMany()
     * ```
     */
-  get transation(): Prisma.TransationDelegate<ExtArgs, ClientOptions>;
+  get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.monthTable`: Exposes CRUD operations for the **MonthTable** model.
@@ -655,7 +655,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Category: 'Category',
-    Transation: 'Transation',
+    Transaction: 'Transaction',
     MonthTable: 'MonthTable',
     YearTable: 'YearTable'
   };
@@ -676,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "category" | "transation" | "monthTable" | "yearTable"
+      modelProps: "user" | "category" | "transaction" | "monthTable" | "yearTable"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -828,77 +828,77 @@ export namespace Prisma {
           }
         }
       }
-      Transation: {
-        payload: Prisma.$TransationPayload<ExtArgs>
-        fields: Prisma.TransationFieldRefs
+      Transaction: {
+        payload: Prisma.$TransactionPayload<ExtArgs>
+        fields: Prisma.TransactionFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.TransationFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload> | null
+            args: Prisma.TransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.TransationFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           findFirst: {
-            args: Prisma.TransationFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload> | null
+            args: Prisma.TransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.TransationFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           findMany: {
-            args: Prisma.TransationFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>[]
+            args: Prisma.TransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
           }
           create: {
-            args: Prisma.TransationCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           createMany: {
-            args: Prisma.TransationCreateManyArgs<ExtArgs>
+            args: Prisma.TransactionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.TransationCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>[]
+            args: Prisma.TransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
           }
           delete: {
-            args: Prisma.TransationDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           update: {
-            args: Prisma.TransationUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           deleteMany: {
-            args: Prisma.TransationDeleteManyArgs<ExtArgs>
+            args: Prisma.TransactionDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.TransationUpdateManyArgs<ExtArgs>
+            args: Prisma.TransactionUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.TransationUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>[]
+            args: Prisma.TransactionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
           }
           upsert: {
-            args: Prisma.TransationUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransationPayload>
+            args: Prisma.TransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
           }
           aggregate: {
-            args: Prisma.TransationAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTransation>
+            args: Prisma.TransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransaction>
           }
           groupBy: {
-            args: Prisma.TransationGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TransationGroupByOutputType>[]
+            args: Prisma.TransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransactionGroupByOutputType>[]
           }
           count: {
-            args: Prisma.TransationCountArgs<ExtArgs>
-            result: $Utils.Optional<TransationCountAggregateOutputType> | number
+            args: Prisma.TransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<TransactionCountAggregateOutputType> | number
           }
         }
       }
@@ -1136,7 +1136,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     category?: CategoryOmit
-    transation?: TransationOmit
+    transaction?: TransactionOmit
     monthTable?: MonthTableOmit
     yearTable?: YearTableOmit
   }
@@ -3181,26 +3181,26 @@ export namespace Prisma {
 
 
   /**
-   * Model Transation
+   * Model Transaction
    */
 
-  export type AggregateTransation = {
-    _count: TransationCountAggregateOutputType | null
-    _avg: TransationAvgAggregateOutputType | null
-    _sum: TransationSumAggregateOutputType | null
-    _min: TransationMinAggregateOutputType | null
-    _max: TransationMaxAggregateOutputType | null
+  export type AggregateTransaction = {
+    _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
   }
 
-  export type TransationAvgAggregateOutputType = {
+  export type TransactionAvgAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransationSumAggregateOutputType = {
+  export type TransactionSumAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransationMinAggregateOutputType = {
+  export type TransactionMinAggregateOutputType = {
     id: string | null
     userId: string | null
     amount: number | null
@@ -3213,7 +3213,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type TransationMaxAggregateOutputType = {
+  export type TransactionMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     amount: number | null
@@ -3226,7 +3226,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type TransationCountAggregateOutputType = {
+  export type TransactionCountAggregateOutputType = {
     id: number
     userId: number
     amount: number
@@ -3241,15 +3241,15 @@ export namespace Prisma {
   }
 
 
-  export type TransationAvgAggregateInputType = {
+  export type TransactionAvgAggregateInputType = {
     amount?: true
   }
 
-  export type TransationSumAggregateInputType = {
+  export type TransactionSumAggregateInputType = {
     amount?: true
   }
 
-  export type TransationMinAggregateInputType = {
+  export type TransactionMinAggregateInputType = {
     id?: true
     userId?: true
     amount?: true
@@ -3262,7 +3262,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type TransationMaxAggregateInputType = {
+  export type TransactionMaxAggregateInputType = {
     id?: true
     userId?: true
     amount?: true
@@ -3275,7 +3275,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type TransationCountAggregateInputType = {
+  export type TransactionCountAggregateInputType = {
     id?: true
     userId?: true
     amount?: true
@@ -3289,93 +3289,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TransationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Transation to aggregate.
+     * Filter which Transaction to aggregate.
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transations to fetch.
+     * Determine the order of Transactions to fetch.
      */
-    orderBy?: TransationOrderByWithRelationInput | TransationOrderByWithRelationInput[]
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: TransationWhereUniqueInput
+    cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transations from the position of the cursor.
+     * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transations.
+     * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Transations
+     * Count returned Transactions
     **/
-    _count?: true | TransationCountAggregateInputType
+    _count?: true | TransactionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: TransationAvgAggregateInputType
+    _avg?: TransactionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: TransationSumAggregateInputType
+    _sum?: TransactionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: TransationMinAggregateInputType
+    _min?: TransactionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: TransationMaxAggregateInputType
+    _max?: TransactionMaxAggregateInputType
   }
 
-  export type GetTransationAggregateType<T extends TransationAggregateArgs> = {
-        [P in keyof T & keyof AggregateTransation]: P extends '_count' | 'count'
+  export type GetTransactionAggregateType<T extends TransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransaction]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateTransation[P]>
-      : GetScalarType<T[P], AggregateTransation[P]>
+        : GetScalarType<T[P], AggregateTransaction[P]>
+      : GetScalarType<T[P], AggregateTransaction[P]>
   }
 
 
 
 
-  export type TransationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransationWhereInput
-    orderBy?: TransationOrderByWithAggregationInput | TransationOrderByWithAggregationInput[]
-    by: TransationScalarFieldEnum[] | TransationScalarFieldEnum
-    having?: TransationScalarWhereWithAggregatesInput
+  export type TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithAggregationInput | TransactionOrderByWithAggregationInput[]
+    by: TransactionScalarFieldEnum[] | TransactionScalarFieldEnum
+    having?: TransactionScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: TransationCountAggregateInputType | true
-    _avg?: TransationAvgAggregateInputType
-    _sum?: TransationSumAggregateInputType
-    _min?: TransationMinAggregateInputType
-    _max?: TransationMaxAggregateInputType
+    _count?: TransactionCountAggregateInputType | true
+    _avg?: TransactionAvgAggregateInputType
+    _sum?: TransactionSumAggregateInputType
+    _min?: TransactionMinAggregateInputType
+    _max?: TransactionMaxAggregateInputType
   }
 
-  export type TransationGroupByOutputType = {
+  export type TransactionGroupByOutputType = {
     id: string
     userId: string
     amount: number
@@ -3386,28 +3386,28 @@ export namespace Prisma {
     date: Date
     createdAt: Date
     updatedAt: Date
-    _count: TransationCountAggregateOutputType | null
-    _avg: TransationAvgAggregateOutputType | null
-    _sum: TransationSumAggregateOutputType | null
-    _min: TransationMinAggregateOutputType | null
-    _max: TransationMaxAggregateOutputType | null
+    _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
   }
 
-  type GetTransationGroupByPayload<T extends TransationGroupByArgs> = Prisma.PrismaPromise<
+  type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<TransationGroupByOutputType, T['by']> &
+      PickEnumerable<TransactionGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof TransationGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TransactionGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], TransationGroupByOutputType[P]>
-            : GetScalarType<T[P], TransationGroupByOutputType[P]>
+              : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type TransationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     amount?: boolean
@@ -3418,9 +3418,9 @@ export namespace Prisma {
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["transation"]>
+  }, ExtArgs["result"]["transaction"]>
 
-  export type TransationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     amount?: boolean
@@ -3431,9 +3431,9 @@ export namespace Prisma {
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["transation"]>
+  }, ExtArgs["result"]["transaction"]>
 
-  export type TransationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     amount?: boolean
@@ -3444,9 +3444,9 @@ export namespace Prisma {
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["transation"]>
+  }, ExtArgs["result"]["transaction"]>
 
-  export type TransationSelectScalar = {
+  export type TransactionSelectScalar = {
     id?: boolean
     userId?: boolean
     amount?: boolean
@@ -3459,10 +3459,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TransationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "description" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transation"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "description" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 
-  export type $TransationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Transation"
+  export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transaction"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3475,136 +3475,136 @@ export namespace Prisma {
       date: Date
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["transation"]>
+    }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
 
-  type TransationGetPayload<S extends boolean | null | undefined | TransationDefaultArgs> = $Result.GetResult<Prisma.$TransationPayload, S>
+  type TransactionGetPayload<S extends boolean | null | undefined | TransactionDefaultArgs> = $Result.GetResult<Prisma.$TransactionPayload, S>
 
-  type TransationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TransationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TransationCountAggregateInputType | true
+  type TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TransactionCountAggregateInputType | true
     }
 
-  export interface TransationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transation'], meta: { name: 'Transation' } }
+  export interface TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transaction'], meta: { name: 'Transaction' } }
     /**
-     * Find zero or one Transation that matches the filter.
-     * @param {TransationFindUniqueArgs} args - Arguments to find a Transation
+     * Find zero or one Transaction that matches the filter.
+     * @param {TransactionFindUniqueArgs} args - Arguments to find a Transaction
      * @example
-     * // Get one Transation
-     * const transation = await prisma.transation.findUnique({
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends TransationFindUniqueArgs>(args: SelectSubset<T, TransationFindUniqueArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends TransactionFindUniqueArgs>(args: SelectSubset<T, TransactionFindUniqueArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Transation that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Transaction that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {TransationFindUniqueOrThrowArgs} args - Arguments to find a Transation
+     * @param {TransactionFindUniqueOrThrowArgs} args - Arguments to find a Transaction
      * @example
-     * // Get one Transation
-     * const transation = await prisma.transation.findUniqueOrThrow({
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends TransationFindUniqueOrThrowArgs>(args: SelectSubset<T, TransationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends TransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Transation that matches the filter.
+     * Find the first Transaction that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationFindFirstArgs} args - Arguments to find a Transation
+     * @param {TransactionFindFirstArgs} args - Arguments to find a Transaction
      * @example
-     * // Get one Transation
-     * const transation = await prisma.transation.findFirst({
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends TransationFindFirstArgs>(args?: SelectSubset<T, TransationFindFirstArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends TransactionFindFirstArgs>(args?: SelectSubset<T, TransactionFindFirstArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Transation that matches the filter or
+     * Find the first Transaction that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationFindFirstOrThrowArgs} args - Arguments to find a Transation
+     * @param {TransactionFindFirstOrThrowArgs} args - Arguments to find a Transaction
      * @example
-     * // Get one Transation
-     * const transation = await prisma.transation.findFirstOrThrow({
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends TransationFindFirstOrThrowArgs>(args?: SelectSubset<T, TransationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends TransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Transations that matches the filter.
+     * Find zero or more Transactions that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {TransactionFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Transations
-     * const transations = await prisma.transation.findMany()
+     * // Get all Transactions
+     * const transactions = await prisma.transaction.findMany()
      * 
-     * // Get first 10 Transations
-     * const transations = await prisma.transation.findMany({ take: 10 })
+     * // Get first 10 Transactions
+     * const transactions = await prisma.transaction.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const transationWithIdOnly = await prisma.transation.findMany({ select: { id: true } })
+     * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends TransationFindManyArgs>(args?: SelectSubset<T, TransationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends TransactionFindManyArgs>(args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Transation.
-     * @param {TransationCreateArgs} args - Arguments to create a Transation.
+     * Create a Transaction.
+     * @param {TransactionCreateArgs} args - Arguments to create a Transaction.
      * @example
-     * // Create one Transation
-     * const Transation = await prisma.transation.create({
+     * // Create one Transaction
+     * const Transaction = await prisma.transaction.create({
      *   data: {
-     *     // ... data to create a Transation
+     *     // ... data to create a Transaction
      *   }
      * })
      * 
      */
-    create<T extends TransationCreateArgs>(args: SelectSubset<T, TransationCreateArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends TransactionCreateArgs>(args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Transations.
-     * @param {TransationCreateManyArgs} args - Arguments to create many Transations.
+     * Create many Transactions.
+     * @param {TransactionCreateManyArgs} args - Arguments to create many Transactions.
      * @example
-     * // Create many Transations
-     * const transation = await prisma.transation.createMany({
+     * // Create many Transactions
+     * const transaction = await prisma.transaction.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends TransationCreateManyArgs>(args?: SelectSubset<T, TransationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Transations and returns the data saved in the database.
-     * @param {TransationCreateManyAndReturnArgs} args - Arguments to create many Transations.
+     * Create many Transactions and returns the data saved in the database.
+     * @param {TransactionCreateManyAndReturnArgs} args - Arguments to create many Transactions.
      * @example
-     * // Create many Transations
-     * const transation = await prisma.transation.createManyAndReturn({
+     * // Create many Transactions
+     * const transaction = await prisma.transaction.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Transations and only return the `id`
-     * const transationWithIdOnly = await prisma.transation.createManyAndReturn({
+     * // Create many Transactions and only return the `id`
+     * const transactionWithIdOnly = await prisma.transaction.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -3614,28 +3614,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends TransationCreateManyAndReturnArgs>(args?: SelectSubset<T, TransationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Transation.
-     * @param {TransationDeleteArgs} args - Arguments to delete one Transation.
+     * Delete a Transaction.
+     * @param {TransactionDeleteArgs} args - Arguments to delete one Transaction.
      * @example
-     * // Delete one Transation
-     * const Transation = await prisma.transation.delete({
+     * // Delete one Transaction
+     * const Transaction = await prisma.transaction.delete({
      *   where: {
-     *     // ... filter to delete one Transation
+     *     // ... filter to delete one Transaction
      *   }
      * })
      * 
      */
-    delete<T extends TransationDeleteArgs>(args: SelectSubset<T, TransationDeleteArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends TransactionDeleteArgs>(args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Transation.
-     * @param {TransationUpdateArgs} args - Arguments to update one Transation.
+     * Update one Transaction.
+     * @param {TransactionUpdateArgs} args - Arguments to update one Transaction.
      * @example
-     * // Update one Transation
-     * const transation = await prisma.transation.update({
+     * // Update one Transaction
+     * const transaction = await prisma.transaction.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3645,30 +3645,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends TransationUpdateArgs>(args: SelectSubset<T, TransationUpdateArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends TransactionUpdateArgs>(args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Transations.
-     * @param {TransationDeleteManyArgs} args - Arguments to filter Transations to delete.
+     * Delete zero or more Transactions.
+     * @param {TransactionDeleteManyArgs} args - Arguments to filter Transactions to delete.
      * @example
-     * // Delete a few Transations
-     * const { count } = await prisma.transation.deleteMany({
+     * // Delete a few Transactions
+     * const { count } = await prisma.transaction.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends TransationDeleteManyArgs>(args?: SelectSubset<T, TransationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends TransactionDeleteManyArgs>(args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Transations.
+     * Update zero or more Transactions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TransactionUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Transations
-     * const transation = await prisma.transation.updateMany({
+     * // Update many Transactions
+     * const transaction = await prisma.transaction.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3678,14 +3678,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends TransationUpdateManyArgs>(args: SelectSubset<T, TransationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends TransactionUpdateManyArgs>(args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Transations and returns the data updated in the database.
-     * @param {TransationUpdateManyAndReturnArgs} args - Arguments to update many Transations.
+     * Update zero or more Transactions and returns the data updated in the database.
+     * @param {TransactionUpdateManyAndReturnArgs} args - Arguments to update many Transactions.
      * @example
-     * // Update many Transations
-     * const transation = await prisma.transation.updateManyAndReturn({
+     * // Update many Transactions
+     * const transaction = await prisma.transaction.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3694,8 +3694,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Transations and only return the `id`
-     * const transationWithIdOnly = await prisma.transation.updateManyAndReturn({
+     * // Update zero or more Transactions and only return the `id`
+     * const transactionWithIdOnly = await prisma.transaction.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -3708,56 +3708,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends TransationUpdateManyAndReturnArgs>(args: SelectSubset<T, TransationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends TransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, TransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Transation.
-     * @param {TransationUpsertArgs} args - Arguments to update or create a Transation.
+     * Create or update one Transaction.
+     * @param {TransactionUpsertArgs} args - Arguments to update or create a Transaction.
      * @example
-     * // Update or create a Transation
-     * const transation = await prisma.transation.upsert({
+     * // Update or create a Transaction
+     * const transaction = await prisma.transaction.upsert({
      *   create: {
-     *     // ... data to create a Transation
+     *     // ... data to create a Transaction
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Transation we want to update
+     *     // ... the filter for the Transaction we want to update
      *   }
      * })
      */
-    upsert<T extends TransationUpsertArgs>(args: SelectSubset<T, TransationUpsertArgs<ExtArgs>>): Prisma__TransationClient<$Result.GetResult<Prisma.$TransationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends TransactionUpsertArgs>(args: SelectSubset<T, TransactionUpsertArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Transations.
+     * Count the number of Transactions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationCountArgs} args - Arguments to filter Transations to count.
+     * @param {TransactionCountArgs} args - Arguments to filter Transactions to count.
      * @example
-     * // Count the number of Transations
-     * const count = await prisma.transation.count({
+     * // Count the number of Transactions
+     * const count = await prisma.transaction.count({
      *   where: {
-     *     // ... the filter for the Transations we want to count
+     *     // ... the filter for the Transactions we want to count
      *   }
      * })
     **/
-    count<T extends TransationCountArgs>(
-      args?: Subset<T, TransationCountArgs>,
+    count<T extends TransactionCountArgs>(
+      args?: Subset<T, TransactionCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], TransationCountAggregateOutputType>
+          : GetScalarType<T['select'], TransactionCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Transation.
+     * Allows you to perform aggregations operations on a Transaction.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3777,13 +3777,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends TransationAggregateArgs>(args: Subset<T, TransationAggregateArgs>): Prisma.PrismaPromise<GetTransationAggregateType<T>>
+    aggregate<T extends TransactionAggregateArgs>(args: Subset<T, TransactionAggregateArgs>): Prisma.PrismaPromise<GetTransactionAggregateType<T>>
 
     /**
-     * Group by Transation.
+     * Group by Transaction.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransationGroupByArgs} args - Group by arguments.
+     * @param {TransactionGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3798,14 +3798,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends TransationGroupByArgs,
+      T extends TransactionGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TransationGroupByArgs['orderBy'] }
-        : { orderBy?: TransationGroupByArgs['orderBy'] },
+        ? { orderBy: TransactionGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3854,20 +3854,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, TransationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Transation model
+   * Fields of the Transaction model
    */
-  readonly fields: TransationFieldRefs;
+  readonly fields: TransactionFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Transation.
+   * The delegate class that acts as a "Promise-like" for Transaction.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__TransationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3895,380 +3895,380 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Transation model
+   * Fields of the Transaction model
    */
-  interface TransationFieldRefs {
-    readonly id: FieldRef<"Transation", 'String'>
-    readonly userId: FieldRef<"Transation", 'String'>
-    readonly amount: FieldRef<"Transation", 'Float'>
-    readonly description: FieldRef<"Transation", 'String'>
-    readonly type: FieldRef<"Transation", 'String'>
-    readonly category: FieldRef<"Transation", 'String'>
-    readonly categoryIcon: FieldRef<"Transation", 'String'>
-    readonly date: FieldRef<"Transation", 'DateTime'>
-    readonly createdAt: FieldRef<"Transation", 'DateTime'>
-    readonly updatedAt: FieldRef<"Transation", 'DateTime'>
+  interface TransactionFieldRefs {
+    readonly id: FieldRef<"Transaction", 'String'>
+    readonly userId: FieldRef<"Transaction", 'String'>
+    readonly amount: FieldRef<"Transaction", 'Float'>
+    readonly description: FieldRef<"Transaction", 'String'>
+    readonly type: FieldRef<"Transaction", 'String'>
+    readonly category: FieldRef<"Transaction", 'String'>
+    readonly categoryIcon: FieldRef<"Transaction", 'String'>
+    readonly date: FieldRef<"Transaction", 'DateTime'>
+    readonly createdAt: FieldRef<"Transaction", 'DateTime'>
+    readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Transation findUnique
+   * Transaction findUnique
    */
-  export type TransationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter, which Transation to fetch.
+     * Filter, which Transaction to fetch.
      */
-    where: TransationWhereUniqueInput
+    where: TransactionWhereUniqueInput
   }
 
   /**
-   * Transation findUniqueOrThrow
+   * Transaction findUniqueOrThrow
    */
-  export type TransationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter, which Transation to fetch.
+     * Filter, which Transaction to fetch.
      */
-    where: TransationWhereUniqueInput
+    where: TransactionWhereUniqueInput
   }
 
   /**
-   * Transation findFirst
+   * Transaction findFirst
    */
-  export type TransationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter, which Transation to fetch.
+     * Filter, which Transaction to fetch.
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transations to fetch.
+     * Determine the order of Transactions to fetch.
      */
-    orderBy?: TransationOrderByWithRelationInput | TransationOrderByWithRelationInput[]
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Transations.
+     * Sets the position for searching for Transactions.
      */
-    cursor?: TransationWhereUniqueInput
+    cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transations from the position of the cursor.
+     * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transations.
+     * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Transations.
+     * Filter by unique combinations of Transactions.
      */
-    distinct?: TransationScalarFieldEnum | TransationScalarFieldEnum[]
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
-   * Transation findFirstOrThrow
+   * Transaction findFirstOrThrow
    */
-  export type TransationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter, which Transation to fetch.
+     * Filter, which Transaction to fetch.
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transations to fetch.
+     * Determine the order of Transactions to fetch.
      */
-    orderBy?: TransationOrderByWithRelationInput | TransationOrderByWithRelationInput[]
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Transations.
+     * Sets the position for searching for Transactions.
      */
-    cursor?: TransationWhereUniqueInput
+    cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transations from the position of the cursor.
+     * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transations.
+     * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Transations.
+     * Filter by unique combinations of Transactions.
      */
-    distinct?: TransationScalarFieldEnum | TransationScalarFieldEnum[]
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
-   * Transation findMany
+   * Transaction findMany
    */
-  export type TransationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter, which Transations to fetch.
+     * Filter, which Transactions to fetch.
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transations to fetch.
+     * Determine the order of Transactions to fetch.
      */
-    orderBy?: TransationOrderByWithRelationInput | TransationOrderByWithRelationInput[]
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Transations.
+     * Sets the position for listing Transactions.
      */
-    cursor?: TransationWhereUniqueInput
+    cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transations from the position of the cursor.
+     * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transations.
+     * Skip the first `n` Transactions.
      */
     skip?: number
-    distinct?: TransationScalarFieldEnum | TransationScalarFieldEnum[]
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
-   * Transation create
+   * Transaction create
    */
-  export type TransationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * The data needed to create a Transation.
+     * The data needed to create a Transaction.
      */
-    data: XOR<TransationCreateInput, TransationUncheckedCreateInput>
+    data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
   }
 
   /**
-   * Transation createMany
+   * Transaction createMany
    */
-  export type TransationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Transations.
+     * The data used to create many Transactions.
      */
-    data: TransationCreateManyInput | TransationCreateManyInput[]
+    data: TransactionCreateManyInput | TransactionCreateManyInput[]
   }
 
   /**
-   * Transation createManyAndReturn
+   * Transaction createManyAndReturn
    */
-  export type TransationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelectCreateManyAndReturn<ExtArgs> | null
+    select?: TransactionSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * The data used to create many Transations.
+     * The data used to create many Transactions.
      */
-    data: TransationCreateManyInput | TransationCreateManyInput[]
+    data: TransactionCreateManyInput | TransactionCreateManyInput[]
   }
 
   /**
-   * Transation update
+   * Transaction update
    */
-  export type TransationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * The data needed to update a Transation.
+     * The data needed to update a Transaction.
      */
-    data: XOR<TransationUpdateInput, TransationUncheckedUpdateInput>
+    data: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
     /**
-     * Choose, which Transation to update.
+     * Choose, which Transaction to update.
      */
-    where: TransationWhereUniqueInput
+    where: TransactionWhereUniqueInput
   }
 
   /**
-   * Transation updateMany
+   * Transaction updateMany
    */
-  export type TransationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Transations.
+     * The data used to update Transactions.
      */
-    data: XOR<TransationUpdateManyMutationInput, TransationUncheckedUpdateManyInput>
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
     /**
-     * Filter which Transations to update
+     * Filter which Transactions to update
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
-     * Limit how many Transations to update.
+     * Limit how many Transactions to update.
      */
     limit?: number
   }
 
   /**
-   * Transation updateManyAndReturn
+   * Transaction updateManyAndReturn
    */
-  export type TransationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: TransactionSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * The data used to update Transations.
+     * The data used to update Transactions.
      */
-    data: XOR<TransationUpdateManyMutationInput, TransationUncheckedUpdateManyInput>
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
     /**
-     * Filter which Transations to update
+     * Filter which Transactions to update
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
-     * Limit how many Transations to update.
+     * Limit how many Transactions to update.
      */
     limit?: number
   }
 
   /**
-   * Transation upsert
+   * Transaction upsert
    */
-  export type TransationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * The filter to search for the Transation to update in case it exists.
+     * The filter to search for the Transaction to update in case it exists.
      */
-    where: TransationWhereUniqueInput
+    where: TransactionWhereUniqueInput
     /**
-     * In case the Transation found by the `where` argument doesn't exist, create a new Transation with this data.
+     * In case the Transaction found by the `where` argument doesn't exist, create a new Transaction with this data.
      */
-    create: XOR<TransationCreateInput, TransationUncheckedCreateInput>
+    create: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
     /**
-     * In case the Transation was found with the provided `where` argument, update it with this data.
+     * In case the Transaction was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<TransationUpdateInput, TransationUncheckedUpdateInput>
+    update: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
   }
 
   /**
-   * Transation delete
+   * Transaction delete
    */
-  export type TransationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
     /**
-     * Filter which Transation to delete.
+     * Filter which Transaction to delete.
      */
-    where: TransationWhereUniqueInput
+    where: TransactionWhereUniqueInput
   }
 
   /**
-   * Transation deleteMany
+   * Transaction deleteMany
    */
-  export type TransationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Transations to delete
+     * Filter which Transactions to delete
      */
-    where?: TransationWhereInput
+    where?: TransactionWhereInput
     /**
-     * Limit how many Transations to delete.
+     * Limit how many Transactions to delete.
      */
     limit?: number
   }
 
   /**
-   * Transation without action
+   * Transaction without action
    */
-  export type TransationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transation
+     * Select specific fields to fetch from the Transaction
      */
-    select?: TransationSelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transation
+     * Omit specific fields from the Transaction
      */
-    omit?: TransationOmit<ExtArgs> | null
+    omit?: TransactionOmit<ExtArgs> | null
   }
 
 
@@ -6397,7 +6397,7 @@ export namespace Prisma {
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
-  export const TransationScalarFieldEnum: {
+  export const TransactionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     amount: 'amount',
@@ -6410,7 +6410,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type TransationScalarFieldEnum = (typeof TransationScalarFieldEnum)[keyof typeof TransationScalarFieldEnum]
+  export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
   export const MonthTableScalarFieldEnum: {
@@ -6570,23 +6570,23 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
   }
 
-  export type TransationWhereInput = {
-    AND?: TransationWhereInput | TransationWhereInput[]
-    OR?: TransationWhereInput[]
-    NOT?: TransationWhereInput | TransationWhereInput[]
-    id?: StringFilter<"Transation"> | string
-    userId?: StringFilter<"Transation"> | string
-    amount?: FloatFilter<"Transation"> | number
-    description?: StringFilter<"Transation"> | string
-    type?: StringFilter<"Transation"> | string
-    category?: StringFilter<"Transation"> | string
-    categoryIcon?: StringFilter<"Transation"> | string
-    date?: DateTimeFilter<"Transation"> | Date | string
-    createdAt?: DateTimeFilter<"Transation"> | Date | string
-    updatedAt?: DateTimeFilter<"Transation"> | Date | string
+  export type TransactionWhereInput = {
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    description?: StringFilter<"Transaction"> | string
+    type?: StringFilter<"Transaction"> | string
+    category?: StringFilter<"Transaction"> | string
+    categoryIcon?: StringFilter<"Transaction"> | string
+    date?: DateTimeFilter<"Transaction"> | Date | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }
 
-  export type TransationOrderByWithRelationInput = {
+  export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
@@ -6599,23 +6599,23 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type TransationWhereUniqueInput = Prisma.AtLeast<{
+  export type TransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: TransationWhereInput | TransationWhereInput[]
-    OR?: TransationWhereInput[]
-    NOT?: TransationWhereInput | TransationWhereInput[]
-    userId?: StringFilter<"Transation"> | string
-    amount?: FloatFilter<"Transation"> | number
-    description?: StringFilter<"Transation"> | string
-    type?: StringFilter<"Transation"> | string
-    category?: StringFilter<"Transation"> | string
-    categoryIcon?: StringFilter<"Transation"> | string
-    date?: DateTimeFilter<"Transation"> | Date | string
-    createdAt?: DateTimeFilter<"Transation"> | Date | string
-    updatedAt?: DateTimeFilter<"Transation"> | Date | string
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    description?: StringFilter<"Transaction"> | string
+    type?: StringFilter<"Transaction"> | string
+    category?: StringFilter<"Transaction"> | string
+    categoryIcon?: StringFilter<"Transaction"> | string
+    date?: DateTimeFilter<"Transaction"> | Date | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }, "id">
 
-  export type TransationOrderByWithAggregationInput = {
+  export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
@@ -6626,27 +6626,27 @@ export namespace Prisma {
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: TransationCountOrderByAggregateInput
-    _avg?: TransationAvgOrderByAggregateInput
-    _max?: TransationMaxOrderByAggregateInput
-    _min?: TransationMinOrderByAggregateInput
-    _sum?: TransationSumOrderByAggregateInput
+    _count?: TransactionCountOrderByAggregateInput
+    _avg?: TransactionAvgOrderByAggregateInput
+    _max?: TransactionMaxOrderByAggregateInput
+    _min?: TransactionMinOrderByAggregateInput
+    _sum?: TransactionSumOrderByAggregateInput
   }
 
-  export type TransationScalarWhereWithAggregatesInput = {
-    AND?: TransationScalarWhereWithAggregatesInput | TransationScalarWhereWithAggregatesInput[]
-    OR?: TransationScalarWhereWithAggregatesInput[]
-    NOT?: TransationScalarWhereWithAggregatesInput | TransationScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Transation"> | string
-    userId?: StringWithAggregatesFilter<"Transation"> | string
-    amount?: FloatWithAggregatesFilter<"Transation"> | number
-    description?: StringWithAggregatesFilter<"Transation"> | string
-    type?: StringWithAggregatesFilter<"Transation"> | string
-    category?: StringWithAggregatesFilter<"Transation"> | string
-    categoryIcon?: StringWithAggregatesFilter<"Transation"> | string
-    date?: DateTimeWithAggregatesFilter<"Transation"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"Transation"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Transation"> | Date | string
+  export type TransactionScalarWhereWithAggregatesInput = {
+    AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    OR?: TransactionScalarWhereWithAggregatesInput[]
+    NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Transaction"> | string
+    userId?: StringWithAggregatesFilter<"Transaction"> | string
+    amount?: FloatWithAggregatesFilter<"Transaction"> | number
+    description?: StringWithAggregatesFilter<"Transaction"> | string
+    type?: StringWithAggregatesFilter<"Transaction"> | string
+    category?: StringWithAggregatesFilter<"Transaction"> | string
+    categoryIcon?: StringWithAggregatesFilter<"Transaction"> | string
+    date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   }
 
   export type MonthTableWhereInput = {
@@ -6855,7 +6855,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransationCreateInput = {
+  export type TransactionCreateInput = {
     id?: string
     userId: string
     amount: number
@@ -6868,7 +6868,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TransationUncheckedCreateInput = {
+  export type TransactionUncheckedCreateInput = {
     id?: string
     userId: string
     amount: number
@@ -6881,7 +6881,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TransationUpdateInput = {
+  export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
@@ -6894,7 +6894,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransationUncheckedUpdateInput = {
+  export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
@@ -6907,7 +6907,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransationCreateManyInput = {
+  export type TransactionCreateManyInput = {
     id?: string
     userId: string
     amount: number
@@ -6920,7 +6920,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TransationUpdateManyMutationInput = {
+  export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
@@ -6933,7 +6933,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransationUncheckedUpdateManyInput = {
+  export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
@@ -7177,7 +7177,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type TransationCountOrderByAggregateInput = {
+  export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
@@ -7190,11 +7190,11 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type TransationAvgOrderByAggregateInput = {
+  export type TransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
   }
 
-  export type TransationMaxOrderByAggregateInput = {
+  export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
@@ -7207,7 +7207,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type TransationMinOrderByAggregateInput = {
+  export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
@@ -7220,7 +7220,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type TransationSumOrderByAggregateInput = {
+  export type TransactionSumOrderByAggregateInput = {
     amount?: SortOrder
   }
 
