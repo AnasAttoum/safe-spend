@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/providers/theme-provider";
 import Bounded from "@/components/bounded";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,6 +58,7 @@ export default function RootLayout({
           >
             <Bounded>{children}</Bounded>
           </ThemeProvider>
+          <Toaster richColors position="top-right"/>
         </body>
       </html>
     </ClerkProvider>
