@@ -189,16 +189,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgres://neondb_owner:npg_iILjSv2zrFZ5@ep-quiet-lake-a2rs5yrv-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n  // provider = \"sqlite\"\n  // url      = \"file:./dev.db\"\n}\n\nmodel User {\n  userId   String @id\n  currency String\n}\n\nmodel Category {\n  userId String\n\n  name String\n  icon String\n  type String @default(\"income\")\n\n  createdAt DateTime @default(now())\n\n  @@unique([name, userId, type])\n}\n\nmodel Transaction {\n  id     String @id @default(uuid()) // To make prisma generate it\n  userId String\n\n  amount      Float\n  description String\n  type        String @default(\"income\")\n\n  category     String\n  categoryIcon String\n\n  date      DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now())\n}\n\nmodel MonthTable {\n  userId String\n\n  day   Int\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([day, month, year, userId])\n}\n\nmodel YearTable {\n  userId String\n\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([month, year, userId])\n}\n",
-  "inlineSchemaHash": "94052469f46fd78122201b10fdb7a0b17a62d1b90b95ecc4c4696d72d9eee3e2",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n  // directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n  // provider = \"sqlite\"\n  // url      = \"file:./dev.db\"\n}\n\nmodel User {\n  userId   String @id\n  currency String\n}\n\nmodel Category {\n  userId String\n\n  name String\n  icon String\n  type String @default(\"income\")\n\n  createdAt DateTime @default(now())\n\n  @@unique([name, userId, type])\n}\n\nmodel Transaction {\n  id     String @id @default(uuid()) // To make prisma generate it\n  userId String\n\n  amount      Float\n  description String\n  type        String @default(\"income\")\n\n  category     String\n  categoryIcon String\n\n  date      DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now())\n}\n\nmodel MonthTable {\n  userId String\n\n  day   Int\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([day, month, year, userId])\n}\n\nmodel YearTable {\n  userId String\n\n  month Int\n  year  Int\n\n  income  Float\n  expense Float\n\n  @@id([month, year, userId])\n}\n",
+  "inlineSchemaHash": "2a8f3591018345e71dd8a8b4ac155b186df38cb818a4e3b5651a70514a51624d",
   "copyEngine": true
 }
 config.dirname = '/'
