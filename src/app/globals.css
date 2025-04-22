@@ -44,6 +44,10 @@
   --color-blue-primary: var(--blue-primary);
   --color-blue-secondary: var(--blue-secondary);
   --color-blue-light: var(--blue-light);
+  --color-income: var(--income);
+  --color-income-dark: var(--income-dark);
+  --color-expense: var(--expense);
+  --color-expense-dark: var(--expense-dark);
 }
 
 :root {
@@ -82,6 +86,10 @@
   --blue-primary: #00b2ca;
   --blue-secondary: #023e8a;
   --blue-light: #bbd1ea;
+  --income: #52b788;
+  --income-dark: #2d6a4f;
+  --expense: #ff4d6d;
+  --expense-dark: #c9184a;
 }
 
 .dark {
@@ -116,6 +124,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+  --income: #40916c;
+  --income-dark: #2d6a4f;
+  --expense: #ff4d6d;
+  --expense-dark: #c9184a;
 }
 
 @layer base {
@@ -166,4 +178,12 @@
   100% {
     text-shadow: 0 -10em 0 #000;
   }
+}
+
+
+.incomeBtn{
+  @apply bg-income text-white hover:bg-income-dark hover:text-white
+}
+.expenseBtn{
+  @apply bg-expense text-white hover:bg-expense-dark hover:text-white
 }
