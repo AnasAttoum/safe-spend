@@ -1,3 +1,4 @@
+import { TransactionDialog } from "@/components/dialog/transaction-dialog";
 import Icon from "@/components/icon/icon";
 import { Button } from "@/components/ui/button";
 
@@ -13,14 +14,25 @@ export default function Head({ name }: Props) {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <Button variant="outline" className="incomeBtn flex-1">
-          New Income
-          <Icon icon="income" />
-        </Button>
-        <Button variant="outline" className="expenseBtn flex-1">
-          New expense
-          <Icon icon="expense" />
-        </Button>
+        <TransactionDialog
+          trigger={
+            <Button variant="outline" className="incomeBtn flex-1">
+              New Income
+              <Icon icon="income" />
+            </Button>
+          }
+          type="income"
+        />
+
+        <TransactionDialog
+          trigger={
+            <Button variant="outline" className="expenseBtn flex-1">
+              New expense
+              <Icon icon="expense" />
+            </Button>
+          }
+          type="expense"
+        />
       </div>
     </div>
   );
