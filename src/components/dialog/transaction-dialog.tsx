@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -59,16 +58,16 @@ export function TransactionDialog({ trigger, type }: Props) {
             </span>{" "}
             transaction
           </DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          {/* <DialogDescription>
+          Add your transactions
+          </DialogDescription> */}
         </DialogHeader>
         <Form {...form}>
           <form className="space-y-4">
             <FormField
               control={form.control}
               name="description"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
@@ -100,7 +99,7 @@ export function TransactionDialog({ trigger, type }: Props) {
             <FormField
               control={form.control}
               name="category"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
                   <FormControl>
