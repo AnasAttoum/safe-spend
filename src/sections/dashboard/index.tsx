@@ -9,7 +9,7 @@ export default async function Dashboard() {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
-  const userData = prisma.user.findUnique({ where: { userId: user.id } });
+  const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
   return <Head name={user.firstName || ""} />;
