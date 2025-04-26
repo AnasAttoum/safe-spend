@@ -13,13 +13,14 @@ import {
   CommandInput,
   CommandList,
 } from "../ui/command";
+import CreateCategory from "../dialog/create-category";
 
 type Props = {
   type: "income" | "expense";
 };
 
 export default function SelectCategory({ type }: Props) {
-  const [value] = useState("");
+  const [value, setValue] = useState("");
 
   const categories = useQuery<Category[]>({
     queryKey: ["categories", type],
@@ -44,7 +45,8 @@ export default function SelectCategory({ type }: Props) {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search category..." className="h-9" />
+          <CreateCategory type={type} />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
