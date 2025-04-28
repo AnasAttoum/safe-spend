@@ -1,7 +1,7 @@
-import Logo from "@/components/Logo";
-import HeaderLinks from "./links";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
+import Logo from "@/components/logo";
 import { UserButton } from "@clerk/nextjs";
+import HeaderLinks from "./links";
 
 export default function DesktopHeader() {
   return (

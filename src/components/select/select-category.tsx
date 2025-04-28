@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function SelectCategory({ type }: Props) {
-  const [value, setValue] = useState("");
+  const [value] = useState("");
 
   const categories = useQuery<Category[]>({
     queryKey: ["categories", type],

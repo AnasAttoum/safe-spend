@@ -24,6 +24,7 @@ model User {
 }
 
 model Category {
+  id     String @id @default(uuid()) // To make prisma generate it
   userId String
 
   name String

@@ -18,7 +18,6 @@ import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,6 +27,10 @@ import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import { useMutation } from "@tanstack/react-query";
+import { createCategory } from "@/actions/category";
+import { Category } from "@/generated/prisma";
+import { toast } from "sonner";
 
 type Props = {
   type: "income" | "expense";
@@ -39,8 +42,43 @@ export default function CreateCategory({ type }: Props) {
     resolver: zodResolver(createCategorySchema),
     defaultValues: { type },
   });
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { isSubmitted },
+  } = form;
+
+  const { mutate } = useMutation({
+    mutationFn: createCategory,
+
+    onSuccess: (data: Category) => {
+      reset({
+        name: "",
+        icon: "",
+      });
+      toast.success(`Category ${data.name} created successfully 🎉`, {
+        id: "create-category",
+      });
+      setOpen(false);
+    },
+    onError: () => {
+      toast.error("Something went wrong!", {
+        id: "create-category",
+      });
+    },
+  });
+
+  const onSubmit = handleSubmit((values: CreateCategorySchemaType, e) => {
+    e?.preventDefault();
+    toast.loading("Creating category", {
+      id: "create-category",
+    });
+    mutate(values);
+  });
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Create new</Button>
       </DialogTrigger>
@@ -61,7 +99,7 @@ export default function CreateCategory({ type }: Props) {
         </DialogHeader>
 
         <Form {...form}>
-          <form>
+          <form className="space-y-4" onSubmit={onSubmit}>
             <FormField
               control={form.control}
               name="name"
@@ -71,7 +109,7 @@ export default function CreateCategory({ type }: Props) {
                   <FormControl>
                     <Input placeholder="" {...field} />
                   </FormControl>
-                  <FormDescription>Category name</FormDescription>
+                  {/* <FormDescription>Category name</FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -96,29 +134,45 @@ export default function CreateCategory({ type }: Props) {
                           )}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent>
-                        <Picker
-                          data={data}
-                          onEmojiSelect={(emoji: any) =>
-                            field.onChange(emoji.native)
-                          }
-                        />
+                      <PopoverContent className="bg-transparent border-0">
+                        <div className="fixed inset-0 flex justify-center bottom-10">
+                          <Picker
+                            data={data}
+                            onEmojiSelect={(emoji: { native: string }) =>
+                              field.onChange(emoji.native)
+                            }
+                            perLine={9}
+                          />
+                        </div>
                       </PopoverContent>
                     </Popover>
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     This is how category will appear in the app
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <DialogFooter className="flex w-full">
+              <Button
+                type="button"
+                variant="outline"
+                className="flex-1 cursor-pointer"
+                onClick={() => {
+                  reset();
+                  setOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" className="flex-1 cursor-pointer">
+                {isSubmitted ? "Loading..." : "Save"}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
-
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

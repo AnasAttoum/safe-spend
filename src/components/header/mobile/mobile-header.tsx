@@ -2,7 +2,7 @@
 
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import Icon from "@/components/icon/icon";
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,8 +12,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { UserButton } from "@clerk/nextjs";
-import HeaderLinks from "./links";
 import { useState } from "react";
+import HeaderLinks from "./links";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function MobileHeader() {
                 Make changes to your profile here. Click save when you're done.
               </SheetDescription> */}
             </SheetHeader>
-            <HeaderLinks setOpen={setOpen}/>
+            <HeaderLinks setOpen={setOpen} />
             {/* <SheetFooter>
               <SheetClose asChild>
                 <Button type="submit">Save changes</Button>
@@ -44,7 +44,7 @@ export default function MobileHeader() {
             </SheetFooter> */}
           </SheetContent>
         </Sheet>
-      <Logo />
+        <Logo />
       </div>
 
       <div className="flex items-center justify-end gap-3 ">

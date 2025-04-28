@@ -123,6 +123,7 @@ exports.Prisma.UserScalarFieldEnum = {
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
   userId: 'userId',
   name: 'name',
   icon: 'icon',
