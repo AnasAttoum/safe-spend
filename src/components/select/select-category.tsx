@@ -11,33 +11,34 @@ import {
   CommandEmpty,
   CommandGroup,
   CommandInput,
+  CommandItem,
   CommandList,
 } from "../ui/command";
 import CreateCategory from "../dialog/create-category";
+import Loading from "../loading/loading";
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 type Props = {
   type: "income" | "expense";
 };
 
 export default function SelectCategory({ type }: Props) {
-  const [value] = useState("");
+  const [value, setValue] = useState<Category>();
+  const [open, setOpen] = useState(false);
 
-  const categories = useQuery<Category[]>({
-    queryKey: ["categories", type],
+  const { isFetching, data } = useQuery<Category[]>({
+    queryKey: ["category", type],
     queryFn: () =>
-      fetch(`/api/categories?type=${type}`).then((res) => res.json()),
+      fetch(`/api/category?type=${type}`).then((res) => res.json()),
   });
 
-  const selectedCategory = categories.data?.find(
-    (cat: Category) => cat.name === value
-  );
-
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline">
-          {selectedCategory ? (
-            <CategoryRow category={selectedCategory} />
+          {!!value ? (
+            <CategoryRow category={value} />
           ) : (
             "Select category"
           )}
@@ -46,30 +47,46 @@ export default function SelectCategory({ type }: Props) {
       <PopoverContent className="w-80">
         <Command>
           <CommandInput placeholder="Search category..." className="h-9" />
-          <CreateCategory type={type} />
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {/* {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  {framework.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))} */}
-            </CommandGroup>
-          </CommandList>
+          <CreateCategory type={type} setValue={setValue} setOpen={setOpen} />
+          {isFetching ? (
+            <Loading />
+          ) : (
+            <CommandList>
+              {data && (
+                <>
+                  {!data.length ? (
+                    <CommandEmpty>No categories found.</CommandEmpty>
+                  ) : (
+                    <CommandGroup>
+                      {data.map((category) => (
+                        <CommandItem
+                          key={category.name}
+                          // value={category.name}
+                          onSelect={() => {
+                            setValue(
+                              category
+                            );
+                            setOpen(false)
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <CategoryRow category={category} />
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              value?.name === category.name
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  )}
+                </>
+              )}
+            </CommandList>
+          )}
         </Command>
       </PopoverContent>
     </Popover>

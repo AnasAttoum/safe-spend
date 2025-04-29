@@ -18,6 +18,16 @@ export async function createCategory(form: CreateCategorySchemaType) {
 
   const { name, type, icon } = parsedBody.data;
 
+  const category = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      name,
+    },
+  });
+  if(category){
+    throw new Error('This name already taken!')
+  }
+
   return await prisma.category.create({
     data: {
       userId: user.id,

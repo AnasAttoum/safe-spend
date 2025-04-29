@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createCategorySchema,
   CreateCategorySchemaType,
@@ -27,16 +29,22 @@ import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCategory } from "@/actions/category";
 import { Category } from "@/generated/prisma";
 import { toast } from "sonner";
 
 type Props = {
   type: "income" | "expense";
+  setValue: (val: Category) => void;
+  setOpen: (val: false) => void;
 };
 
-export default function CreateCategory({ type }: Props) {
+export default function CreateCategory({
+  type,
+  setValue,
+  setOpen: setOpenCategoriesList,
+}: Props) {
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
     resolver: zodResolver(createCategorySchema),
@@ -46,13 +54,17 @@ export default function CreateCategory({ type }: Props) {
   const {
     reset,
     handleSubmit,
-    formState: { isSubmitted },
+    formState: { isSubmitting },
   } = form;
+
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: createCategory,
 
-    onSuccess: (data: Category) => {
+    onSuccess: async(data: Category) => {
+      setValue(data);
+      queryClient.invalidateQueries({ queryKey: ["category", type] });
       reset({
         name: "",
         icon: "",
@@ -61,9 +73,11 @@ export default function CreateCategory({ type }: Props) {
         id: "create-category",
       });
       setOpen(false);
+      setOpenCategoriesList(false);
     },
-    onError: () => {
-      toast.error("Something went wrong!", {
+    onError: (error) => {
+      console.log("🚀 ~ error:", error, typeof error, Object.entries(error));
+      toast.error(error instanceof Error ? error.message : "Something went wrong!", {
         id: "create-category",
       });
     },
@@ -168,7 +182,7 @@ export default function CreateCategory({ type }: Props) {
                 Cancel
               </Button>
               <Button type="submit" className="flex-1 cursor-pointer">
-                {isSubmitted ? "Loading..." : "Save"}
+                {isSubmitting ? "Loading..." : "Save"}
               </Button>
             </DialogFooter>
           </form>
