@@ -33,6 +33,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCategory } from "@/actions/category";
 import { Category } from "@/generated/prisma";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
 
 type Props = {
   type: "income" | "expense";
@@ -58,6 +59,7 @@ export default function CreateCategory({
   } = form;
 
   const queryClient = useQueryClient();
+  const theme = useTheme()
 
   const { mutate } = useMutation({
     mutationFn: createCategory,
@@ -94,7 +96,7 @@ export default function CreateCategory({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create new</Button>
+        <Button variant="outline" className="cursor-pointer">Create new</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -156,6 +158,7 @@ export default function CreateCategory({
                               field.onChange(emoji.native)
                             }
                             perLine={9}
+                            theme={theme.resolvedTheme}
                           />
                         </div>
                       </PopoverContent>
