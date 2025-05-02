@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 export async function createTransaction(form: createTransactionType) {
   const parsedBody = createTransactionSchema.safeParse(form);
-  if (!parsedBody.success) throw new Error(parsedBody.error.message);
+  if (!parsedBody.success) return { error: parsedBody.error.message };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -24,7 +24,7 @@ export async function createTransaction(form: createTransactionType) {
       name: category,
     },
   });
-  if (!categoryRow) throw new Error("Category not found!");
+  if (!categoryRow) return { error: "Category not found!" };
 
   await prisma.$transaction([
     prisma.transaction.create({
@@ -67,28 +67,28 @@ export async function createTransaction(form: createTransactionType) {
     }),
 
     prisma.yearTable.upsert({
-        where: {
-          month_year_userId: {
-            userId: user.id,
-            month: date.getUTCMonth(),
-            year: date.getUTCFullYear(),
-          },
-        },
-        create: {
+      where: {
+        month_year_userId: {
           userId: user.id,
           month: date.getUTCMonth(),
           year: date.getUTCFullYear(),
-          income: type === "income" ? amount : 0,
-          expense: type === "expense" ? amount : 0,
         },
-        update: {
-          income: {
-            increment: type === "income" ? amount : 0,
-          },
-          expense: {
-            increment: type === "expense" ? amount : 0,
-          },
+      },
+      create: {
+        userId: user.id,
+        month: date.getUTCMonth(),
+        year: date.getUTCFullYear(),
+        income: type === "income" ? amount : 0,
+        expense: type === "expense" ? amount : 0,
+      },
+      update: {
+        income: {
+          increment: type === "income" ? amount : 0,
         },
-      }),
+        expense: {
+          increment: type === "expense" ? amount : 0,
+        },
+      },
+    }),
   ]);
 }

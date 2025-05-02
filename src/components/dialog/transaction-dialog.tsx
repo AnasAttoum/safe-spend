@@ -44,7 +44,12 @@ export function TransactionDialog({ trigger, type }: Props) {
   const { setValue, handleSubmit, reset } = form;
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createTransaction,
+    mutationFn: async (form: createTransactionType) => {
+      const res = await createTransaction(form);
+      if (res && res.error) {
+        throw new Error(res.error);
+      }
+    },
     onSuccess: () => {
       toast.success(`Transaction created successfully 🎉`, {
         id: "create-transaction",
@@ -61,6 +66,14 @@ export function TransactionDialog({ trigger, type }: Props) {
       // Invalidate the overview query which will refetch data in the home page
       queryClient.invalidateQueries({ queryKey: ["overview"] });
     },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong!",
+        {
+          id: "create-transaction",
+        }
+      );
+    },
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
@@ -68,7 +81,8 @@ export function TransactionDialog({ trigger, type }: Props) {
     toast.loading(`Creating transaction...`, {
       id: "create-transaction",
     });
-    mutate({ ...data, date: dateToUTCDate(data.date) });
+    mutate(data);
+    // mutate({ ...data, date: dateToUTCDate(data.date) });
   });
 
   return (
