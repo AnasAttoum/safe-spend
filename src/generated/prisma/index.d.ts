@@ -2200,6 +2200,7 @@ export namespace Prisma {
   }
 
   export type CategoryMinAggregateOutputType = {
+    id: string | null
     userId: string | null
     name: string | null
     icon: string | null
@@ -2208,6 +2209,7 @@ export namespace Prisma {
   }
 
   export type CategoryMaxAggregateOutputType = {
+    id: string | null
     userId: string | null
     name: string | null
     icon: string | null
@@ -2216,6 +2218,7 @@ export namespace Prisma {
   }
 
   export type CategoryCountAggregateOutputType = {
+    id: number
     userId: number
     name: number
     icon: number
@@ -2226,6 +2229,7 @@ export namespace Prisma {
 
 
   export type CategoryMinAggregateInputType = {
+    id?: true
     userId?: true
     name?: true
     icon?: true
@@ -2234,6 +2238,7 @@ export namespace Prisma {
   }
 
   export type CategoryMaxAggregateInputType = {
+    id?: true
     userId?: true
     name?: true
     icon?: true
@@ -2242,6 +2247,7 @@ export namespace Prisma {
   }
 
   export type CategoryCountAggregateInputType = {
+    id?: true
     userId?: true
     name?: true
     icon?: true
@@ -2323,6 +2329,7 @@ export namespace Prisma {
   }
 
   export type CategoryGroupByOutputType = {
+    id: string
     userId: string
     name: string
     icon: string
@@ -2348,6 +2355,7 @@ export namespace Prisma {
 
 
   export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     name?: boolean
     icon?: boolean
@@ -2356,6 +2364,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     name?: boolean
     icon?: boolean
@@ -2364,6 +2373,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     name?: boolean
     icon?: boolean
@@ -2372,6 +2382,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectScalar = {
+    id?: boolean
     userId?: boolean
     name?: boolean
     icon?: boolean
@@ -2379,12 +2390,13 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "name" | "icon" | "type" | "createdAt", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "icon" | "type" | "createdAt", ExtArgs["result"]["category"]>
 
   export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Category"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
+      id: string
       userId: string
       name: string
       icon: string
@@ -2473,8 +2485,8 @@ export namespace Prisma {
      * // Get first 10 Categories
      * const categories = await prisma.category.findMany({ take: 10 })
      * 
-     * // Only select the `userId`
-     * const categoryWithUserIdOnly = await prisma.category.findMany({ select: { userId: true } })
+     * // Only select the `id`
+     * const categoryWithIdOnly = await prisma.category.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends CategoryFindManyArgs>(args?: SelectSubset<T, CategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -2518,9 +2530,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Categories and only return the `userId`
-     * const categoryWithUserIdOnly = await prisma.category.createManyAndReturn({
-     *   select: { userId: true },
+     * // Create many Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -2609,9 +2621,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Categories and only return the `userId`
-     * const categoryWithUserIdOnly = await prisma.category.updateManyAndReturn({
-     *   select: { userId: true },
+     * // Update zero or more Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2813,6 +2825,7 @@ export namespace Prisma {
    * Fields of the Category model
    */
   interface CategoryFieldRefs {
+    readonly id: FieldRef<"Category", 'String'>
     readonly userId: FieldRef<"Category", 'String'>
     readonly name: FieldRef<"Category", 'String'>
     readonly icon: FieldRef<"Category", 'String'>
@@ -3208,7 +3221,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     amount: number | null
-    description: string | null
+    title: string | null
     type: string | null
     category: string | null
     categoryIcon: string | null
@@ -3221,7 +3234,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     amount: number | null
-    description: string | null
+    title: string | null
     type: string | null
     category: string | null
     categoryIcon: string | null
@@ -3234,7 +3247,7 @@ export namespace Prisma {
     id: number
     userId: number
     amount: number
-    description: number
+    title: number
     type: number
     category: number
     categoryIcon: number
@@ -3257,7 +3270,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3270,7 +3283,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3283,7 +3296,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3383,7 +3396,7 @@ export namespace Prisma {
     id: string
     userId: string
     amount: number
-    description: string
+    title: string
     type: string
     category: string
     categoryIcon: string
@@ -3415,7 +3428,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3428,7 +3441,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3441,7 +3454,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3454,7 +3467,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3463,7 +3476,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "description" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
@@ -3472,7 +3485,7 @@ export namespace Prisma {
       id: string
       userId: string
       amount: number
-      description: string
+      title: string
       type: string
       category: string
       categoryIcon: string
@@ -3905,7 +3918,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Float'>
-    readonly description: FieldRef<"Transaction", 'String'>
+    readonly title: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'String'>
     readonly category: FieldRef<"Transaction", 'String'>
     readonly categoryIcon: FieldRef<"Transaction", 'String'>
@@ -6400,6 +6413,7 @@ export namespace Prisma {
 
 
   export const CategoryScalarFieldEnum: {
+    id: 'id',
     userId: 'userId',
     name: 'name',
     icon: 'icon',
@@ -6414,7 +6428,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     amount: 'amount',
-    description: 'description',
+    title: 'title',
     type: 'type',
     category: 'category',
     categoryIcon: 'categoryIcon',
@@ -6570,6 +6584,7 @@ export namespace Prisma {
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
+    id?: StringFilter<"Category"> | string
     userId?: StringFilter<"Category"> | string
     name?: StringFilter<"Category"> | string
     icon?: StringFilter<"Category"> | string
@@ -6578,6 +6593,7 @@ export namespace Prisma {
   }
 
   export type CategoryOrderByWithRelationInput = {
+    id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     icon?: SortOrder
@@ -6586,6 +6602,7 @@ export namespace Prisma {
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
     name_userId_type?: CategoryNameUserIdTypeCompoundUniqueInput
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
@@ -6595,9 +6612,10 @@ export namespace Prisma {
     icon?: StringFilter<"Category"> | string
     type?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
-  }, "name_userId_type">
+  }, "id" | "name_userId_type">
 
   export type CategoryOrderByWithAggregationInput = {
+    id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     icon?: SortOrder
@@ -6612,6 +6630,7 @@ export namespace Prisma {
     AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     OR?: CategoryScalarWhereWithAggregatesInput[]
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Category"> | string
     userId?: StringWithAggregatesFilter<"Category"> | string
     name?: StringWithAggregatesFilter<"Category"> | string
     icon?: StringWithAggregatesFilter<"Category"> | string
@@ -6626,7 +6645,7 @@ export namespace Prisma {
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
-    description?: StringFilter<"Transaction"> | string
+    title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
@@ -6639,7 +6658,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -6655,7 +6674,7 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
-    description?: StringFilter<"Transaction"> | string
+    title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
@@ -6668,7 +6687,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -6689,7 +6708,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
-    description?: StringWithAggregatesFilter<"Transaction"> | string
+    title?: StringWithAggregatesFilter<"Transaction"> | string
     type?: StringWithAggregatesFilter<"Transaction"> | string
     category?: StringWithAggregatesFilter<"Transaction"> | string
     categoryIcon?: StringWithAggregatesFilter<"Transaction"> | string
@@ -6849,6 +6868,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateInput = {
+    id?: string
     userId: string
     name: string
     icon: string
@@ -6857,6 +6877,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateInput = {
+    id?: string
     userId: string
     name: string
     icon: string
@@ -6865,6 +6886,7 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
@@ -6873,6 +6895,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
@@ -6881,6 +6904,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateManyInput = {
+    id?: string
     userId: string
     name: string
     icon: string
@@ -6889,6 +6913,7 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
@@ -6897,6 +6922,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
@@ -6908,7 +6934,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6921,7 +6947,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6934,7 +6960,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -6947,7 +6973,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -6960,7 +6986,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6973,7 +6999,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -6986,7 +7012,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -7180,6 +7206,7 @@ export namespace Prisma {
   }
 
   export type CategoryCountOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     icon?: SortOrder
@@ -7188,6 +7215,7 @@ export namespace Prisma {
   }
 
   export type CategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     icon?: SortOrder
@@ -7196,6 +7224,7 @@ export namespace Prisma {
   }
 
   export type CategoryMinOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     icon?: SortOrder
@@ -7232,7 +7261,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -7249,7 +7278,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -7262,7 +7291,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder

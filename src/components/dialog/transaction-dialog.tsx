@@ -1,0 +1,149 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  createTransactionSchema,
+  createTransactionType,
+} from "@/schema/transaction";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReactNode, useState } from "react";
+import { useForm } from "react-hook-form";
+import Field from "../fields/field";
+import SelectCategory from "../select/select-category";
+import { FullForm } from "../ui/form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTransaction } from "@/actions/transaction";
+import { toast } from "sonner";
+import { dateToUTCDate } from "@/lib/date-helper";
+
+type Props = {
+  trigger: ReactNode;
+  type: "income" | "expense";
+};
+
+export function TransactionDialog({ trigger, type }: Props) {
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const form = useForm<createTransactionType>({
+    resolver: zodResolver(createTransactionSchema),
+    defaultValues: {
+      type,
+      date: new Date(),
+    },
+  });
+
+  const { setValue, handleSubmit, reset } = form;
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: createTransaction,
+    onSuccess: () => {
+      toast.success(`Transaction created successfully 🎉`, {
+        id: "create-transaction",
+      });
+      setOpen(false);
+      reset({
+        type,
+        amount: 0,
+        date: new Date(),
+        category: undefined,
+        title: "",
+      });
+
+      // Invalidate the overview query which will refetch data in the home page
+      queryClient.invalidateQueries({ queryKey: ["overview"] });
+    },
+  });
+
+  const onSubmit = handleSubmit((data: createTransactionType) => {
+    console.log(data.date, dateToUTCDate(data.date));
+    toast.loading(`Creating transaction...`, {
+      id: "create-transaction",
+    });
+    mutate({ ...data, date: dateToUTCDate(data.date) });
+  });
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(openCurr) => {
+        setOpen(openCurr);
+        if (!openCurr) {
+          form.reset({
+            type,
+            amount: 0,
+            date: new Date(),
+            category: undefined,
+            title: "",
+          });
+        }
+      }}
+    >
+      <DialogTrigger asChild className="cursor-pointer">
+        {trigger}
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>
+            Create a new{" "}
+            <span
+              className={type === "income" ? "text-income" : "text-expense"}
+            >
+              {type}
+            </span>{" "}
+            transaction
+          </DialogTitle>
+          {/* <DialogDescription>
+          Add your transactions
+          </DialogDescription> */}
+        </DialogHeader>
+        <FullForm form={form} onSubmit={onSubmit}>
+          <Field
+            control={form.control}
+            name="title"
+            label="Title"
+            description="Transaction title"
+          />
+          <Field
+            control={form.control}
+            name="amount"
+            label="Amount"
+            description="Transaction amount"
+            // type="number"
+            defaultValue={0}
+          />
+          <Field
+            control={form.control}
+            name="category"
+            label="Category"
+            description="Transaction amount"
+            specificNode={
+              <SelectCategory type={type} setValueTransaction={setValue} />
+            }
+          />
+          <Field
+            control={form.control}
+            name="date"
+            label="Date"
+            description="Select a date for this transaction"
+            nodetype="date"
+          />
+
+          <DialogFooter>
+            <Button type="submit" className="cursor-pointer">
+              {isPending ? "Loading..." : "Create"}
+            </Button>
+          </DialogFooter>
+        </FullForm>
+      </DialogContent>
+    </Dialog>
+  );
+}
