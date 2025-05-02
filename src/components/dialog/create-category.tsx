@@ -73,7 +73,6 @@ export default function CreateCategory({
       setOpenCategoriesList(false);
     },
     onError: (error) => {
-      console.log("🚀 ~ error:", error, typeof error, Object.entries(error));
       toast.error(
         error instanceof Error ? error.message : "Something went wrong!",
         {
