@@ -14,11 +14,15 @@ import {
   createTransactionType,
 } from "@/schema/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import Field from "../fields/field";
 import SelectCategory from "../select/select-category";
 import { FullForm } from "../ui/form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTransaction } from "@/actions/transaction";
+import { toast } from "sonner";
+import { dateToUTCDate } from "@/lib/date-helper";
 
 type Props = {
   trigger: ReactNode;
@@ -26,6 +30,9 @@ type Props = {
 };
 
 export function TransactionDialog({ trigger, type }: Props) {
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+
   const form = useForm<createTransactionType>({
     resolver: zodResolver(createTransactionSchema),
     defaultValues: {
@@ -34,19 +41,48 @@ export function TransactionDialog({ trigger, type }: Props) {
     },
   });
 
-  const { setValue, handleSubmit } = form;
+  const { setValue, handleSubmit, reset } = form;
 
-  const onSubmit = handleSubmit((data) => {
-    console.log("data:", data);
+  const { mutate, isPending } = useMutation({
+    mutationFn: createTransaction,
+    onSuccess: () => {
+      toast.success(`Transaction created successfully 🎉`, {
+        id: "create-transaction",
+      });
+      setOpen(false);
+      reset({
+        type,
+        amount: 0,
+        date: new Date(),
+        category: undefined,
+        title: "",
+      });
+
+      // Invalidate the overview query which will refetch data in the home page
+      queryClient.invalidateQueries({ queryKey: ["overview"] });
+    },
+  });
+
+  const onSubmit = handleSubmit((data: createTransactionType) => {
+    console.log(data.date, dateToUTCDate(data.date));
+    toast.loading(`Creating transaction...`, {
+      id: "create-transaction",
+    });
+    mutate({ ...data, date: dateToUTCDate(data.date) });
   });
 
   return (
     <Dialog
-      onOpenChange={(open) => {
-        if (!open) {
+      open={open}
+      onOpenChange={(openCurr) => {
+        setOpen(openCurr);
+        if (!openCurr) {
           form.reset({
             type,
+            amount: 0,
             date: new Date(),
+            category: undefined,
+            title: "",
           });
         }
       }}
@@ -102,7 +138,9 @@ export function TransactionDialog({ trigger, type }: Props) {
           />
 
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" className="cursor-pointer">
+              {isPending ? "Loading..." : "Create"}
+            </Button>
           </DialogFooter>
         </FullForm>
       </DialogContent>
