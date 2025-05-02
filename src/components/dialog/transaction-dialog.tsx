@@ -68,7 +68,8 @@ export function TransactionDialog({ trigger, type }: Props) {
     toast.loading(`Creating transaction...`, {
       id: "create-transaction",
     });
-    mutate({ ...data, date: dateToUTCDate(data.date) });
+    mutate(data);
+    // mutate({ ...data, date: dateToUTCDate(data.date) });
   });
 
   return (

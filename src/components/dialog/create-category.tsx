@@ -50,7 +50,13 @@ export default function CreateCategory({
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createCategory,
+    mutationFn: async (form: CreateCategorySchemaType) => {
+      const res = await createCategory(form);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      return res.data!;
+    },
 
     onSuccess: async (data: Category) => {
       setValue(data);

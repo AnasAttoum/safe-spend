@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const parsedBody = createCategorySchema.safeParse(form);
-  if (!parsedBody.success) throw new Error("Bad request!");
+  if (!parsedBody.success) return { error: "Bad request!" }
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -26,10 +26,11 @@ export async function createCategory(form: CreateCategorySchemaType) {
     },
   });
   if(category){
-    throw new Error('This name already taken!')
+    return { error: "This name is already taken!" }
+    // throw new Error('This name already taken!')
   }
 
-  return await prisma.category.create({
+  const cat = await prisma.category.create({
     data: {
       userId: user.id,
       name,
@@ -37,4 +38,5 @@ export async function createCategory(form: CreateCategorySchemaType) {
       icon,
     },
   });
+  return { data: cat };
 }
