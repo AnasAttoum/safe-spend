@@ -135,7 +135,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   amount: 'amount',
-  description: 'description',
+  title: 'title',
   type: 'type',
   category: 'category',
   categoryIcon: 'categoryIcon',

@@ -3221,7 +3221,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     amount: number | null
-    description: string | null
+    title: string | null
     type: string | null
     category: string | null
     categoryIcon: string | null
@@ -3234,7 +3234,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     amount: number | null
-    description: string | null
+    title: string | null
     type: string | null
     category: string | null
     categoryIcon: string | null
@@ -3247,7 +3247,7 @@ export namespace Prisma {
     id: number
     userId: number
     amount: number
-    description: number
+    title: number
     type: number
     category: number
     categoryIcon: number
@@ -3270,7 +3270,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3283,7 +3283,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3296,7 +3296,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     amount?: true
-    description?: true
+    title?: true
     type?: true
     category?: true
     categoryIcon?: true
@@ -3396,7 +3396,7 @@ export namespace Prisma {
     id: string
     userId: string
     amount: number
-    description: string
+    title: string
     type: string
     category: string
     categoryIcon: string
@@ -3428,7 +3428,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3441,7 +3441,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3454,7 +3454,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3467,7 +3467,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     amount?: boolean
-    description?: boolean
+    title?: boolean
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
@@ -3476,7 +3476,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "description" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
@@ -3485,7 +3485,7 @@ export namespace Prisma {
       id: string
       userId: string
       amount: number
-      description: string
+      title: string
       type: string
       category: string
       categoryIcon: string
@@ -3918,7 +3918,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Float'>
-    readonly description: FieldRef<"Transaction", 'String'>
+    readonly title: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'String'>
     readonly category: FieldRef<"Transaction", 'String'>
     readonly categoryIcon: FieldRef<"Transaction", 'String'>
@@ -6428,7 +6428,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     amount: 'amount',
-    description: 'description',
+    title: 'title',
     type: 'type',
     category: 'category',
     categoryIcon: 'categoryIcon',
@@ -6645,7 +6645,7 @@ export namespace Prisma {
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
-    description?: StringFilter<"Transaction"> | string
+    title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
@@ -6658,7 +6658,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -6674,7 +6674,7 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
-    description?: StringFilter<"Transaction"> | string
+    title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
@@ -6687,7 +6687,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -6708,7 +6708,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
-    description?: StringWithAggregatesFilter<"Transaction"> | string
+    title?: StringWithAggregatesFilter<"Transaction"> | string
     type?: StringWithAggregatesFilter<"Transaction"> | string
     category?: StringWithAggregatesFilter<"Transaction"> | string
     categoryIcon?: StringWithAggregatesFilter<"Transaction"> | string
@@ -6934,7 +6934,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6947,7 +6947,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6960,7 +6960,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -6973,7 +6973,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -6986,7 +6986,7 @@ export namespace Prisma {
     id?: string
     userId: string
     amount: number
-    description: string
+    title: string
     type?: string
     category: string
     categoryIcon: string
@@ -6999,7 +6999,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -7012,7 +7012,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
@@ -7261,7 +7261,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -7278,7 +7278,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
@@ -7291,7 +7291,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder

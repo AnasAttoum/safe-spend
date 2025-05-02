@@ -9,24 +9,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import {
   createTransactionSchema,
   createTransactionType,
 } from "@/schema/transaction";
-import { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
+import Field from "../fields/field";
 import SelectCategory from "../select/select-category";
+import { FullForm } from "../ui/form";
 
 type Props = {
   trigger: ReactNode;
@@ -42,8 +34,23 @@ export function TransactionDialog({ trigger, type }: Props) {
     },
   });
 
+  const { setValue, handleSubmit, watch } = form;
+
+  const onSubmit = handleSubmit((data) => {
+    console.log("data:", data);
+  });
+
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset({
+            type,
+            date: new Date(),
+          });
+        }
+      }}
+    >
       <DialogTrigger asChild className="cursor-pointer">
         {trigger}
       </DialogTrigger>
@@ -62,61 +69,42 @@ export function TransactionDialog({ trigger, type }: Props) {
           Add your transactions
           </DialogDescription> */}
         </DialogHeader>
-        <Form {...form}>
-          <form className="space-y-4">
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input defaultValue="" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Transaction description (optional)
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Amount</FormLabel>
-                  <FormControl>
-                    <Input defaultValue={0} type="number" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Transaction amount (required)
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <SelectCategory type={type} />
-                  </FormControl>
-                  <FormDescription>
-                    Select a category for this transaction
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <FullForm form={form} onSubmit={onSubmit}>
+          <Field
+            control={form.control}
+            name="title"
+            label="Title"
+            description="Transaction title (optional)"
+          />
+          <Field
+            control={form.control}
+            name="amount"
+            label="Amount"
+            description="Transaction amount (required)"
+            // type="number"
+            defaultValue={0}
+          />
+          <Field
+            control={form.control}
+            name="category"
+            label="Category"
+            description="Transaction amount (required)"
+            specificNode={
+              <SelectCategory type={type} setValueTransaction={setValue} />
+            }
+          />
+          <Field
+            control={form.control}
+            name="date"
+            label="Date"
+            description="Select a date for this transaction"
+            nodetype="date"
+          />
+
+          <DialogFooter>
+            <Button type="submit">Save changes</Button>
+          </DialogFooter>
+        </FullForm>
       </DialogContent>
     </Dialog>
   );

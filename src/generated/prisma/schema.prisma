@@ -40,9 +40,9 @@ model Transaction {
   id     String @id @default(uuid()) // To make prisma generate it
   userId String
 
-  amount      Float
-  description String
-  type        String @default("income")
+  amount Float
+  title  String
+  type   String @default("income")
 
   category     String
   categoryIcon String

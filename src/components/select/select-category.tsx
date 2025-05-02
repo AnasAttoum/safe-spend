@@ -21,9 +21,10 @@ import { Check } from "lucide-react";
 
 type Props = {
   type: "income" | "expense";
+  setValueTransaction: (name: "category", val: string) => void;
 };
 
-export default function SelectCategory({ type }: Props) {
+export default function SelectCategory({ type, setValueTransaction }: Props) {
   const [value, setValue] = useState<Category>();
   const [open, setOpen] = useState(false);
 
@@ -36,18 +37,19 @@ export default function SelectCategory({ type }: Props) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline">
-          {!!value ? (
-            <CategoryRow category={value} />
-          ) : (
-            "Select category"
-          )}
+        <Button variant="outline" className="cursor-pointer flex justify-start">
+          {!!value ? <CategoryRow category={value} /> : <span className="text-gray-400 font-normal">Select category</span> }
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
           <CommandInput placeholder="Search category..." className="h-9" />
-          <CreateCategory type={type} setValue={setValue} setOpen={setOpen} />
+          <CreateCategory
+            type={type}
+            setValue={setValue}
+            setValueTransaction={setValueTransaction}
+            setOpen={setOpen}
+          />
           {isFetching ? (
             <Loading />
           ) : (
@@ -63,10 +65,9 @@ export default function SelectCategory({ type }: Props) {
                           key={category.name}
                           // value={category.name}
                           onSelect={() => {
-                            setValue(
-                              category
-                            );
-                            setOpen(false)
+                            setValue(category);
+                            setValueTransaction("category", category.name);
+                            setOpen(false);
                           }}
                           className="cursor-pointer"
                         >

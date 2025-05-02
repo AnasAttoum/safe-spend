@@ -22,6 +22,7 @@ export async function createCategory(form: CreateCategorySchemaType) {
     where: {
       userId: user.id,
       name,
+      type,
     },
   });
   if(category){
