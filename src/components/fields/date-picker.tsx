@@ -13,7 +13,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePicker({ selected, onSelect }: any) {
+type Props = { selected: any; onSelect: (val: any) => void };
+
+export function DatePicker({ selected, onSelect }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>

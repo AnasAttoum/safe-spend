@@ -34,7 +34,7 @@ export function TransactionDialog({ trigger, type }: Props) {
     },
   });
 
-  const { setValue, handleSubmit, watch } = form;
+  const { setValue, handleSubmit } = form;
 
   const onSubmit = handleSubmit((data) => {
     console.log("data:", data);
@@ -74,13 +74,13 @@ export function TransactionDialog({ trigger, type }: Props) {
             control={form.control}
             name="title"
             label="Title"
-            description="Transaction title (optional)"
+            description="Transaction title"
           />
           <Field
             control={form.control}
             name="amount"
             label="Amount"
-            description="Transaction amount (required)"
+            description="Transaction amount"
             // type="number"
             defaultValue={0}
           />
@@ -88,7 +88,7 @@ export function TransactionDialog({ trigger, type }: Props) {
             control={form.control}
             name="category"
             label="Category"
-            description="Transaction amount (required)"
+            description="Transaction amount"
             specificNode={
               <SelectCategory type={type} setValueTransaction={setValue} />
             }

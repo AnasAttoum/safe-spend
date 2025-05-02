@@ -6,11 +6,8 @@ import {
   createCategorySchema,
   CreateCategorySchemaType,
 } from "@/schema/category";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -25,13 +22,8 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
   FullForm,
 } from "../ui/form";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import Field from "../fields/field";
 
 type Props = {
@@ -56,7 +48,6 @@ export default function CreateCategory({
   const { reset, handleSubmit } = form;
 
   const queryClient = useQueryClient();
-  const theme = useTheme();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createCategory,

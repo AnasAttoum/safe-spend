@@ -15,7 +15,7 @@ export async function updateUserCurrency(currency: string) {
 
   if (!user) redirect(routes.signIn);
 
-  const updatedUser = prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: {
       userId: user.id,
     },
