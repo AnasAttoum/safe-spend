@@ -12,5 +12,5 @@ export default async function Dashboard() {
   const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
-  return <Head name={user.firstName || ""} />;
+  return <Head name={user.firstName || ""} currency={userData.currency || ''} />;
 }

@@ -28,9 +28,10 @@ import clsx from "clsx";
 type Props = {
   trigger: ReactNode;
   type: "income" | "expense";
+  currency: string;
 };
 
-export function TransactionDialog({ trigger, type }: Props) {
+export function TransactionDialog({ trigger, type, currency }: Props) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -130,7 +131,7 @@ export function TransactionDialog({ trigger, type }: Props) {
           <Field
             control={form.control}
             name="amount"
-            label="Amount"
+            label={`Amount ( ${currency} )`}
             description="Transaction amount"
             // type="number"
             defaultValue={0}
@@ -153,7 +154,10 @@ export function TransactionDialog({ trigger, type }: Props) {
           />
 
           <DialogFooter>
-            <Button type="submit" className={clsx("cursor-pointer", `${type}Btn`)}>
+            <Button
+              type="submit"
+              className={clsx("cursor-pointer", `${type}Btn`)}
+            >
               {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>
