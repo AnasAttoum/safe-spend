@@ -2,7 +2,7 @@
 
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import Icon from "@/components/icon/icon";
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,

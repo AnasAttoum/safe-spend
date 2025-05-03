@@ -23,6 +23,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
 import { dateToUTCDate } from "@/lib/date-helper";
+import clsx from "clsx";
 
 type Props = {
   trigger: ReactNode;
@@ -152,7 +153,7 @@ export function TransactionDialog({ trigger, type }: Props) {
           />
 
           <DialogFooter>
-            <Button type="submit" className="cursor-pointer">
+            <Button type="submit" className={clsx("cursor-pointer", `${type}Btn`)}>
               {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>
