@@ -5,11 +5,7 @@ import { startOfMonth } from "date-fns";
 import { useState } from "react";
 import StatisticCards from "../components/statistic-cards";
 
-type Props = {
-  currency: string;
-};
-
-export default function Overview({ currency }: Props) {
+export default function Overview() {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
@@ -33,7 +29,6 @@ export default function Overview({ currency }: Props) {
       <StatisticCards
         from={dateRange.from}
         to={dateRange.to}
-        currency={currency}
       />
     </>
   );

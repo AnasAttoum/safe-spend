@@ -1,17 +1,14 @@
 import { Balancetype } from "@/app/api/statistics/balance/route";
 import CardStatistic from "@/components/card/card-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
-import { currencies, defaultLang } from "@/config/currencies";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 
 type Props = {
   from: Date;
   to: Date;
-  currency: string;
 };
 
-export default function StatisticCards({ from, to, currency }: Props) {
+export default function StatisticCards({ from, to }: Props) {
   const { data, isFetching } = useQuery<Balancetype>({
     queryKey: ["overview", "statistics", from, to],
     queryFn: () =>

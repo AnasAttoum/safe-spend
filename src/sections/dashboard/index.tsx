@@ -20,7 +20,7 @@ export default async function Dashboard() {
         name={user.firstName || "User"}
         currency={userData.currency || defaultLang.value}
       />
-      <Overview currency={userData.currency || defaultLang.value} />
+      <Overview />
     </>
   );
 }
