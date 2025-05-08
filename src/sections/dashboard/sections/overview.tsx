@@ -4,6 +4,7 @@ import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { startOfMonth } from "date-fns";
 import { useState } from "react";
 import StatisticCards from "../components/statistic-cards";
+import CategoriesStats from "../components/categories-stats";
 
 export default function Overview() {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
@@ -26,10 +27,11 @@ export default function Overview() {
         />
       </div>
 
-      <StatisticCards
-        from={dateRange.from}
-        to={dateRange.to}
-      />
+      <div className="flex flex-col gap-2">
+        <StatisticCards from={dateRange.from} to={dateRange.to} />
+
+        <CategoriesStats from={dateRange.from} to={dateRange.to} />
+      </div>
     </>
   );
 }
