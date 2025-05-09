@@ -6,7 +6,7 @@ import { useState } from "react";
 import StatisticCards from "../components/statistic-cards";
 import CategoriesStats from "../components/categories-stats";
 
-export default function Overview() {
+export default function Overview({ currency }: { currency: string }) {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
@@ -28,7 +28,7 @@ export default function Overview() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <StatisticCards from={dateRange.from} to={dateRange.to} />
+        <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} />
 
         <CategoriesStats from={dateRange.from} to={dateRange.to} />
       </div>

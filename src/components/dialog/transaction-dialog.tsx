@@ -22,7 +22,6 @@ import { FullForm } from "../ui/form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
-import { dateToUTCDate } from "@/lib/date-helper";
 import clsx from "clsx";
 
 type Props = {
@@ -40,10 +39,11 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
     defaultValues: {
       type,
       date: new Date(),
+      currency,
     },
   });
 
-  const { setValue, handleSubmit, reset } = form;
+  const { setValue, handleSubmit, reset, watch } = form;
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (form: createTransactionType) => {
@@ -63,6 +63,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
         date: new Date(),
         category: undefined,
         title: "",
+        currency,
       });
 
       // Invalidate the overview query which will refetch data in the home page
@@ -79,7 +80,6 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
-    console.log(data.date, dateToUTCDate(data.date));
     toast.loading(`Creating transaction...`, {
       id: "create-transaction",
     });
@@ -99,6 +99,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             date: new Date(),
             category: undefined,
             title: "",
+            currency,
           });
         }
       }}
@@ -130,8 +131,15 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
           />
           <Field
             control={form.control}
+            name="currency"
+            label="Currency"
+            description="Transaction currency"
+            nodetype="currency"
+          />
+          <Field
+            control={form.control}
             name="amount"
-            label={`Amount ( ${currency} )`}
+            label={`Amount ( ${watch("currency")} )`}
             description="Transaction amount"
             // type="number"
             defaultValue={0}
@@ -140,7 +148,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             control={form.control}
             name="category"
             label="Category"
-            description="Transaction amount"
+            description="Transaction category"
             specificNode={
               <SelectCategory type={type} setValueTransaction={setValue} />
             }

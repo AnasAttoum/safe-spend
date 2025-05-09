@@ -10,10 +10,6 @@ type Props = {
 
 export default function CategoryStatistic({ type, data }: Props) {
   const filteredData = data.filter((el) => el.type === type);
-  const total = filteredData.reduce(
-    (acc, el) => acc + (el._sum.amount || 0),
-    0
-  );
 
   return (
     <Card className="h-60 w-full p-5">
@@ -32,23 +28,35 @@ export default function CategoryStatistic({ type, data }: Props) {
           <div className="flex flex-col gap-4">
             {filteredData.map((el) => {
               const amount = el._sum.amount || 0;
+              const total = filteredData
+                .filter((data) => data.currency === el.currency)
+                .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
               const percentage = (amount * 100) / (total || amount);
               return (
-                <div key={el.category} className="flex flex-col gap-2">
+                <div
+                  key={el.categoryIcon + el.category}
+                  className="flex flex-col gap-2"
+                >
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
                       {el.categoryIcon} {el.category}
                       <span className="text-blue-primary text-xs">
-                        ({percentage.toFixed(2)}%)
+                        ({percentage.toFixed(1)}% {el.currency})
                       </span>
                     </div>
 
-                    <div>{amount}</div>
+                    <div>
+                      {amount} {el.currency}
+                    </div>
                   </div>
 
                   <Progress
                     value={percentage}
-                    className={`[&>div]:bg-${type}`}
+                    className={
+                      type === "income"
+                        ? "[&>div]:bg-income"
+                        : "[&>div]:bg-expense"
+                    }
                   />
                 </div>
               );

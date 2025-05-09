@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
 async function getBalanceStats(id: string, from: Date, to: Date) {
   const totals = await prisma.transaction.groupBy({
-    by: ["type"],
+    by: ["type", "currency"],
     where: {
       userId: id,
       date: {
@@ -39,10 +39,25 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
     },
   });
 
-  return {
-    income: totals.find(el=>el.type==='income')?._sum.amount || 0,
-    expense: totals.find(el=>el.type==='expense')?._sum.amount || 0,
+  const stats: Record<
+    string,
+    { currency: string; income: number; expense: number }
+  > = {};
+
+  for (const item of totals) {
+    const { currency, type, _sum } = item;
+    if (!stats[currency]) {
+      stats[currency] = { currency, income: 0, expense: 0 };
+    }
+
+    if (type === "income") {
+      stats[currency].income = _sum.amount || 0;
+    } else if (type === "expense") {
+      stats[currency].expense = _sum.amount || 0;
+    }
   }
+
+  return Object.values(stats);
 }
 
 export type Balancetype = Awaited<ReturnType<typeof getBalanceStats>>;

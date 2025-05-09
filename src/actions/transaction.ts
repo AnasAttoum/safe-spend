@@ -16,12 +16,14 @@ export async function createTransaction(form: createTransactionType) {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
-  const { title, amount, category, date, type } = parsedBody.data;
+  const { title, amount, category, date, type, currency, categoryIcon } =
+    parsedBody.data;
 
   const categoryRow = await prisma.category.findFirst({
     where: {
       userId: user.id,
       name: category,
+      icon: categoryIcon,
     },
   });
   if (!categoryRow) return { error: "Category not found!" };
@@ -36,6 +38,7 @@ export async function createTransaction(form: createTransactionType) {
         categoryIcon: categoryRow.icon,
         date,
         type,
+        currency,
       },
     }),
 

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import Head from "./sections/head";
 import Overview from "./sections/overview";
-import { defaultLang } from "@/config/currencies";
+import { defaultCurrency } from "@/config/currencies";
 
 export default async function Dashboard() {
   const user = await currentUser();
@@ -18,9 +18,9 @@ export default async function Dashboard() {
     <>
       <Head
         name={user.firstName || "User"}
-        currency={userData.currency || defaultLang.value}
+        currency={userData.currency || defaultCurrency.value}
       />
-      <Overview />
+      <Overview currency={userData.currency || defaultCurrency.value} />
     </>
   );
 }

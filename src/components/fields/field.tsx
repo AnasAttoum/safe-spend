@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { useTheme } from "next-themes";
+import SelectCurrency from "../select/select-currency";
 
 type Props = {
   control: any;
@@ -23,7 +24,7 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   specificNode?: ReactNode;
-  nodetype?: "date" | "icon";
+  nodetype?: "date" | "icon"| "currency";
 };
 
 export default function Field({
@@ -77,7 +78,9 @@ export default function Field({
                     </div>
                   </PopoverContent>
                 </Popover>
-              ) : (
+              ) : nodetype==='currency'?(
+                <SelectCurrency selected={field.value} onSelect={field.onChange} />
+              ): (
                 "NOTFOUND"
               )
             ) : (

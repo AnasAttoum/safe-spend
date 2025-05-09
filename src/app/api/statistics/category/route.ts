@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
 async function getCategoriesStats(id: string, from: Date, to: Date) {
   const stats = await prisma.transaction.groupBy({
-    by: ["type", "category", "categoryIcon"],
+    by: ["type", "currency", "category", "categoryIcon"],
     where: {
       userId: id,
       date: {
