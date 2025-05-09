@@ -23,6 +23,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
 import clsx from "clsx";
+import { dateToUTCDate } from "@/lib/date-helper";
 
 type Props = {
   trigger: ReactNode;
@@ -83,8 +84,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
     toast.loading(`Creating transaction...`, {
       id: "create-transaction",
     });
-    mutate(data);
-    // mutate({ ...data, date: dateToUTCDate(data.date) });
+    mutate({ ...data, date: dateToUTCDate(data.date) });
   });
 
   return (
