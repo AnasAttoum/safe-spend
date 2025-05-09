@@ -22,14 +22,16 @@ import { FullForm } from "../ui/form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
+import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
 
 type Props = {
   trigger: ReactNode;
   type: "income" | "expense";
+  currency: string;
 };
 
-export function TransactionDialog({ trigger, type }: Props) {
+export function TransactionDialog({ trigger, type, currency }: Props) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -38,10 +40,11 @@ export function TransactionDialog({ trigger, type }: Props) {
     defaultValues: {
       type,
       date: new Date(),
+      currency,
     },
   });
 
-  const { setValue, handleSubmit, reset } = form;
+  const { setValue, handleSubmit, reset, watch } = form;
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (form: createTransactionType) => {
@@ -61,6 +64,7 @@ export function TransactionDialog({ trigger, type }: Props) {
         date: new Date(),
         category: undefined,
         title: "",
+        currency,
       });
 
       // Invalidate the overview query which will refetch data in the home page
@@ -77,12 +81,10 @@ export function TransactionDialog({ trigger, type }: Props) {
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
-    console.log(data.date, dateToUTCDate(data.date));
     toast.loading(`Creating transaction...`, {
       id: "create-transaction",
     });
-    mutate(data);
-    // mutate({ ...data, date: dateToUTCDate(data.date) });
+    mutate({ ...data, date: dateToUTCDate(data.date) });
   });
 
   return (
@@ -97,6 +99,7 @@ export function TransactionDialog({ trigger, type }: Props) {
             date: new Date(),
             category: undefined,
             title: "",
+            currency,
           });
         }
       }}
@@ -128,8 +131,15 @@ export function TransactionDialog({ trigger, type }: Props) {
           />
           <Field
             control={form.control}
+            name="currency"
+            label="Currency"
+            description="Transaction currency"
+            nodetype="currency"
+          />
+          <Field
+            control={form.control}
             name="amount"
-            label="Amount"
+            label={`Amount ( ${watch("currency")} )`}
             description="Transaction amount"
             // type="number"
             defaultValue={0}
@@ -138,7 +148,7 @@ export function TransactionDialog({ trigger, type }: Props) {
             control={form.control}
             name="category"
             label="Category"
-            description="Transaction amount"
+            description="Transaction category"
             specificNode={
               <SelectCategory type={type} setValueTransaction={setValue} />
             }
@@ -152,7 +162,10 @@ export function TransactionDialog({ trigger, type }: Props) {
           />
 
           <DialogFooter>
-            <Button type="submit" className="cursor-pointer">
+            <Button
+              type="submit"
+              className={clsx("cursor-pointer", `${type}Btn`)}
+            >
               {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>

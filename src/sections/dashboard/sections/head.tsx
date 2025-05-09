@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   name: string;
+  currency: string;
 };
 
-export default function Head({ name }: Props) {
+export default function Head({ name, currency }: Props) {
   return (
     <div className="text-3xl flex flex-wrap justify-between gap-3 items-center border-b bg-card px-5 py-2">
       <div className="flex gap-3 items-center">
@@ -22,7 +23,8 @@ export default function Head({ name }: Props) {
             </Button>
           }
           type="income"
-        />
+          currency={currency}
+          />
 
         <TransactionDialog
           trigger={
@@ -32,7 +34,8 @@ export default function Head({ name }: Props) {
             </Button>
           }
           type="expense"
-        />
+          currency={currency}
+          />
       </div>
     </div>
   );

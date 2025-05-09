@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Category } from "@/generated/prisma";
-import CategoryRow from "./category-row";
 import {
   Command,
   CommandEmpty,
@@ -18,10 +17,11 @@ import CreateCategory from "../dialog/create-category";
 import Loading from "../loading/loading";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
+import CategoryRow from "./row/category-row";
 
 type Props = {
   type: "income" | "expense";
-  setValueTransaction: (name: "category", val: string) => void;
+  setValueTransaction: (name: "category" | "categoryIcon", val: string) => void;
 };
 
 export default function SelectCategory({ type, setValueTransaction }: Props) {
@@ -38,7 +38,11 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="cursor-pointer flex justify-start">
-          {!!value ? <CategoryRow category={value} /> : <span className="text-gray-400 font-normal">Select category</span> }
+          {!!value ? (
+            <CategoryRow category={value} />
+          ) : (
+            <span className="text-gray-400 font-normal">Select category</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
@@ -67,6 +71,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
                           onSelect={() => {
                             setValue(category);
                             setValueTransaction("category", category.name);
+                            setValueTransaction("categoryIcon", category.icon);
                             setOpen(false);
                           }}
                           className="cursor-pointer"

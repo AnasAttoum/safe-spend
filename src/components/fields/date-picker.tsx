@@ -34,7 +34,9 @@ export function DatePicker({ selected, onSelect }: Props) {
         <Calendar
           mode="single"
           selected={selected}
-          onSelect={onSelect}
+          onSelect={(value) => {
+            if (value) onSelect(value);
+          }}
           initialFocus
         />
       </PopoverContent>

@@ -3225,6 +3225,7 @@ export namespace Prisma {
     type: string | null
     category: string | null
     categoryIcon: string | null
+    currency: string | null
     date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3238,6 +3239,7 @@ export namespace Prisma {
     type: string | null
     category: string | null
     categoryIcon: string | null
+    currency: string | null
     date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3251,6 +3253,7 @@ export namespace Prisma {
     type: number
     category: number
     categoryIcon: number
+    currency: number
     date: number
     createdAt: number
     updatedAt: number
@@ -3274,6 +3277,7 @@ export namespace Prisma {
     type?: true
     category?: true
     categoryIcon?: true
+    currency?: true
     date?: true
     createdAt?: true
     updatedAt?: true
@@ -3287,6 +3291,7 @@ export namespace Prisma {
     type?: true
     category?: true
     categoryIcon?: true
+    currency?: true
     date?: true
     createdAt?: true
     updatedAt?: true
@@ -3300,6 +3305,7 @@ export namespace Prisma {
     type?: true
     category?: true
     categoryIcon?: true
+    currency?: true
     date?: true
     createdAt?: true
     updatedAt?: true
@@ -3400,6 +3406,7 @@ export namespace Prisma {
     type: string
     category: string
     categoryIcon: string
+    currency: string
     date: Date
     createdAt: Date
     updatedAt: Date
@@ -3432,6 +3439,7 @@ export namespace Prisma {
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
+    currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3445,6 +3453,7 @@ export namespace Prisma {
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
+    currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3458,6 +3467,7 @@ export namespace Prisma {
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
+    currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3471,12 +3481,13 @@ export namespace Prisma {
     type?: boolean
     category?: boolean
     categoryIcon?: boolean
+    currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "category" | "categoryIcon" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "category" | "categoryIcon" | "currency" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
@@ -3489,6 +3500,7 @@ export namespace Prisma {
       type: string
       category: string
       categoryIcon: string
+      currency: string
       date: Date
       createdAt: Date
       updatedAt: Date
@@ -3922,6 +3934,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Transaction", 'String'>
     readonly category: FieldRef<"Transaction", 'String'>
     readonly categoryIcon: FieldRef<"Transaction", 'String'>
+    readonly currency: FieldRef<"Transaction", 'String'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
@@ -6432,6 +6445,7 @@ export namespace Prisma {
     type: 'type',
     category: 'category',
     categoryIcon: 'categoryIcon',
+    currency: 'currency',
     date: 'date',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -6649,6 +6663,7 @@ export namespace Prisma {
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
     date?: DateTimeFilter<"Transaction"> | Date | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -6662,6 +6677,7 @@ export namespace Prisma {
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
+    currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6678,6 +6694,7 @@ export namespace Prisma {
     type?: StringFilter<"Transaction"> | string
     category?: StringFilter<"Transaction"> | string
     categoryIcon?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
     date?: DateTimeFilter<"Transaction"> | Date | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -6691,6 +6708,7 @@ export namespace Prisma {
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
+    currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6712,6 +6730,7 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"Transaction"> | string
     category?: StringWithAggregatesFilter<"Transaction"> | string
     categoryIcon?: StringWithAggregatesFilter<"Transaction"> | string
+    currency?: StringWithAggregatesFilter<"Transaction"> | string
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -6938,6 +6957,7 @@ export namespace Prisma {
     type?: string
     category: string
     categoryIcon: string
+    currency: string
     date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6951,6 +6971,7 @@ export namespace Prisma {
     type?: string
     category: string
     categoryIcon: string
+    currency: string
     date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6964,6 +6985,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6977,6 +6999,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6990,6 +7013,7 @@ export namespace Prisma {
     type?: string
     category: string
     categoryIcon: string
+    currency: string
     date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7003,6 +7027,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7016,6 +7041,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     categoryIcon?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7265,6 +7291,7 @@ export namespace Prisma {
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
+    currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7282,6 +7309,7 @@ export namespace Prisma {
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
+    currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7295,6 +7323,7 @@ export namespace Prisma {
     type?: SortOrder
     category?: SortOrder
     categoryIcon?: SortOrder
+    currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder

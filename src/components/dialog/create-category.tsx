@@ -21,16 +21,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import {
-  FullForm,
-} from "../ui/form";
+import { FullForm } from "../ui/form";
 import Field from "../fields/field";
 
 type Props = {
   type: "income" | "expense";
   setValue: (val: Category) => void;
   setOpen: (val: false) => void;
-  setValueTransaction: (name: "category", val: string) => void;
+  setValueTransaction: (name: "category" | "categoryIcon", val: string) => void;
 };
 
 export default function CreateCategory({
@@ -61,6 +59,7 @@ export default function CreateCategory({
     onSuccess: async (data: Category) => {
       setValue(data);
       setValueTransaction("category", data.name);
+      setValueTransaction("categoryIcon", data.icon);
       queryClient.invalidateQueries({ queryKey: ["category", type] });
       reset({
         name: "",
@@ -142,7 +141,7 @@ export default function CreateCategory({
               Cancel
             </Button>
             <Button type="submit" className="flex-1 cursor-pointer">
-              {isPending ? "Loading..." : "Save"}
+              {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>
         </FullForm>

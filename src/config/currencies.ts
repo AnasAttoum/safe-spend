@@ -21,4 +21,6 @@ export const currencies = [
   { value: "NOK", label: "kr Norwegian Krone", locale: "nb-NO" },
 ];
 
-export const Currency = (typeof currencies)[0];
+export const defaultCurrency = currencies[0]
+
+export type Currency = (typeof currencies)[0];
