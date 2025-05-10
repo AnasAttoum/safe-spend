@@ -9,10 +9,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { DatePicker } from "./date-picker";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
-
-import { useTheme } from "next-themes";
 import SelectCurrency from "../select/select-currency";
 import EmojiPicker from "../emoji-picker";
 
