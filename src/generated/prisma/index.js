@@ -164,7 +164,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\User\\Desktop\\safe-spend\\src\\generated\\prisma",
+      "value": "D:\\P R I V A T\\Meine Programmiercodes\\Next.js\\safe-spend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +182,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\User\\Desktop\\safe-spend\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\P R I V A T\\Meine Programmiercodes\\Next.js\\safe-spend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
