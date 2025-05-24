@@ -151,7 +151,8 @@ exports.Prisma.MonthTableScalarFieldEnum = {
   month: 'month',
   year: 'year',
   income: 'income',
-  expense: 'expense'
+  expense: 'expense',
+  currency: 'currency'
 };
 
 exports.Prisma.YearTableScalarFieldEnum = {
@@ -159,7 +160,8 @@ exports.Prisma.YearTableScalarFieldEnum = {
   month: 'month',
   year: 'year',
   income: 'income',
-  expense: 'expense'
+  expense: 'expense',
+  currency: 'currency'
 };
 
 exports.Prisma.SortOrder = {

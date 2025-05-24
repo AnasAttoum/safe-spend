@@ -6,6 +6,7 @@ import React from "react";
 import Head from "./sections/head";
 import Overview from "./sections/overview";
 import { defaultCurrency } from "@/config/currencies";
+import History from "./sections/history";
 
 export default async function Dashboard() {
   const user = await currentUser();
@@ -21,6 +22,8 @@ export default async function Dashboard() {
         currency={userData.currency || defaultCurrency.value}
       />
       <Overview currency={userData.currency || defaultCurrency.value} />
+
+      <History currency={userData.currency || defaultCurrency.value} />
     </>
   );
 }

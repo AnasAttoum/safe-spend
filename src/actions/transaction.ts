@@ -44,11 +44,12 @@ export async function createTransaction(form: createTransactionType) {
 
     prisma.monthTable.upsert({
       where: {
-        day_month_year_userId: {
+        day_month_year_userId_currency: {
           userId: user.id,
           day: date.getUTCDate(),
           month: date.getUTCMonth(),
           year: date.getUTCFullYear(),
+          currency,
         },
       },
       create: {
@@ -58,6 +59,7 @@ export async function createTransaction(form: createTransactionType) {
         year: date.getUTCFullYear(),
         income: type === "income" ? amount : 0,
         expense: type === "expense" ? amount : 0,
+        currency,
       },
       update: {
         income: {
@@ -71,10 +73,11 @@ export async function createTransaction(form: createTransactionType) {
 
     prisma.yearTable.upsert({
       where: {
-        month_year_userId: {
+        month_year_userId_currency: {
           userId: user.id,
           month: date.getUTCMonth(),
           year: date.getUTCFullYear(),
+          currency,
         },
       },
       create: {
@@ -83,6 +86,7 @@ export async function createTransaction(form: createTransactionType) {
         year: date.getUTCFullYear(),
         income: type === "income" ? amount : 0,
         expense: type === "expense" ? amount : 0,
+        currency,
       },
       update: {
         income: {
