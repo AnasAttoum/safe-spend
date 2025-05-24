@@ -6,7 +6,8 @@ import HistorySelector from "../components/history-selector";
 import { useQuery } from "@tanstack/react-query";
 import { getHistoryDataResponseType } from "@/app/api/history/data/route";
 
-export default function History() {
+export default function History({ currency }: { currency: string }) {
+  const [curr, setCurr] = useState(currency);
   const [timeframe, setTimeframe] = useState<Timeframe>("month");
   const [period, setPeriod] = useState<Period>({
     month: new Date().getMonth(),
@@ -32,6 +33,8 @@ export default function History() {
         setPeriod={setPeriod}
         historyData={data || []}
         historyDataIsFetching={isFetching}
+        curr={curr}
+        setCurr={setCurr}
       />
     </div>
   );

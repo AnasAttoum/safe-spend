@@ -16,6 +16,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Period, Timeframe } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import Chart from "./chart";
+import SelectCurrency from "@/components/select/select-currency";
 
 type Props = {
   timeframe: Timeframe;
@@ -24,6 +25,8 @@ type Props = {
   setPeriod: (period: Period) => void;
   historyData: getHistoryDataResponseType;
   historyDataIsFetching: boolean;
+  curr: string;
+  setCurr: (val: string) => void;
 };
 
 export default function HistorySelector({
@@ -33,6 +36,8 @@ export default function HistorySelector({
   setPeriod,
   historyData,
   historyDataIsFetching,
+  curr,
+  setCurr,
 }: Props) {
   const { data, isFetching } = useQuery<getHistoryPeriodsType>({
     queryKey: ["overview", "history", "periods"],
@@ -57,6 +62,11 @@ export default function HistorySelector({
                 </TabsTrigger>
               </TabsList>
             </Tabs>
+
+            <SelectCurrency
+              selected={curr}
+              onSelect={(newValue) => setCurr(newValue)}
+            />
 
             <YearSelector
               period={period}
@@ -120,7 +130,7 @@ const YearSelector = ({
       <SelectGroup>
         <SelectLabel>Years</SelectLabel>
         {years.map((year) => (
-          <SelectItem value={year.toString()}>{year}</SelectItem>
+          <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
         ))}
       </SelectGroup>
     </SelectContent>
@@ -151,7 +161,7 @@ const MonthSelector = ({
             "default",
             { month: "long" }
           );
-          return <SelectItem value={month.toString()}>{monthStr}</SelectItem>;
+          return <SelectItem key={month} value={month.toString()}>{monthStr}</SelectItem>;
         })}
       </SelectGroup>
     </SelectContent>

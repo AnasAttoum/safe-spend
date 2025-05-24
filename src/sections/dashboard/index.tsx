@@ -23,7 +23,7 @@ export default async function Dashboard() {
       />
       <Overview currency={userData.currency || defaultCurrency.value} />
 
-      <History />
+      <History currency={userData.currency || defaultCurrency.value} />
     </>
   );
 }

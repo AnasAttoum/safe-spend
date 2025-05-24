@@ -4339,6 +4339,7 @@ export namespace Prisma {
     year: number | null
     income: number | null
     expense: number | null
+    currency: string | null
   }
 
   export type MonthTableMaxAggregateOutputType = {
@@ -4348,6 +4349,7 @@ export namespace Prisma {
     year: number | null
     income: number | null
     expense: number | null
+    currency: string | null
   }
 
   export type MonthTableCountAggregateOutputType = {
@@ -4357,6 +4359,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: number
     _all: number
   }
 
@@ -4384,6 +4387,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
   }
 
   export type MonthTableMaxAggregateInputType = {
@@ -4393,6 +4397,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
   }
 
   export type MonthTableCountAggregateInputType = {
@@ -4402,6 +4407,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
     _all?: true
   }
 
@@ -4498,6 +4504,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
     _count: MonthTableCountAggregateOutputType | null
     _avg: MonthTableAvgAggregateOutputType | null
     _sum: MonthTableSumAggregateOutputType | null
@@ -4526,6 +4533,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["monthTable"]>
 
   export type MonthTableSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4535,6 +4543,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["monthTable"]>
 
   export type MonthTableSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4544,6 +4553,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["monthTable"]>
 
   export type MonthTableSelectScalar = {
@@ -4553,9 +4563,10 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }
 
-  export type MonthTableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "day" | "month" | "year" | "income" | "expense", ExtArgs["result"]["monthTable"]>
+  export type MonthTableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "day" | "month" | "year" | "income" | "expense" | "currency", ExtArgs["result"]["monthTable"]>
 
   export type $MonthTablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MonthTable"
@@ -4567,6 +4578,7 @@ export namespace Prisma {
       year: number
       income: number
       expense: number
+      currency: string
     }, ExtArgs["result"]["monthTable"]>
     composites: {}
   }
@@ -4996,6 +5008,7 @@ export namespace Prisma {
     readonly year: FieldRef<"MonthTable", 'Int'>
     readonly income: FieldRef<"MonthTable", 'Float'>
     readonly expense: FieldRef<"MonthTable", 'Float'>
+    readonly currency: FieldRef<"MonthTable", 'String'>
   }
     
 
@@ -5394,6 +5407,7 @@ export namespace Prisma {
     year: number | null
     income: number | null
     expense: number | null
+    currency: string | null
   }
 
   export type YearTableMaxAggregateOutputType = {
@@ -5402,6 +5416,7 @@ export namespace Prisma {
     year: number | null
     income: number | null
     expense: number | null
+    currency: string | null
   }
 
   export type YearTableCountAggregateOutputType = {
@@ -5410,6 +5425,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: number
     _all: number
   }
 
@@ -5434,6 +5450,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
   }
 
   export type YearTableMaxAggregateInputType = {
@@ -5442,6 +5459,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
   }
 
   export type YearTableCountAggregateInputType = {
@@ -5450,6 +5468,7 @@ export namespace Prisma {
     year?: true
     income?: true
     expense?: true
+    currency?: true
     _all?: true
   }
 
@@ -5545,6 +5564,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
     _count: YearTableCountAggregateOutputType | null
     _avg: YearTableAvgAggregateOutputType | null
     _sum: YearTableSumAggregateOutputType | null
@@ -5572,6 +5592,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["yearTable"]>
 
   export type YearTableSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5580,6 +5601,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["yearTable"]>
 
   export type YearTableSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5588,6 +5610,7 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }, ExtArgs["result"]["yearTable"]>
 
   export type YearTableSelectScalar = {
@@ -5596,9 +5619,10 @@ export namespace Prisma {
     year?: boolean
     income?: boolean
     expense?: boolean
+    currency?: boolean
   }
 
-  export type YearTableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "month" | "year" | "income" | "expense", ExtArgs["result"]["yearTable"]>
+  export type YearTableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "month" | "year" | "income" | "expense" | "currency", ExtArgs["result"]["yearTable"]>
 
   export type $YearTablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "YearTable"
@@ -5609,6 +5633,7 @@ export namespace Prisma {
       year: number
       income: number
       expense: number
+      currency: string
     }, ExtArgs["result"]["yearTable"]>
     composites: {}
   }
@@ -6037,6 +6062,7 @@ export namespace Prisma {
     readonly year: FieldRef<"YearTable", 'Int'>
     readonly income: FieldRef<"YearTable", 'Float'>
     readonly expense: FieldRef<"YearTable", 'Float'>
+    readonly currency: FieldRef<"YearTable", 'String'>
   }
     
 
@@ -6460,7 +6486,8 @@ export namespace Prisma {
     month: 'month',
     year: 'year',
     income: 'income',
-    expense: 'expense'
+    expense: 'expense',
+    currency: 'currency'
   };
 
   export type MonthTableScalarFieldEnum = (typeof MonthTableScalarFieldEnum)[keyof typeof MonthTableScalarFieldEnum]
@@ -6471,7 +6498,8 @@ export namespace Prisma {
     month: 'month',
     year: 'year',
     income: 'income',
-    expense: 'expense'
+    expense: 'expense',
+    currency: 'currency'
   };
 
   export type YearTableScalarFieldEnum = (typeof YearTableScalarFieldEnum)[keyof typeof YearTableScalarFieldEnum]
@@ -6746,6 +6774,7 @@ export namespace Prisma {
     year?: IntFilter<"MonthTable"> | number
     income?: FloatFilter<"MonthTable"> | number
     expense?: FloatFilter<"MonthTable"> | number
+    currency?: StringFilter<"MonthTable"> | string
   }
 
   export type MonthTableOrderByWithRelationInput = {
@@ -6755,10 +6784,11 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type MonthTableWhereUniqueInput = Prisma.AtLeast<{
-    day_month_year_userId?: MonthTableDayMonthYearUserIdCompoundUniqueInput
+    day_month_year_userId_currency?: MonthTableDayMonthYearUserIdCurrencyCompoundUniqueInput
     AND?: MonthTableWhereInput | MonthTableWhereInput[]
     OR?: MonthTableWhereInput[]
     NOT?: MonthTableWhereInput | MonthTableWhereInput[]
@@ -6768,7 +6798,8 @@ export namespace Prisma {
     year?: IntFilter<"MonthTable"> | number
     income?: FloatFilter<"MonthTable"> | number
     expense?: FloatFilter<"MonthTable"> | number
-  }, "day_month_year_userId">
+    currency?: StringFilter<"MonthTable"> | string
+  }, "day_month_year_userId_currency">
 
   export type MonthTableOrderByWithAggregationInput = {
     userId?: SortOrder
@@ -6777,6 +6808,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
     _count?: MonthTableCountOrderByAggregateInput
     _avg?: MonthTableAvgOrderByAggregateInput
     _max?: MonthTableMaxOrderByAggregateInput
@@ -6794,6 +6826,7 @@ export namespace Prisma {
     year?: IntWithAggregatesFilter<"MonthTable"> | number
     income?: FloatWithAggregatesFilter<"MonthTable"> | number
     expense?: FloatWithAggregatesFilter<"MonthTable"> | number
+    currency?: StringWithAggregatesFilter<"MonthTable"> | string
   }
 
   export type YearTableWhereInput = {
@@ -6805,6 +6838,7 @@ export namespace Prisma {
     year?: IntFilter<"YearTable"> | number
     income?: FloatFilter<"YearTable"> | number
     expense?: FloatFilter<"YearTable"> | number
+    currency?: StringFilter<"YearTable"> | string
   }
 
   export type YearTableOrderByWithRelationInput = {
@@ -6813,10 +6847,11 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type YearTableWhereUniqueInput = Prisma.AtLeast<{
-    month_year_userId?: YearTableMonthYearUserIdCompoundUniqueInput
+    month_year_userId_currency?: YearTableMonthYearUserIdCurrencyCompoundUniqueInput
     AND?: YearTableWhereInput | YearTableWhereInput[]
     OR?: YearTableWhereInput[]
     NOT?: YearTableWhereInput | YearTableWhereInput[]
@@ -6825,7 +6860,8 @@ export namespace Prisma {
     year?: IntFilter<"YearTable"> | number
     income?: FloatFilter<"YearTable"> | number
     expense?: FloatFilter<"YearTable"> | number
-  }, "month_year_userId">
+    currency?: StringFilter<"YearTable"> | string
+  }, "month_year_userId_currency">
 
   export type YearTableOrderByWithAggregationInput = {
     userId?: SortOrder
@@ -6833,6 +6869,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
     _count?: YearTableCountOrderByAggregateInput
     _avg?: YearTableAvgOrderByAggregateInput
     _max?: YearTableMaxOrderByAggregateInput
@@ -6849,6 +6886,7 @@ export namespace Prisma {
     year?: IntWithAggregatesFilter<"YearTable"> | number
     income?: FloatWithAggregatesFilter<"YearTable"> | number
     expense?: FloatWithAggregatesFilter<"YearTable"> | number
+    currency?: StringWithAggregatesFilter<"YearTable"> | string
   }
 
   export type UserCreateInput = {
@@ -7054,6 +7092,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type MonthTableUncheckedCreateInput = {
@@ -7063,6 +7102,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type MonthTableUpdateInput = {
@@ -7072,6 +7112,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type MonthTableUncheckedUpdateInput = {
@@ -7081,6 +7122,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type MonthTableCreateManyInput = {
@@ -7090,6 +7132,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type MonthTableUpdateManyMutationInput = {
@@ -7099,6 +7142,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type MonthTableUncheckedUpdateManyInput = {
@@ -7108,6 +7152,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type YearTableCreateInput = {
@@ -7116,6 +7161,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type YearTableUncheckedCreateInput = {
@@ -7124,6 +7170,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type YearTableUpdateInput = {
@@ -7132,6 +7179,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type YearTableUncheckedUpdateInput = {
@@ -7140,6 +7188,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type YearTableCreateManyInput = {
@@ -7148,6 +7197,7 @@ export namespace Prisma {
     year: number
     income: number
     expense: number
+    currency: string
   }
 
   export type YearTableUpdateManyMutationInput = {
@@ -7156,6 +7206,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type YearTableUncheckedUpdateManyInput = {
@@ -7164,6 +7215,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     income?: FloatFieldUpdateOperationsInput | number
     expense?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7360,11 +7412,12 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type MonthTableDayMonthYearUserIdCompoundUniqueInput = {
+  export type MonthTableDayMonthYearUserIdCurrencyCompoundUniqueInput = {
     day: number
     month: number
     year: number
     userId: string
+    currency: string
   }
 
   export type MonthTableCountOrderByAggregateInput = {
@@ -7374,6 +7427,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type MonthTableAvgOrderByAggregateInput = {
@@ -7391,6 +7445,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type MonthTableMinOrderByAggregateInput = {
@@ -7400,6 +7455,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type MonthTableSumOrderByAggregateInput = {
@@ -7426,10 +7482,11 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type YearTableMonthYearUserIdCompoundUniqueInput = {
+  export type YearTableMonthYearUserIdCurrencyCompoundUniqueInput = {
     month: number
     year: number
     userId: string
+    currency: string
   }
 
   export type YearTableCountOrderByAggregateInput = {
@@ -7438,6 +7495,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type YearTableAvgOrderByAggregateInput = {
@@ -7453,6 +7511,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type YearTableMinOrderByAggregateInput = {
@@ -7461,6 +7520,7 @@ export namespace Prisma {
     year?: SortOrder
     income?: SortOrder
     expense?: SortOrder
+    currency?: SortOrder
   }
 
   export type YearTableSumOrderByAggregateInput = {
