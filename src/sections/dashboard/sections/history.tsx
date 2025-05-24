@@ -15,10 +15,10 @@ export default function History({ currency }: { currency: string }) {
   });
 
   const { data, isFetching } = useQuery<getHistoryDataResponseType>({
-    queryKey: ["overview", "history", timeframe, period],
+    queryKey: ["overview", "history", timeframe, period, curr],
     queryFn: () =>
       fetch(
-        `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}`
+        `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}&currency=${curr}`
       ).then((res) => res.json()),
   });
 

@@ -14,19 +14,26 @@ export async function GET(request: Request) {
   const timeframe = searchParams.get("timeframe");
   const year = searchParams.get("year");
   const month = searchParams.get("month");
+  const currency = searchParams.get("currency") || '';
 
   const parsedBody = getHistoryDataSchema.safeParse({
     timeframe,
     year,
     month,
+    currency,
   });
   if (!parsedBody.success)
     return Response.json(parsedBody.error.message, { status: 400 });
 
-  const periods = await getHistoryData(user.id, parsedBody.data.timeframe, {
-    month: parsedBody.data.month, 
-    year: parsedBody.data.year,
-  });
+  const periods = await getHistoryData(
+    user.id,
+    parsedBody.data.timeframe,
+    {
+      month: parsedBody.data.month,
+      year: parsedBody.data.year,
+    },
+    currency
+  );
   return Response.json(periods);
 }
 
@@ -37,24 +44,31 @@ export type getHistoryDataResponseType = Awaited<
 const getHistoryData = async (
   userId: string,
   timeframe: Timeframe,
-  period: Period
+  period: Period,
+  currency: string
 ) => {
   switch (timeframe) {
     case "month":
-      return await getMonthHistoryData(userId, period.year, period.month);
+      return await getMonthHistoryData(
+        userId,
+        period.year,
+        period.month,
+        currency
+      );
     case "year":
-      return await getYearHistoryData(userId, period.year);
+      return await getYearHistoryData(userId, period.year, currency);
   }
 };
 
 const getMonthHistoryData = async (
   userId: string,
   year: number,
-  month: number
+  month: number,
+  currency: string
 ) => {
   const result = await prisma.monthTable.groupBy({
     by: ["day"],
-    where: { userId, year, month },
+    where: { userId, year, month, currency },
     _sum: {
       expense: true,
       income: true,
@@ -90,10 +104,14 @@ const getMonthHistoryData = async (
   return history;
 };
 
-const getYearHistoryData = async (userId: string, year: number) => {
+const getYearHistoryData = async (
+  userId: string,
+  year: number,
+  currency: string
+) => {
   const result = await prisma.yearTable.groupBy({
     by: ["month"],
-    where: { userId, year },
+    where: { userId, year, currency },
     _sum: {
       expense: true,
       income: true,
