@@ -5,13 +5,15 @@ import { prisma } from "@/lib/prisma";
 import {
   createCategorySchema,
   CreateCategorySchemaType,
+  deleteCategorySchema,
+  deleteCategorySchemaType,
 } from "@/schema/category";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const parsedBody = createCategorySchema.safeParse(form);
-  if (!parsedBody.success) return { error: "Bad request!" }
+  if (!parsedBody.success) return { error: "Bad request!" };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -25,8 +27,8 @@ export async function createCategory(form: CreateCategorySchemaType) {
       type,
     },
   });
-  if(category){
-    return { error: "This name is already taken!" }
+  if (category) {
+    return { error: "This name is already taken!" };
     // throw new Error('This name already taken!')
   }
 
@@ -39,4 +41,21 @@ export async function createCategory(form: CreateCategorySchemaType) {
     },
   });
   return { data: cat };
+}
+
+export async function deleteCategory(form: deleteCategorySchemaType) {
+  const parsedBody = deleteCategorySchema.safeParse(form);
+  if (!parsedBody.success) return { error: "Bad request!" };
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const id = parsedBody.data;
+
+  return await prisma.category.delete({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
 }

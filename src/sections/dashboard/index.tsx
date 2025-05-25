@@ -3,10 +3,10 @@ import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-import Head from "./sections/head";
-import Overview from "./sections/overview";
+import Head from "./views/head";
+import Overview from "./views/overview";
 import { defaultCurrency } from "@/config/currencies";
-import History from "./sections/history";
+import History from "./views/history";
 
 export default async function Dashboard() {
   const user = await currentUser();
