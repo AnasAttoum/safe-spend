@@ -26,9 +26,12 @@ import Field from "../fields/field";
 
 type Props = {
   type: "income" | "expense";
-  setValue: (val: Category) => void;
-  setOpen: (val: false) => void;
-  setValueTransaction: (name: "category" | "categoryIcon", val: string) => void;
+  setValue?: (val: Category) => void;
+  setOpen?: (val: false) => void;
+  setValueTransaction?: (
+    name: "category" | "categoryIcon",
+    val: string
+  ) => void;
 };
 
 export default function CreateCategory({
@@ -57,9 +60,12 @@ export default function CreateCategory({
     },
 
     onSuccess: async (data: Category) => {
-      setValue(data);
-      setValueTransaction("category", data.name);
-      setValueTransaction("categoryIcon", data.icon);
+      if (setValue) setValue(data);
+      
+      if (setValueTransaction) {
+        setValueTransaction("category", data.name);
+        setValueTransaction("categoryIcon", data.icon);
+      }
       queryClient.invalidateQueries({ queryKey: ["category", type] });
       reset({
         name: "",
@@ -69,7 +75,7 @@ export default function CreateCategory({
         id: "create-category",
       });
       setOpen(false);
-      setOpenCategoriesList(false);
+      if (setOpenCategoriesList) setOpenCategoriesList(false);
     },
     onError: (error) => {
       toast.error(

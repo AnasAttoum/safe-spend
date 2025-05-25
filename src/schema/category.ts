@@ -7,3 +7,7 @@ export const createCategorySchema = z.object({
 });
 
 export type CreateCategorySchemaType = z.infer<typeof createCategorySchema>;
+
+export const deleteCategorySchema = z.string().min(3);
+
+export type deleteCategorySchemaType = z.infer<typeof deleteCategorySchema>;

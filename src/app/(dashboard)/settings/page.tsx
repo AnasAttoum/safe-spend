@@ -1,5 +1,5 @@
+import Settings from "@/sections/settings";
+
 export default function page() {
-  return (
-    <div>page</div>
-  )
+  return <Settings />;
 }
