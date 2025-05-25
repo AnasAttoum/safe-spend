@@ -14,6 +14,7 @@ import {
 import { UserButton } from "@clerk/nextjs";
 import { useState } from "react";
 import HeaderLinks from "./links";
+import SettingsBtn from "@/components/buttons/settings-btn";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function MobileHeader() {
       <div className="flex items-center gap-3 pr-1">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline">
+            <Button variant="outline" className="cursor-pointer">
               <Icon icon="hamb" />
             </Button>
           </SheetTrigger>
@@ -48,6 +49,7 @@ export default function MobileHeader() {
       </div>
 
       <div className="flex items-center justify-end gap-3 ">
+        <SettingsBtn />
         <DarkModeToggle />
         <UserButton />
       </div>

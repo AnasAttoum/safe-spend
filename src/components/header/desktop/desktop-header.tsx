@@ -2,6 +2,7 @@ import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import Logo from "@/components/logo";
 import { UserButton } from "@clerk/nextjs";
 import HeaderLinks from "./links";
+import SettingsBtn from "@/components/buttons/settings-btn";
 
 export default function DesktopHeader() {
   return (
@@ -11,6 +12,7 @@ export default function DesktopHeader() {
         <HeaderLinks />
       </div>
       <div className="flex items-center justify-end gap-3">
+        <SettingsBtn />
         <DarkModeToggle />
         <UserButton />
       </div>

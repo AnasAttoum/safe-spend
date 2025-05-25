@@ -6,4 +6,6 @@ export const routes = {
   transactions: "/transactions",
   manage: "/manage",
   currency: "/currency",
+
+  settings: "/settings",
 };
