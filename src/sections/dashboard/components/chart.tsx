@@ -101,7 +101,7 @@ const CustomTooltip = ({ active, payload }: any) => {
   const { income, expense } = data;
 
   return (
-    <div className="min-w-[300px] rounded bg-background p-4">
+    <div className="min-w-[250px] rounded bg-background p-4">
       <TooltipRow
         label="Income"
         value={income}

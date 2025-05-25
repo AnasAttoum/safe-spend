@@ -145,6 +145,19 @@ exports.Prisma.TransactionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ExchangeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  exchangeAmount: 'exchangeAmount',
+  collectedAmount: 'collectedAmount',
+  title: 'title',
+  exchangeCurrency: 'exchangeCurrency',
+  targetCurrency: 'targetCurrency',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MonthTableScalarFieldEnum = {
   userId: 'userId',
   day: 'day',
@@ -179,6 +192,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Category: 'Category',
   Transaction: 'Transaction',
+  Exchange: 'Exchange',
   MonthTable: 'MonthTable',
   YearTable: 'YearTable'
 };

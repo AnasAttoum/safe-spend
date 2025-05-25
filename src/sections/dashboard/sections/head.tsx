@@ -1,3 +1,4 @@
+import { ExchangeDialog } from "@/components/dialog/exchange-dialog";
 import { TransactionDialog } from "@/components/dialog/transaction-dialog";
 import Icon from "@/components/icon/icon";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,15 @@ export default function Head({ name, currency }: Props) {
       </div>
 
       <div className="flex flex-wrap gap-3">
+        <ExchangeDialog
+          trigger={
+            <Button variant="outline">
+              <Icon icon="exchange" />
+            </Button>
+          }
+          currency={currency}
+        />
+
         <TransactionDialog
           trigger={
             <Button variant="outline" className="incomeBtn flex-1">
@@ -24,7 +34,7 @@ export default function Head({ name, currency }: Props) {
           }
           type="income"
           currency={currency}
-          />
+        />
 
         <TransactionDialog
           trigger={
@@ -35,7 +45,7 @@ export default function Head({ name, currency }: Props) {
           }
           type="expense"
           currency={currency}
-          />
+        />
       </div>
     </div>
   );

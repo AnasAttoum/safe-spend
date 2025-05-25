@@ -9,7 +9,7 @@ export const createTransactionSchema = z.object({
     })
     .positive("Amount must be greater than 0.")
     .multipleOf(0.01, { message: "Amount must be a multiple of 0.01." }),
-  title: z.string(),
+  title: z.string().min(3).max(50),
   date: z.coerce.date(),
   category: z.string().min(3).max(20),
   categoryIcon: z.string().max(20),

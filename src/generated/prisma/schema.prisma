@@ -14,7 +14,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("NEXT_PUBLIC_DATABASE_URL")
+  url      = env("DATABASE_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING")
   // provider = "sqlite"
   // url      = "file:./dev.db"
@@ -50,6 +50,22 @@ model Transaction {
   categoryIcon String
 
   currency String
+
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Exchange {
+  id     String @id @default(uuid())
+  userId String
+
+  exchangeAmount  Float
+  collectedAmount Float
+  title           String
+
+  exchangeCurrency String
+  targetCurrency   String
 
   date      DateTime
   createdAt DateTime @default(now())

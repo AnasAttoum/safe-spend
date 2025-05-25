@@ -29,6 +29,11 @@ export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
  */
 export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
 /**
+ * Model Exchange
+ * 
+ */
+export type Exchange = $Result.DefaultSelection<Prisma.$ExchangePayload>
+/**
  * Model MonthTable
  * 
  */
@@ -193,6 +198,16 @@ export class PrismaClient<
     * ```
     */
   get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.exchange`: Exposes CRUD operations for the **Exchange** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Exchanges
+    * const exchanges = await prisma.exchange.findMany()
+    * ```
+    */
+  get exchange(): Prisma.ExchangeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.monthTable`: Exposes CRUD operations for the **MonthTable** model.
@@ -656,6 +671,7 @@ export namespace Prisma {
     User: 'User',
     Category: 'Category',
     Transaction: 'Transaction',
+    Exchange: 'Exchange',
     MonthTable: 'MonthTable',
     YearTable: 'YearTable'
   };
@@ -676,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "category" | "transaction" | "monthTable" | "yearTable"
+      modelProps: "user" | "category" | "transaction" | "exchange" | "monthTable" | "yearTable"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -899,6 +915,80 @@ export namespace Prisma {
           count: {
             args: Prisma.TransactionCountArgs<ExtArgs>
             result: $Utils.Optional<TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Exchange: {
+        payload: Prisma.$ExchangePayload<ExtArgs>
+        fields: Prisma.ExchangeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExchangeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExchangeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          findFirst: {
+            args: Prisma.ExchangeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExchangeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          findMany: {
+            args: Prisma.ExchangeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>[]
+          }
+          create: {
+            args: Prisma.ExchangeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          createMany: {
+            args: Prisma.ExchangeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExchangeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>[]
+          }
+          delete: {
+            args: Prisma.ExchangeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          update: {
+            args: Prisma.ExchangeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExchangeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExchangeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExchangeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExchangeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExchangePayload>
+          }
+          aggregate: {
+            args: Prisma.ExchangeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExchange>
+          }
+          groupBy: {
+            args: Prisma.ExchangeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExchangeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExchangeCountArgs<ExtArgs>
+            result: $Utils.Optional<ExchangeCountAggregateOutputType> | number
           }
         }
       }
@@ -1137,6 +1227,7 @@ export namespace Prisma {
     user?: UserOmit
     category?: CategoryOmit
     transaction?: TransactionOmit
+    exchange?: ExchangeOmit
     monthTable?: MonthTableOmit
     yearTable?: YearTableOmit
   }
@@ -4305,6 +4396,1104 @@ export namespace Prisma {
 
 
   /**
+   * Model Exchange
+   */
+
+  export type AggregateExchange = {
+    _count: ExchangeCountAggregateOutputType | null
+    _avg: ExchangeAvgAggregateOutputType | null
+    _sum: ExchangeSumAggregateOutputType | null
+    _min: ExchangeMinAggregateOutputType | null
+    _max: ExchangeMaxAggregateOutputType | null
+  }
+
+  export type ExchangeAvgAggregateOutputType = {
+    exchangeAmount: number | null
+    collectedAmount: number | null
+  }
+
+  export type ExchangeSumAggregateOutputType = {
+    exchangeAmount: number | null
+    collectedAmount: number | null
+  }
+
+  export type ExchangeMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    exchangeAmount: number | null
+    collectedAmount: number | null
+    title: string | null
+    exchangeCurrency: string | null
+    targetCurrency: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExchangeMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    exchangeAmount: number | null
+    collectedAmount: number | null
+    title: string | null
+    exchangeCurrency: string | null
+    targetCurrency: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExchangeCountAggregateOutputType = {
+    id: number
+    userId: number
+    exchangeAmount: number
+    collectedAmount: number
+    title: number
+    exchangeCurrency: number
+    targetCurrency: number
+    date: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExchangeAvgAggregateInputType = {
+    exchangeAmount?: true
+    collectedAmount?: true
+  }
+
+  export type ExchangeSumAggregateInputType = {
+    exchangeAmount?: true
+    collectedAmount?: true
+  }
+
+  export type ExchangeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    exchangeAmount?: true
+    collectedAmount?: true
+    title?: true
+    exchangeCurrency?: true
+    targetCurrency?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExchangeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    exchangeAmount?: true
+    collectedAmount?: true
+    title?: true
+    exchangeCurrency?: true
+    targetCurrency?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExchangeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    exchangeAmount?: true
+    collectedAmount?: true
+    title?: true
+    exchangeCurrency?: true
+    targetCurrency?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExchangeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Exchange to aggregate.
+     */
+    where?: ExchangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Exchanges to fetch.
+     */
+    orderBy?: ExchangeOrderByWithRelationInput | ExchangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExchangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Exchanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Exchanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Exchanges
+    **/
+    _count?: true | ExchangeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExchangeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExchangeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExchangeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExchangeMaxAggregateInputType
+  }
+
+  export type GetExchangeAggregateType<T extends ExchangeAggregateArgs> = {
+        [P in keyof T & keyof AggregateExchange]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExchange[P]>
+      : GetScalarType<T[P], AggregateExchange[P]>
+  }
+
+
+
+
+  export type ExchangeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExchangeWhereInput
+    orderBy?: ExchangeOrderByWithAggregationInput | ExchangeOrderByWithAggregationInput[]
+    by: ExchangeScalarFieldEnum[] | ExchangeScalarFieldEnum
+    having?: ExchangeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExchangeCountAggregateInputType | true
+    _avg?: ExchangeAvgAggregateInputType
+    _sum?: ExchangeSumAggregateInputType
+    _min?: ExchangeMinAggregateInputType
+    _max?: ExchangeMaxAggregateInputType
+  }
+
+  export type ExchangeGroupByOutputType = {
+    id: string
+    userId: string
+    exchangeAmount: number
+    collectedAmount: number
+    title: string
+    exchangeCurrency: string
+    targetCurrency: string
+    date: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: ExchangeCountAggregateOutputType | null
+    _avg: ExchangeAvgAggregateOutputType | null
+    _sum: ExchangeSumAggregateOutputType | null
+    _min: ExchangeMinAggregateOutputType | null
+    _max: ExchangeMaxAggregateOutputType | null
+  }
+
+  type GetExchangeGroupByPayload<T extends ExchangeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExchangeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExchangeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExchangeGroupByOutputType[P]>
+            : GetScalarType<T[P], ExchangeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExchangeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    exchangeAmount?: boolean
+    collectedAmount?: boolean
+    title?: boolean
+    exchangeCurrency?: boolean
+    targetCurrency?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["exchange"]>
+
+  export type ExchangeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    exchangeAmount?: boolean
+    collectedAmount?: boolean
+    title?: boolean
+    exchangeCurrency?: boolean
+    targetCurrency?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["exchange"]>
+
+  export type ExchangeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    exchangeAmount?: boolean
+    collectedAmount?: boolean
+    title?: boolean
+    exchangeCurrency?: boolean
+    targetCurrency?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["exchange"]>
+
+  export type ExchangeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    exchangeAmount?: boolean
+    collectedAmount?: boolean
+    title?: boolean
+    exchangeCurrency?: boolean
+    targetCurrency?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExchangeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "exchangeAmount" | "collectedAmount" | "title" | "exchangeCurrency" | "targetCurrency" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["exchange"]>
+
+  export type $ExchangePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Exchange"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      exchangeAmount: number
+      collectedAmount: number
+      title: string
+      exchangeCurrency: string
+      targetCurrency: string
+      date: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["exchange"]>
+    composites: {}
+  }
+
+  type ExchangeGetPayload<S extends boolean | null | undefined | ExchangeDefaultArgs> = $Result.GetResult<Prisma.$ExchangePayload, S>
+
+  type ExchangeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExchangeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExchangeCountAggregateInputType | true
+    }
+
+  export interface ExchangeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Exchange'], meta: { name: 'Exchange' } }
+    /**
+     * Find zero or one Exchange that matches the filter.
+     * @param {ExchangeFindUniqueArgs} args - Arguments to find a Exchange
+     * @example
+     * // Get one Exchange
+     * const exchange = await prisma.exchange.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExchangeFindUniqueArgs>(args: SelectSubset<T, ExchangeFindUniqueArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Exchange that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExchangeFindUniqueOrThrowArgs} args - Arguments to find a Exchange
+     * @example
+     * // Get one Exchange
+     * const exchange = await prisma.exchange.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExchangeFindUniqueOrThrowArgs>(args: SelectSubset<T, ExchangeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Exchange that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeFindFirstArgs} args - Arguments to find a Exchange
+     * @example
+     * // Get one Exchange
+     * const exchange = await prisma.exchange.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExchangeFindFirstArgs>(args?: SelectSubset<T, ExchangeFindFirstArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Exchange that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeFindFirstOrThrowArgs} args - Arguments to find a Exchange
+     * @example
+     * // Get one Exchange
+     * const exchange = await prisma.exchange.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExchangeFindFirstOrThrowArgs>(args?: SelectSubset<T, ExchangeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Exchanges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Exchanges
+     * const exchanges = await prisma.exchange.findMany()
+     * 
+     * // Get first 10 Exchanges
+     * const exchanges = await prisma.exchange.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const exchangeWithIdOnly = await prisma.exchange.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExchangeFindManyArgs>(args?: SelectSubset<T, ExchangeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Exchange.
+     * @param {ExchangeCreateArgs} args - Arguments to create a Exchange.
+     * @example
+     * // Create one Exchange
+     * const Exchange = await prisma.exchange.create({
+     *   data: {
+     *     // ... data to create a Exchange
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExchangeCreateArgs>(args: SelectSubset<T, ExchangeCreateArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Exchanges.
+     * @param {ExchangeCreateManyArgs} args - Arguments to create many Exchanges.
+     * @example
+     * // Create many Exchanges
+     * const exchange = await prisma.exchange.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExchangeCreateManyArgs>(args?: SelectSubset<T, ExchangeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Exchanges and returns the data saved in the database.
+     * @param {ExchangeCreateManyAndReturnArgs} args - Arguments to create many Exchanges.
+     * @example
+     * // Create many Exchanges
+     * const exchange = await prisma.exchange.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Exchanges and only return the `id`
+     * const exchangeWithIdOnly = await prisma.exchange.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExchangeCreateManyAndReturnArgs>(args?: SelectSubset<T, ExchangeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Exchange.
+     * @param {ExchangeDeleteArgs} args - Arguments to delete one Exchange.
+     * @example
+     * // Delete one Exchange
+     * const Exchange = await prisma.exchange.delete({
+     *   where: {
+     *     // ... filter to delete one Exchange
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExchangeDeleteArgs>(args: SelectSubset<T, ExchangeDeleteArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Exchange.
+     * @param {ExchangeUpdateArgs} args - Arguments to update one Exchange.
+     * @example
+     * // Update one Exchange
+     * const exchange = await prisma.exchange.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExchangeUpdateArgs>(args: SelectSubset<T, ExchangeUpdateArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Exchanges.
+     * @param {ExchangeDeleteManyArgs} args - Arguments to filter Exchanges to delete.
+     * @example
+     * // Delete a few Exchanges
+     * const { count } = await prisma.exchange.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExchangeDeleteManyArgs>(args?: SelectSubset<T, ExchangeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Exchanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Exchanges
+     * const exchange = await prisma.exchange.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExchangeUpdateManyArgs>(args: SelectSubset<T, ExchangeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Exchanges and returns the data updated in the database.
+     * @param {ExchangeUpdateManyAndReturnArgs} args - Arguments to update many Exchanges.
+     * @example
+     * // Update many Exchanges
+     * const exchange = await prisma.exchange.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Exchanges and only return the `id`
+     * const exchangeWithIdOnly = await prisma.exchange.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExchangeUpdateManyAndReturnArgs>(args: SelectSubset<T, ExchangeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Exchange.
+     * @param {ExchangeUpsertArgs} args - Arguments to update or create a Exchange.
+     * @example
+     * // Update or create a Exchange
+     * const exchange = await prisma.exchange.upsert({
+     *   create: {
+     *     // ... data to create a Exchange
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Exchange we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExchangeUpsertArgs>(args: SelectSubset<T, ExchangeUpsertArgs<ExtArgs>>): Prisma__ExchangeClient<$Result.GetResult<Prisma.$ExchangePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Exchanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeCountArgs} args - Arguments to filter Exchanges to count.
+     * @example
+     * // Count the number of Exchanges
+     * const count = await prisma.exchange.count({
+     *   where: {
+     *     // ... the filter for the Exchanges we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExchangeCountArgs>(
+      args?: Subset<T, ExchangeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExchangeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Exchange.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExchangeAggregateArgs>(args: Subset<T, ExchangeAggregateArgs>): Prisma.PrismaPromise<GetExchangeAggregateType<T>>
+
+    /**
+     * Group by Exchange.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExchangeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExchangeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExchangeGroupByArgs['orderBy'] }
+        : { orderBy?: ExchangeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExchangeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExchangeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Exchange model
+   */
+  readonly fields: ExchangeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Exchange.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExchangeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Exchange model
+   */
+  interface ExchangeFieldRefs {
+    readonly id: FieldRef<"Exchange", 'String'>
+    readonly userId: FieldRef<"Exchange", 'String'>
+    readonly exchangeAmount: FieldRef<"Exchange", 'Float'>
+    readonly collectedAmount: FieldRef<"Exchange", 'Float'>
+    readonly title: FieldRef<"Exchange", 'String'>
+    readonly exchangeCurrency: FieldRef<"Exchange", 'String'>
+    readonly targetCurrency: FieldRef<"Exchange", 'String'>
+    readonly date: FieldRef<"Exchange", 'DateTime'>
+    readonly createdAt: FieldRef<"Exchange", 'DateTime'>
+    readonly updatedAt: FieldRef<"Exchange", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Exchange findUnique
+   */
+  export type ExchangeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter, which Exchange to fetch.
+     */
+    where: ExchangeWhereUniqueInput
+  }
+
+  /**
+   * Exchange findUniqueOrThrow
+   */
+  export type ExchangeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter, which Exchange to fetch.
+     */
+    where: ExchangeWhereUniqueInput
+  }
+
+  /**
+   * Exchange findFirst
+   */
+  export type ExchangeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter, which Exchange to fetch.
+     */
+    where?: ExchangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Exchanges to fetch.
+     */
+    orderBy?: ExchangeOrderByWithRelationInput | ExchangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Exchanges.
+     */
+    cursor?: ExchangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Exchanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Exchanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Exchanges.
+     */
+    distinct?: ExchangeScalarFieldEnum | ExchangeScalarFieldEnum[]
+  }
+
+  /**
+   * Exchange findFirstOrThrow
+   */
+  export type ExchangeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter, which Exchange to fetch.
+     */
+    where?: ExchangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Exchanges to fetch.
+     */
+    orderBy?: ExchangeOrderByWithRelationInput | ExchangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Exchanges.
+     */
+    cursor?: ExchangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Exchanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Exchanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Exchanges.
+     */
+    distinct?: ExchangeScalarFieldEnum | ExchangeScalarFieldEnum[]
+  }
+
+  /**
+   * Exchange findMany
+   */
+  export type ExchangeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter, which Exchanges to fetch.
+     */
+    where?: ExchangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Exchanges to fetch.
+     */
+    orderBy?: ExchangeOrderByWithRelationInput | ExchangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Exchanges.
+     */
+    cursor?: ExchangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Exchanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Exchanges.
+     */
+    skip?: number
+    distinct?: ExchangeScalarFieldEnum | ExchangeScalarFieldEnum[]
+  }
+
+  /**
+   * Exchange create
+   */
+  export type ExchangeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Exchange.
+     */
+    data: XOR<ExchangeCreateInput, ExchangeUncheckedCreateInput>
+  }
+
+  /**
+   * Exchange createMany
+   */
+  export type ExchangeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Exchanges.
+     */
+    data: ExchangeCreateManyInput | ExchangeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Exchange createManyAndReturn
+   */
+  export type ExchangeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Exchanges.
+     */
+    data: ExchangeCreateManyInput | ExchangeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Exchange update
+   */
+  export type ExchangeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Exchange.
+     */
+    data: XOR<ExchangeUpdateInput, ExchangeUncheckedUpdateInput>
+    /**
+     * Choose, which Exchange to update.
+     */
+    where: ExchangeWhereUniqueInput
+  }
+
+  /**
+   * Exchange updateMany
+   */
+  export type ExchangeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Exchanges.
+     */
+    data: XOR<ExchangeUpdateManyMutationInput, ExchangeUncheckedUpdateManyInput>
+    /**
+     * Filter which Exchanges to update
+     */
+    where?: ExchangeWhereInput
+    /**
+     * Limit how many Exchanges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Exchange updateManyAndReturn
+   */
+  export type ExchangeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * The data used to update Exchanges.
+     */
+    data: XOR<ExchangeUpdateManyMutationInput, ExchangeUncheckedUpdateManyInput>
+    /**
+     * Filter which Exchanges to update
+     */
+    where?: ExchangeWhereInput
+    /**
+     * Limit how many Exchanges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Exchange upsert
+   */
+  export type ExchangeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Exchange to update in case it exists.
+     */
+    where: ExchangeWhereUniqueInput
+    /**
+     * In case the Exchange found by the `where` argument doesn't exist, create a new Exchange with this data.
+     */
+    create: XOR<ExchangeCreateInput, ExchangeUncheckedCreateInput>
+    /**
+     * In case the Exchange was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExchangeUpdateInput, ExchangeUncheckedUpdateInput>
+  }
+
+  /**
+   * Exchange delete
+   */
+  export type ExchangeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+    /**
+     * Filter which Exchange to delete.
+     */
+    where: ExchangeWhereUniqueInput
+  }
+
+  /**
+   * Exchange deleteMany
+   */
+  export type ExchangeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Exchanges to delete
+     */
+    where?: ExchangeWhereInput
+    /**
+     * Limit how many Exchanges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Exchange without action
+   */
+  export type ExchangeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exchange
+     */
+    select?: ExchangeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exchange
+     */
+    omit?: ExchangeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model MonthTable
    */
 
@@ -6480,6 +7669,22 @@ export namespace Prisma {
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
+  export const ExchangeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    exchangeAmount: 'exchangeAmount',
+    collectedAmount: 'collectedAmount',
+    title: 'title',
+    exchangeCurrency: 'exchangeCurrency',
+    targetCurrency: 'targetCurrency',
+    date: 'date',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExchangeScalarFieldEnum = (typeof ExchangeScalarFieldEnum)[keyof typeof ExchangeScalarFieldEnum]
+
+
   export const MonthTableScalarFieldEnum: {
     userId: 'userId',
     day: 'day',
@@ -6762,6 +7967,85 @@ export namespace Prisma {
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+  }
+
+  export type ExchangeWhereInput = {
+    AND?: ExchangeWhereInput | ExchangeWhereInput[]
+    OR?: ExchangeWhereInput[]
+    NOT?: ExchangeWhereInput | ExchangeWhereInput[]
+    id?: StringFilter<"Exchange"> | string
+    userId?: StringFilter<"Exchange"> | string
+    exchangeAmount?: FloatFilter<"Exchange"> | number
+    collectedAmount?: FloatFilter<"Exchange"> | number
+    title?: StringFilter<"Exchange"> | string
+    exchangeCurrency?: StringFilter<"Exchange"> | string
+    targetCurrency?: StringFilter<"Exchange"> | string
+    date?: DateTimeFilter<"Exchange"> | Date | string
+    createdAt?: DateTimeFilter<"Exchange"> | Date | string
+    updatedAt?: DateTimeFilter<"Exchange"> | Date | string
+  }
+
+  export type ExchangeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+    title?: SortOrder
+    exchangeCurrency?: SortOrder
+    targetCurrency?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExchangeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ExchangeWhereInput | ExchangeWhereInput[]
+    OR?: ExchangeWhereInput[]
+    NOT?: ExchangeWhereInput | ExchangeWhereInput[]
+    userId?: StringFilter<"Exchange"> | string
+    exchangeAmount?: FloatFilter<"Exchange"> | number
+    collectedAmount?: FloatFilter<"Exchange"> | number
+    title?: StringFilter<"Exchange"> | string
+    exchangeCurrency?: StringFilter<"Exchange"> | string
+    targetCurrency?: StringFilter<"Exchange"> | string
+    date?: DateTimeFilter<"Exchange"> | Date | string
+    createdAt?: DateTimeFilter<"Exchange"> | Date | string
+    updatedAt?: DateTimeFilter<"Exchange"> | Date | string
+  }, "id">
+
+  export type ExchangeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+    title?: SortOrder
+    exchangeCurrency?: SortOrder
+    targetCurrency?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExchangeCountOrderByAggregateInput
+    _avg?: ExchangeAvgOrderByAggregateInput
+    _max?: ExchangeMaxOrderByAggregateInput
+    _min?: ExchangeMinOrderByAggregateInput
+    _sum?: ExchangeSumOrderByAggregateInput
+  }
+
+  export type ExchangeScalarWhereWithAggregatesInput = {
+    AND?: ExchangeScalarWhereWithAggregatesInput | ExchangeScalarWhereWithAggregatesInput[]
+    OR?: ExchangeScalarWhereWithAggregatesInput[]
+    NOT?: ExchangeScalarWhereWithAggregatesInput | ExchangeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Exchange"> | string
+    userId?: StringWithAggregatesFilter<"Exchange"> | string
+    exchangeAmount?: FloatWithAggregatesFilter<"Exchange"> | number
+    collectedAmount?: FloatWithAggregatesFilter<"Exchange"> | number
+    title?: StringWithAggregatesFilter<"Exchange"> | string
+    exchangeCurrency?: StringWithAggregatesFilter<"Exchange"> | string
+    targetCurrency?: StringWithAggregatesFilter<"Exchange"> | string
+    date?: DateTimeWithAggregatesFilter<"Exchange"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Exchange"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Exchange"> | Date | string
   }
 
   export type MonthTableWhereInput = {
@@ -7085,6 +8369,97 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExchangeCreateInput = {
+    id?: string
+    userId: string
+    exchangeAmount: number
+    collectedAmount: number
+    title: string
+    exchangeCurrency: string
+    targetCurrency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExchangeUncheckedCreateInput = {
+    id?: string
+    userId: string
+    exchangeAmount: number
+    collectedAmount: number
+    title: string
+    exchangeCurrency: string
+    targetCurrency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExchangeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    exchangeAmount?: FloatFieldUpdateOperationsInput | number
+    collectedAmount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    exchangeCurrency?: StringFieldUpdateOperationsInput | string
+    targetCurrency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExchangeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    exchangeAmount?: FloatFieldUpdateOperationsInput | number
+    collectedAmount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    exchangeCurrency?: StringFieldUpdateOperationsInput | string
+    targetCurrency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExchangeCreateManyInput = {
+    id?: string
+    userId: string
+    exchangeAmount: number
+    collectedAmount: number
+    title: string
+    exchangeCurrency: string
+    targetCurrency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExchangeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    exchangeAmount?: FloatFieldUpdateOperationsInput | number
+    collectedAmount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    exchangeCurrency?: StringFieldUpdateOperationsInput | string
+    targetCurrency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExchangeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    exchangeAmount?: FloatFieldUpdateOperationsInput | number
+    collectedAmount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    exchangeCurrency?: StringFieldUpdateOperationsInput | string
+    targetCurrency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MonthTableCreateInput = {
     userId: string
     day: number
@@ -7399,6 +8774,55 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type ExchangeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+    title?: SortOrder
+    exchangeCurrency?: SortOrder
+    targetCurrency?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExchangeAvgOrderByAggregateInput = {
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+  }
+
+  export type ExchangeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+    title?: SortOrder
+    exchangeCurrency?: SortOrder
+    targetCurrency?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExchangeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
+    title?: SortOrder
+    exchangeCurrency?: SortOrder
+    targetCurrency?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExchangeSumOrderByAggregateInput = {
+    exchangeAmount?: SortOrder
+    collectedAmount?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
