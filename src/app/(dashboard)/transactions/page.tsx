@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import Dashboard from "@/sections/dashboard";
+import Transactions from "@/sections/transactions";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Transactions",
 };
 
 export default function page() {
-  return <Dashboard />;
+  return <Transactions />;
 }

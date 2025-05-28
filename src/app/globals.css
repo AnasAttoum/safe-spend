@@ -139,6 +139,10 @@
   }
 }
 
+body {
+  overflow-y: scroll;
+}
+
 /* CLERK */
 .cl-internal-1hp5nqm,
 .cl-internal-1dauvpw {
