@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, {
@@ -258,7 +259,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
     }
 
     setSelectedPreset(undefined);
-  }, [range.from, range.to]);
+  }, []);
 
   const resetValues = (): void => {
     setRange({
@@ -336,7 +337,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       openedRangeRef.current = range;
       openedRangeCompareRef.current = rangeCompare;
     }
-  }, [isOpen, range, rangeCompare]);
+  }, [isOpen]);
 
   return (
     <Popover
@@ -571,7 +572,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               }
             }}
           >
-            Update
+            Apply
           </Button>
         </div>
       </PopoverContent>
