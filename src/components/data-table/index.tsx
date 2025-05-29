@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import SkeletonWrapper from "../skeleton/skeleton";
 import { flexRender, Table as TableType } from "@tanstack/react-table";
+import { DataTablePagination } from "./pagination";
 
 export default function DataTable({
   isFetching,
@@ -69,6 +70,7 @@ export default function DataTable({
             )}
           </TableBody>
         </Table>
+        <DataTablePagination table={table}/>
       </SkeletonWrapper>
     </div>
   );

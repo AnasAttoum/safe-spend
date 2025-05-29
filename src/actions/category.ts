@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import {
   createCategorySchema,
   CreateCategorySchemaType,
-  deleteCategorySchema,
-  deleteCategorySchemaType,
+  deleteSchema,
+  deleteSchemaType,
 } from "@/schema/category";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -43,8 +43,8 @@ export async function createCategory(form: CreateCategorySchemaType) {
   return { data: cat };
 }
 
-export async function deleteCategory(form: deleteCategorySchemaType) {
-  const parsedBody = deleteCategorySchema.safeParse(form);
+export async function deleteCategory(form: deleteSchemaType) {
+  const parsedBody = deleteSchema.safeParse(form);
   if (!parsedBody.success) return { error: "Bad request!" };
 
   const user = await currentUser();
