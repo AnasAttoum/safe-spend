@@ -3,6 +3,16 @@ import DataTable from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { DataTableFacetedFilter } from "@/components/data-table/faceted-filters";
+import { DeleteDialog } from "@/components/dialog/delete-dialog";
+import Icon from "@/components/icon/icon";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -26,17 +36,15 @@ export default function TransactionsTable({ from, to }: Props) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const { data, isFetching } = useQuery<getTransactionsHistoryDataResponseType>(
-    {
-      queryKey: ["transactions", "history", from, to],
-      queryFn: () =>
-        fetch(
-          `/api/history/transactions?from=${dateToUTCDate(
-            from
-          )}&to=${dateToUTCDate(to)}`
-        ).then((res) => res.json()),
-    }
-  );
+  const { data, isLoading } = useQuery<getTransactionsHistoryDataResponseType>({
+    queryKey: ["transaction", "history", from, to],
+    queryFn: () =>
+      fetch(
+        `/api/history/transactions?from=${dateToUTCDate(
+          from
+        )}&to=${dateToUTCDate(to)}`
+      ).then((res) => res.json()),
+  });
 
   const table = useReactTable({
     data: data || emptyData,
@@ -94,7 +102,7 @@ export default function TransactionsTable({ from, to }: Props) {
         <DataTableViewOptions table={table} />
       </div>
       <DataTable
-        isFetching={isFetching}
+        isFetching={isLoading}
         table={table}
         columnsLength={columns.length}
       />
@@ -169,4 +177,41 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
       });
     },
   },
+  {
+    accessorKey: "Actions",
+    enableHiding: false,
+    cell: ({ row }) => <RowActions transaction={row.original} />,
+  },
 ];
+
+const RowActions = ({
+  transaction,
+}: {
+  transaction: getTransactionsHistoryDataResponseType[0];
+}) => {
+  return (
+    <DropdownMenu >
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost">
+          <Icon icon="more" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {/* <DropdownMenuItem onSelect={() => setOpena(false)}> */}
+          <DeleteDialog
+            item="transaction"
+            id={transaction.id}
+            trigger={
+              <Button variant="ghost" className="w-full text-start">
+                <Icon icon="trash" />
+                Delete
+              </Button>
+            }
+          />
+        {/* </DropdownMenuItem> */}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};

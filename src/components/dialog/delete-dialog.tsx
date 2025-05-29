@@ -1,4 +1,5 @@
 import { deleteCategory } from "@/actions/category";
+import { deleteTransaction } from "@/actions/transaction";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,21 +15,34 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 
-type Props = { item: string; trigger: ReactNode; id: string };
+type Props = {
+  item: "category" | "transaction";
+  trigger: ReactNode;
+  id: string;
+};
 
 export function DeleteDialog({ item, trigger, id }: Props) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: deleteCategory,
+    mutationFn: async (formId: string) => {
+      if (item === "category") {
+        return await deleteCategory(formId);
+      } else {
+        return await deleteTransaction(formId);
+      }
+    },
     onSuccess: () => {
-      toast.success("Category deleted successfully", { id });
+      toast.success(
+        `${item.charAt(0).toUpperCase() + item.slice(1)} deleted successfully`,
+        { id }
+      );
       queryClient.invalidateQueries({
-        queryKey: ["category"],
+        queryKey: [item],
       });
     },
     onError: () => {
-      toast.success("Something went wrong", { id });
+      toast.error("Something went wrong", { id });
     },
   });
 
@@ -49,7 +63,7 @@ export function DeleteDialog({ item, trigger, id }: Props) {
           <AlertDialogAction
             className="cursor-pointer"
             onClick={() => {
-              toast.loading("Deleting category...", { id });
+              toast.loading(`Deleting ${item}...`, { id });
               mutate(id);
             }}
           >
