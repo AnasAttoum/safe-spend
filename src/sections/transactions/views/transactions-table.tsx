@@ -11,6 +11,7 @@ import {
   ColumnFiltersState,
   getCoreRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
@@ -45,6 +46,7 @@ export default function TransactionsTable({ from, to }: Props) {
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnFilters,
@@ -56,7 +58,7 @@ export default function TransactionsTable({ from, to }: Props) {
     value: string;
   }[] = useMemo(() => {
     const seen = new Map();
-    data?.forEach(({ category, categoryIcon, type }) => {
+    data?.forEach(({ category, categoryIcon }) => {
       const key = category;
       if (!seen.has(key)) {
         seen.set(key, {
