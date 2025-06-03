@@ -84,7 +84,7 @@ const getMonthHistoryData = async (
   const history: HistoryData[] = [];
   const daysInMonth = getDaysInMonth(new Date(year, month));
 
-  for (let i = 1; i < daysInMonth; i++) {
+  for (let i = 1; i <= daysInMonth; i++) {
     let income = 0,
       expense = 0;
     const day = result.find((row) => row.day === i);
