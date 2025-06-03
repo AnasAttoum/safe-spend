@@ -10,6 +10,7 @@ import {
 } from "@/schema/category";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { deleteTransaction } from "./transaction";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const parsedBody = createCategorySchema.safeParse(form);
@@ -51,6 +52,28 @@ export async function deleteCategory(form: deleteSchemaType) {
   if (!user) redirect(routes.signIn);
 
   const id = parsedBody.data;
+
+  const categoryRow = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+
+  const transactionsToDelete = await prisma.transaction.findMany({
+    where: {
+      userId: user.id,
+      category: categoryRow?.name,
+      categoryIcon: categoryRow?.icon,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  await Promise.all(
+    transactionsToDelete.map(({ id }) => deleteTransaction(id))
+  );
 
   return await prisma.category.delete({
     where: {
