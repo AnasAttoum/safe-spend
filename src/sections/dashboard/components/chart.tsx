@@ -66,6 +66,7 @@ export default function Chart({ data, timeframe }: Props) {
                 day: "2-digit",
               });
             }}
+            angle={-25}
           />
           <YAxis stroke="#888" fontSize={12} />
           <Tooltip
