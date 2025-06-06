@@ -25,37 +25,39 @@ export default function StatisticCards({ from, to, currency }: Props) {
   const balance = income - expense || 0;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
-      <SkeletonWrapper isLoading={isLoading}>
-        <CardStatistic
-          title="Income"
-          icon="statistic-up"
-          value={income}
-          currency={currency}
-        />
-      </SkeletonWrapper>
-      <SkeletonWrapper isLoading={isLoading}>
-        <CardStatistic
-          title="Expense"
-          icon="statistic-down"
-          value={expense}
-          currency={currency}
-        />
-      </SkeletonWrapper>
-      <SkeletonWrapper isLoading={isLoading}>
-        <CardStatistic
-          title="Balance"
-          icon="calculator"
-          value={balance}
-          currency={currency}
-        />
-      </SkeletonWrapper>
+    <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+        <SkeletonWrapper isLoading={isLoading}>
+          <CardStatistic
+            title="Income"
+            icon="statistic-up"
+            value={income}
+            currency={currency}
+          />
+        </SkeletonWrapper>
+        <SkeletonWrapper isLoading={isLoading}>
+          <CardStatistic
+            title="Expense"
+            icon="statistic-down"
+            value={expense}
+            currency={currency}
+          />
+        </SkeletonWrapper>
+        <SkeletonWrapper isLoading={isLoading}>
+          <CardStatistic
+            title="Balance"
+            icon="calculator"
+            value={balance}
+            currency={currency}
+          />
+        </SkeletonWrapper>
+      </div>
 
       {data &&
         data
           ?.filter((el) => el.currency !== currency)
           .map((el) => (
-            <>
+            <div key={el.currency} className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
               <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Income"
@@ -80,7 +82,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
                   currency={el.currency}
                 />
               </SkeletonWrapper>
-            </>
+            </div>
           ))}
     </div>
   );
