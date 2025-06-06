@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { queryKey } from "@/config/query-key";
-import { dateToUTCDate, getUTCRange } from "@/lib/date-helper";
+import { getUTCRange } from "@/lib/date-helper";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import {
