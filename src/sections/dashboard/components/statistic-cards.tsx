@@ -1,6 +1,7 @@
 import { Balancetype } from "@/app/api/statistics/balance/route";
 import CardStatistic from "@/components/card/card-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
+import { queryKey } from "@/config/query-key";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,8 +12,8 @@ type Props = {
 };
 
 export default function StatisticCards({ from, to, currency }: Props) {
-  const { data, isFetching } = useQuery<Balancetype>({
-    queryKey: ["overview", "statistics", from, to],
+  const { data, isLoading } = useQuery<Balancetype>({
+    queryKey: [queryKey.overview, queryKey.statistics, from, to],
     queryFn: () =>
       fetch(`/api/statistics/balance?from=${dateToUTCDate(from)}&to=${dateToUTCDate(to)}`).then((res) =>
         res.json()
@@ -25,7 +26,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <CardStatistic
           title="Income"
           icon="statistic-up"
@@ -33,7 +34,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
           currency={currency}
         />
       </SkeletonWrapper>
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <CardStatistic
           title="Expense"
           icon="statistic-down"
@@ -41,7 +42,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
           currency={currency}
         />
       </SkeletonWrapper>
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <CardStatistic
           title="Balance"
           icon="calculator"
@@ -55,7 +56,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
           ?.filter((el) => el.currency !== currency)
           .map((el) => (
             <>
-              <SkeletonWrapper isFetching={isFetching}>
+              <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Income"
                   icon="statistic-up"
@@ -63,7 +64,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
                   currency={el.currency}
                 />
               </SkeletonWrapper>
-              <SkeletonWrapper isFetching={isFetching}>
+              <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Expense"
                   icon="statistic-down"
@@ -71,7 +72,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
                   currency={el.currency}
                 />
               </SkeletonWrapper>
-              <SkeletonWrapper isFetching={isFetching}>
+              <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Balance"
                   icon="calculator"

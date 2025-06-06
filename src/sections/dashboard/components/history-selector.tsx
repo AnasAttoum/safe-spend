@@ -17,6 +17,7 @@ import { Period, Timeframe } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import Chart from "./chart";
 import SelectCurrency from "@/components/select/select-currency";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   timeframe: Timeframe;
@@ -24,7 +25,7 @@ type Props = {
   period: Period;
   setPeriod: (period: Period) => void;
   historyData: getHistoryDataResponseType;
-  historyDataIsFetching: boolean;
+  historyDataIsLoading: boolean;
   curr: string;
   setCurr: (val: string) => void;
 };
@@ -35,17 +36,17 @@ export default function HistorySelector({
   period,
   setPeriod,
   historyData,
-  historyDataIsFetching,
+  historyDataIsLoading,
   curr,
   setCurr,
 }: Props) {
-  const { data, isFetching } = useQuery<getHistoryPeriodsType>({
-    queryKey: ["overview", "history", "periods"],
+  const { data, isLoading } = useQuery<getHistoryPeriodsType>({
+    queryKey: [queryKey.overview, queryKey.history, queryKey.periods],
     queryFn: () => fetch("/api/history/periods").then((res) => res.json()),
   });
 
   return (
-    <SkeletonWrapper isFetching={isFetching}>
+    <SkeletonWrapper isLoading={isLoading}>
       <Card className="p-5">
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <div className="flex flex-wrap gap-2">
@@ -91,7 +92,7 @@ export default function HistorySelector({
           </div>
         </div>
 
-        <SkeletonWrapper isFetching={historyDataIsFetching}>
+        <SkeletonWrapper isLoading={historyDataIsLoading}>
           {historyData && historyData.length > 0 ? (
             <Chart data={historyData} timeframe={timeframe} />
           ) : (

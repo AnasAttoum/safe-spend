@@ -11,17 +11,17 @@ import { flexRender, Table as TableType } from "@tanstack/react-table";
 import { DataTablePagination } from "./pagination";
 
 export default function DataTable({
-  isFetching,
+  isLoading,
   table,
   columnsLength,
 }: {
-  isFetching: boolean;
+  isLoading: boolean;
   table: TableType<any>;
   columnsLength: number;
 }) {
   return (
     <div className="rounded-md border">
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

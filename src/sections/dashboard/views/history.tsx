@@ -5,17 +5,18 @@ import { useState } from "react";
 import HistorySelector from "../components/history-selector";
 import { useQuery } from "@tanstack/react-query";
 import { getHistoryDataResponseType } from "@/app/api/history/data/route";
+import { queryKey } from "@/config/query-key";
 
 export default function History({ currency }: { currency: string }) {
   const [curr, setCurr] = useState(currency);
-  const [timeframe, setTimeframe] = useState<Timeframe>("month");
+  const [timeframe, setTimeframe] = useState<Timeframe>("year");
   const [period, setPeriod] = useState<Period>({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
 
-  const { data, isFetching } = useQuery<getHistoryDataResponseType>({
-    queryKey: ["overview", "history", timeframe, period, curr],
+  const { data, isLoading } = useQuery<getHistoryDataResponseType>({
+    queryKey: [queryKey.overview, queryKey.history, timeframe, period, curr],
     queryFn: () =>
       fetch(
         `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}&currency=${curr}`
@@ -32,7 +33,7 @@ export default function History({ currency }: { currency: string }) {
         period={period}
         setPeriod={setPeriod}
         historyData={data || []}
-        historyDataIsFetching={isFetching}
+        historyDataIsLoading={isLoading}
         curr={curr}
         setCurr={setCurr}
       />

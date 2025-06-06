@@ -18,6 +18,7 @@ import Loading from "../loading/loading";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import CategoryRow from "./row/category-row";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   type: "income" | "expense";
@@ -28,8 +29,8 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
   const [value, setValue] = useState<Category>();
   const [open, setOpen] = useState(false);
 
-  const { isFetching, data } = useQuery<Category[]>({
-    queryKey: ["category", type],
+  const { isLoading, data } = useQuery<Category[]>({
+    queryKey: [queryKey.category, type],
     queryFn: () =>
       fetch(`/api/category?type=${type}`).then((res) => res.json()),
   });
@@ -54,7 +55,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
             setValueTransaction={setValueTransaction}
             setOpen={setOpen}
           />
-          {isFetching ? (
+          {isLoading ? (
             <Loading />
           ) : (
             <CommandList>

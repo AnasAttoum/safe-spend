@@ -6,6 +6,7 @@ import Icon from "@/components/icon/icon";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { queryKey } from "@/config/query-key";
 import { useQuery } from "@tanstack/react-query";
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 
 export default function CategoryList({ type }: Props) {
   const { data, isLoading } = useQuery({
-    queryKey: ["category", type],
+    queryKey: [queryKey.category, type],
     queryFn: () =>
       fetch(`/api/category?type=${type}`).then((res) => res.json()),
   });
@@ -22,7 +23,7 @@ export default function CategoryList({ type }: Props) {
   const dataAvailable = data && Array.isArray(data) && data.length;
 
   return (
-    <SkeletonWrapper isFetching={isLoading}>
+    <SkeletonWrapper isLoading={isLoading}>
       <Card>
         <CardHeader className="text-start">
           <CardTitle className="flex justify-between">

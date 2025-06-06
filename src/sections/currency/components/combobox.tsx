@@ -25,6 +25,7 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { User } from "@/generated/prisma";
 import { updateUserCurrency } from "@/actions/user";
 import { toast } from "sonner";
+import { queryKey } from "@/config/query-key";
 
 type Status = {
   value: string;
@@ -38,8 +39,8 @@ export function ComboBox() {
     null
   );
 
-  const { isFetching, data } = useQuery<User>({
-    queryKey: ["user"],
+  const { isLoading, data } = useQuery<User>({
+    queryKey: [queryKey.user],
     queryFn: () => fetch("/api/user").then((res) => res.json()),
   });
 
@@ -49,7 +50,7 @@ export function ComboBox() {
       (currency) => currency.value === data.currency
     );
     if (userCurrency) setselectedOption(userCurrency);
-  },[data]);
+  }, [data]);
 
   const mutation = useMutation({
     mutationFn: updateUserCurrency,
@@ -79,11 +80,11 @@ export function ComboBox() {
       id: "updateCurrency",
     });
     mutation.mutate(currency.value);
-  },[mutation]);
+  }, [mutation]);
 
   if (isDesktop) {
     return (
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -112,7 +113,7 @@ export function ComboBox() {
   }
 
   return (
-    <SkeletonWrapper isFetching={isFetching}>
+    <SkeletonWrapper isLoading={isLoading}>
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
           <Button
@@ -162,7 +163,7 @@ function StatusList({
               onSelect={(value) => {
                 setselectedOption(
                   currencies.find((currency) => currency.value === value) ||
-                    null
+                  null
                 );
                 setOpen(false);
               }}

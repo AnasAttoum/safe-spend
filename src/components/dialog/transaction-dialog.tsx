@@ -24,6 +24,7 @@ import { createTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
 import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   trigger: ReactNode;
@@ -67,8 +68,8 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
         currency,
       });
 
-      // Invalidate the overview query which will refetch data in the home page
-      queryClient.invalidateQueries({ queryKey: ["overview"] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.transaction] });
     },
     onError: (error) => {
       toast.error(

@@ -23,6 +23,7 @@ import {
 } from "../ui/dialog";
 import { FullForm } from "../ui/form";
 import Field from "../fields/field";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   type: "income" | "expense";
@@ -61,12 +62,12 @@ export default function CreateCategory({
 
     onSuccess: async (data: Category) => {
       if (setValue) setValue(data);
-      
+
       if (setValueTransaction) {
         setValueTransaction("category", data.name);
         setValueTransaction("categoryIcon", data.icon);
       }
-      queryClient.invalidateQueries({ queryKey: ["category", type] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.category, type] });
       reset({
         name: "",
         icon: "",

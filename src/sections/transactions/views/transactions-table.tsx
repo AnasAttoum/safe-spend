@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { queryKey } from "@/config/query-key";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -37,7 +38,7 @@ export default function TransactionsTable({ from, to }: Props) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const { data, isLoading } = useQuery<getTransactionsHistoryDataResponseType>({
-    queryKey: ["transaction", "history", from, to],
+    queryKey: [queryKey.transaction, queryKey.history, from, to],
     queryFn: () =>
       fetch(
         `/api/history/transactions?from=${dateToUTCDate(
@@ -88,7 +89,7 @@ export default function TransactionsTable({ from, to }: Props) {
             options={categoriesOptions}
           />
         )}
-        {data?.length && data.length > 1 && table.getColumn("type") && (
+        {(data?.length ?? 0) > 1 && table.getColumn("type") && (
           <DataTableFacetedFilter
             title="Type"
             column={table.getColumn("type")}
@@ -102,7 +103,7 @@ export default function TransactionsTable({ from, to }: Props) {
         <DataTableViewOptions table={table} />
       </div>
       <DataTable
-        isFetching={isLoading}
+        isLoading={isLoading}
         table={table}
         columnsLength={columns.length}
       />
@@ -200,16 +201,16 @@ const RowActions = ({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {/* <DropdownMenuItem onSelect={() => setOpena(false)}> */}
-          <DeleteDialog
-            item="transaction"
-            id={transaction.id}
-            trigger={
-              <Button variant="ghost" className="w-full text-start">
-                <Icon icon="trash" />
-                Delete
-              </Button>
-            }
-          />
+        <DeleteDialog
+          item="transaction"
+          id={transaction.id}
+          trigger={
+            <Button variant="ghost" className="w-full text-start">
+              <Icon icon="trash" />
+              Delete
+            </Button>
+          }
+        />
         {/* </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
