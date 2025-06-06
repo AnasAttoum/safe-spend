@@ -2,6 +2,7 @@ import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
+import { format } from "date-fns";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
@@ -30,8 +31,8 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
     where: {
       userId: id,
       date: {
-        gte: from,
-        lte: to,
+        gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
+        lte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
       },
     },
     _sum: {
@@ -39,13 +40,20 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
     },
   });
 
+  console.log(
+    "🚀 ~ getBalanceStats ~ totalTransactions:",
+    from,
+    format(from, "yyyy-MM-dd 00:00:00"),
+    totalTransactions
+  );
+
   const totalExchanges = await prisma.exchange.groupBy({
     by: ["exchangeCurrency", "targetCurrency"],
     where: {
       userId: id,
       date: {
-        gte: from,
-        lte: to,
+        gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
+        lte: new Date(format(to, "yyyy-MM-dd 00:00:00")),
       },
     },
     _sum: {
@@ -53,7 +61,6 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
       collectedAmount: true,
     },
   });
-  console.log("🚀 ~ getBalanceStats ~ totalExchanges:", totalExchanges);
 
   const stats: Record<
     string,
