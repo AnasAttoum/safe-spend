@@ -17,7 +17,7 @@ export const createExchangeSchema = z
       })
       .positive("Amount must be greater than 0.")
       .multipleOf(0.01, { message: "Amount must be a multiple of 0.01." }),
-    title: z.string().min(3).max(50),
+    title: z.string().min(3).max(100),
     date: z.coerce.date(),
     exchangeCurrency: z.custom((value) => {
       const found = currencies.some((currency) => currency.value === value);
