@@ -3,7 +3,6 @@ import { handleFormatDate } from "@/lib/date-helper";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
-import { format } from "date-fns";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
@@ -20,8 +19,8 @@ export async function GET(request: Request) {
 
   const stats = await getBalanceStats(
     user.id,
-    handleFormatDate(parsedBody.data.from, "from"),
-    handleFormatDate(parsedBody.data.to, "to")
+    handleFormatDate(parsedBody.data.from),
+    handleFormatDate(parsedBody.data.to)
   );
   return Response.json(stats);
 }

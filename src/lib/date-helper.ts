@@ -12,7 +12,7 @@ export const dateToUTCDate = (date: Date) => {
   );
 };
 
-export const handleFormatDate = (date: Date, type: "from" | "to"): Date => {
+export const handleFormatDate = (date: Date): Date => {
   const formattedDate = new Date(date);
   formattedDate.setHours(0, 0, 0, 0);
   return formattedDate;
