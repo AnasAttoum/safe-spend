@@ -1,5 +1,4 @@
 import { routes } from "@/config/routes";
-import { handleFormatDate } from "@/lib/date-helper";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
@@ -19,8 +18,8 @@ export async function GET(request: Request) {
 
   const stats = await getCategoriesStats(
     user.id,
-    handleFormatDate(parsedBody.data.from),
-    handleFormatDate(parsedBody.data.to)
+    parsedBody.data.from,
+    parsedBody.data.to
   );
   return Response.json(stats);
 }
