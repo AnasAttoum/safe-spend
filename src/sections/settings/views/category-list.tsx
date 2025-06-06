@@ -23,7 +23,7 @@ export default function CategoryList({ type }: Props) {
   const dataAvailable = data && Array.isArray(data) && data.length;
 
   return (
-    <SkeletonWrapper isFetching={isLoading}>
+    <SkeletonWrapper isLoading={isLoading}>
       <Card>
         <CardHeader className="text-start">
           <CardTitle className="flex justify-between">

@@ -1,3 +1,4 @@
+import { defaultCurrency } from "@/config/currencies";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
@@ -22,6 +23,15 @@ export async function GET() {
     currency,
     total: (_sum.income || 0) - (_sum.expense || 0),
   }));
+
+  if (!result.length) {
+    const userRow = await prisma.user.findFirst({
+      where: { userId: user.id },
+    });
+    return Response.json([
+      { currency: userRow?.currency || defaultCurrency.value, total: 0 },
+    ]);
+  }
 
   return Response.json(result);
 }

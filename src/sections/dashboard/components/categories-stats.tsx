@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function CategoriesStats({ from, to }: Props) {
-  const { data, isFetching } = useQuery<Categoriestype>({
+  const { data, isLoading } = useQuery<Categoriestype>({
     queryKey: [queryKey.overview, queryKey.statistics, queryKey.category, from, to],
     queryFn: () =>
       fetch(
@@ -23,10 +23,10 @@ export default function CategoriesStats({ from, to }: Props) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <CategoryStatistic type="income" data={data || []} />
       </SkeletonWrapper>
-      <SkeletonWrapper isFetching={isFetching}>
+      <SkeletonWrapper isLoading={isLoading}>
         <CategoryStatistic type="expense" data={data || []} />
       </SkeletonWrapper>
     </div>

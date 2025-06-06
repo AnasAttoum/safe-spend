@@ -1,8 +1,18 @@
+import { currentUser } from "@clerk/nextjs/server";
 import { DeleteMyDataDialog } from "@/components/dialog/delete-my-data-dialog";
 import CategoryList from "./views/category-list";
 import Currency from "./views/currency";
+import { redirect } from "next/navigation";
+import { routes } from "@/config/routes";
+import { prisma } from "@/lib/prisma";
 
-export default function Settings() {
+export default async function Settings() {
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const userData = await prisma.user.findUnique({ where: { userId: user.id } });
+  if (!userData) redirect(routes.currency);
+
   return (
     <>
       <div className="py-3">
@@ -19,7 +29,6 @@ export default function Settings() {
       </div>
 
       <DeleteMyDataDialog />
-
     </>
   );
 }

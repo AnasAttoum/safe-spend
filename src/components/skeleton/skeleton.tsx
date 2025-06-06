@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  isFetching: boolean;
+  isLoading: boolean;
 };
 
-export default function SkeletonWrapper({ children, isFetching }: Props) {
-  if (!isFetching) return children;
+export default function SkeletonWrapper({ children, isLoading }: Props) {
+  if (!isLoading) return children;
   return (
     <Skeleton>
       <div className="opacity-0">{children}</div>

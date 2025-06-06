@@ -68,8 +68,8 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
         currency,
       });
 
-      // Invalidate the overview query which will refetch data in the home page
       queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.transaction] });
     },
     onError: (error) => {
       toast.error(
