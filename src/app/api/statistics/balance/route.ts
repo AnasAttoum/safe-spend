@@ -32,7 +32,7 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
       userId: id,
       date: {
         gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
-        lte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
+        lte: new Date(format(to, "yyyy-MM-dd 00:00:00")),
       },
     },
     _sum: {
