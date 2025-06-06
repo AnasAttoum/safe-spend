@@ -17,6 +17,7 @@ import { Period, Timeframe } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import Chart from "./chart";
 import SelectCurrency from "@/components/select/select-currency";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   timeframe: Timeframe;
@@ -40,7 +41,7 @@ export default function HistorySelector({
   setCurr,
 }: Props) {
   const { data, isFetching } = useQuery<getHistoryPeriodsType>({
-    queryKey: ["overview", "history", "periods"],
+    queryKey: [queryKey.overview, queryKey.history, queryKey.periods],
     queryFn: () => fetch("/api/history/periods").then((res) => res.json()),
   });
 

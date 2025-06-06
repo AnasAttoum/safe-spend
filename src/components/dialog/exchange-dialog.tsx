@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { createExchangeSchema, createExchangeType } from "@/schema/exchange";
 import { createExchange } from "@/actions/exchange";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   trigger: ReactNode;
@@ -62,7 +63,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
       });
 
       // Invalidate the overview query which will refetch data in the home page
-      queryClient.invalidateQueries({ queryKey: ["overview"] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
     },
     onError: (error) => {
       toast.error(

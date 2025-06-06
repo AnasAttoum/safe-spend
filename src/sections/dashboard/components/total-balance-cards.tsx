@@ -1,10 +1,11 @@
 import CardBalanceTotal from "@/components/card/card-balance-total";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
+import { queryKey } from "@/config/query-key";
 import { useQuery } from "@tanstack/react-query";
 
 export default function TotalBalanceCards() {
   const { data, isFetching } = useQuery({
-    queryKey: ["overview", "statistics"],
+    queryKey: [queryKey.overview, queryKey.statistics],
     queryFn: () =>
       fetch(`/api/statistics/total`).then((res) =>
         res.json()

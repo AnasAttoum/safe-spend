@@ -1,6 +1,7 @@
 import { Balancetype } from "@/app/api/statistics/balance/route";
 import CardStatistic from "@/components/card/card-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
+import { queryKey } from "@/config/query-key";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,7 +13,7 @@ type Props = {
 
 export default function StatisticCards({ from, to, currency }: Props) {
   const { data, isFetching } = useQuery<Balancetype>({
-    queryKey: ["overview", "statistics", from, to],
+    queryKey: [queryKey.overview, queryKey.statistics, from, to],
     queryFn: () =>
       fetch(`/api/statistics/balance?from=${dateToUTCDate(from)}&to=${dateToUTCDate(to)}`).then((res) =>
         res.json()

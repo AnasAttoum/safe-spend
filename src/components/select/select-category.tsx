@@ -18,6 +18,7 @@ import Loading from "../loading/loading";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import CategoryRow from "./row/category-row";
+import { queryKey } from "@/config/query-key";
 
 type Props = {
   type: "income" | "expense";
@@ -29,7 +30,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
   const [open, setOpen] = useState(false);
 
   const { isFetching, data } = useQuery<Category[]>({
-    queryKey: ["category", type],
+    queryKey: [queryKey.category, type],
     queryFn: () =>
       fetch(`/api/category?type=${type}`).then((res) => res.json()),
   });

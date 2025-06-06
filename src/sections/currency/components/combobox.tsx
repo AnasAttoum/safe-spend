@@ -25,6 +25,7 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { User } from "@/generated/prisma";
 import { updateUserCurrency } from "@/actions/user";
 import { toast } from "sonner";
+import { queryKey } from "@/config/query-key";
 
 type Status = {
   value: string;
@@ -39,7 +40,7 @@ export function ComboBox() {
   );
 
   const { isFetching, data } = useQuery<User>({
-    queryKey: ["user"],
+    queryKey: [queryKey.user],
     queryFn: () => fetch("/api/user").then((res) => res.json()),
   });
 

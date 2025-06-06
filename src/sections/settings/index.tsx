@@ -1,3 +1,4 @@
+import { DeleteMyDataDialog } from "@/components/dialog/delete-my-data-dialog";
 import CategoryList from "./views/category-list";
 import Currency from "./views/currency";
 
@@ -16,6 +17,9 @@ export default function Settings() {
         <CategoryList type="income" />
         <CategoryList type="expense" />
       </div>
+
+      <DeleteMyDataDialog />
+
     </>
   );
 }
