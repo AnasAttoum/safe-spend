@@ -12,8 +12,8 @@ export const dateToUTCDate = (date: Date) => {
   );
 };
 
-export const handleFormatDate = (date: Date): Date => {
-  const formattedDate = new Date(date);
-  formattedDate.setHours(0, 0, 0, 0);
-  return formattedDate;
-};
+export function getUTCRange(from: Date, to: Date) {
+  const fromUTC = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate(), 0, 0, 0, 0));
+  const toUTC = new Date(Date.UTC(to.getFullYear(), to.getMonth(), to.getDate(), 23, 59, 59, 999));
+  return { fromUTC, toUTC };
+}
