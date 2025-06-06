@@ -1,4 +1,5 @@
 import { routes } from "@/config/routes";
+import { handleFormatDate } from "@/lib/date-helper";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
@@ -19,8 +20,8 @@ export async function GET(request: Request) {
 
   const stats = await getBalanceStats(
     user.id,
-    parsedBody.data.from,
-    parsedBody.data.to
+    handleFormatDate(parsedBody.data.from, "from"),
+    handleFormatDate(parsedBody.data.to, "to")
   );
   return Response.json(stats);
 }
@@ -31,8 +32,8 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
     where: {
       userId: id,
       date: {
-        gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
-        lte: new Date(format(to, "yyyy-MM-dd 00:00:00")),
+        gte: from,
+        lte: to,
       },
     },
     _sum: {
@@ -40,20 +41,13 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
     },
   });
 
-  console.log(
-    "🚀 ~ getBalanceStats ~ totalTransactions:",
-    from,
-    format(from, "yyyy-MM-dd 00:00:00"),
-    totalTransactions
-  );
-
   const totalExchanges = await prisma.exchange.groupBy({
     by: ["exchangeCurrency", "targetCurrency"],
     where: {
       userId: id,
       date: {
-        gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
-        lte: new Date(format(to, "yyyy-MM-dd 00:00:00")),
+        gte: from,
+        lte: to,
       },
     },
     _sum: {
