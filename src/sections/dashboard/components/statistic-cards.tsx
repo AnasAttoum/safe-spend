@@ -2,7 +2,7 @@ import { Balancetype } from "@/app/api/statistics/balance/route";
 import CardStatistic from "@/components/card/card-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { queryKey } from "@/config/query-key";
-import { dateToUTCDate, getUTCRange } from "@/lib/date-helper";
+import { getUTCRange } from "@/lib/date-helper";
 import { useQuery } from "@tanstack/react-query";
 
 type Props = {
