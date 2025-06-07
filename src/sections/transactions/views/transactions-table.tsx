@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from "@/app/api/history/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
 import DataTable from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
@@ -42,7 +42,7 @@ export default function TransactionsTable({ from, to }: Props) {
     queryKey: [queryKey.transaction, queryKey.history, from, to],
     queryFn: () =>
       fetch(
-        `/api/history/transactions?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
+        `/api/transactions?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
       ).then((res) => res.json()),
   });
 
@@ -66,12 +66,12 @@ export default function TransactionsTable({ from, to }: Props) {
     value: string;
   }[] = useMemo(() => {
     const seen = new Map();
-    data?.forEach(({ category, categoryIcon }) => {
-      const key = category;
+    data?.forEach(({ Category: { icon, name } }) => {
+      const key = name;
       if (!seen.has(key)) {
         seen.set(key, {
-          label: `${categoryIcon} ${category}`,
-          value: category,
+          label: `${icon} ${name}`,
+          value: name,
         });
       }
     });
@@ -138,13 +138,14 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
   },
   {
     accessorKey: "category",
+    accessorFn: (row) => row.Category.name,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
     cell: ({ row }) => (
       <div>
-        {row.original.categoryIcon} {row.original.category}
+        {row.original.Category.icon} {row.original.Category.name}
       </div>
     ),
   },

@@ -35,6 +35,8 @@ model Category {
 
   createdAt DateTime @default(now())
 
+  transactions Transaction[]
+
   @@unique([name, userId, type])
 }
 
@@ -46,8 +48,8 @@ model Transaction {
   title  String
   type   String @default("income")
 
-  category     String
-  categoryIcon String
+  categoryId String
+  Category   Category @relation(fields: [categoryId], references: [id])
 
   currency String
 

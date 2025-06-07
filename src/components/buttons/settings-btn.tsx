@@ -1,21 +1,19 @@
-"use client"
-
 import React from "react";
 import { Button } from "../ui/button";
 import { routes } from "@/config/routes";
 import Icon from "../icon/icon";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SettingsBtn() {
-  const router = useRouter();
 
   return (
-    <Button
-      variant="outline"
-      className="px-2 cursor-pointer"
-      onClick={() => router.push(routes.settings)}
-    >
-      <Icon icon="settings" rotate />
-    </Button>
+    <Link href={routes.settings}>
+      <Button
+        variant="outline"
+        className="px-2 cursor-pointer"
+      >
+        <Icon icon="settings" rotate />
+      </Button>
+    </Link>
   );
 }

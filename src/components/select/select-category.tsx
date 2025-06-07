@@ -22,7 +22,7 @@ import { queryKey } from "@/config/query-key";
 
 type Props = {
   type: "income" | "expense";
-  setValueTransaction: (name: "category" | "categoryIcon", val: string) => void;
+  setValueTransaction: (name: "categoryId", val: string) => void;
 };
 
 export default function SelectCategory({ type, setValueTransaction }: Props) {
@@ -71,8 +71,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
                           // value={category.name}
                           onSelect={() => {
                             setValue(category);
-                            setValueTransaction("category", category.name);
-                            setValueTransaction("categoryIcon", category.icon);
+                            setValueTransaction("categoryId", category.id);
                             setOpen(false);
                           }}
                           className="cursor-pointer"

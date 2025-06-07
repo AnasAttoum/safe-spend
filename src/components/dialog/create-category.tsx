@@ -30,7 +30,7 @@ type Props = {
   setValue?: (val: Category) => void;
   setOpen?: (val: false) => void;
   setValueTransaction?: (
-    name: "category" | "categoryIcon",
+    name: "categoryId",
     val: string
   ) => void;
 };
@@ -64,8 +64,7 @@ export default function CreateCategory({
       if (setValue) setValue(data);
 
       if (setValueTransaction) {
-        setValueTransaction("category", data.name);
-        setValueTransaction("categoryIcon", data.icon);
+        setValueTransaction("categoryId", data.id);
       }
       queryClient.invalidateQueries({ queryKey: [queryKey.category, type] });
       reset({

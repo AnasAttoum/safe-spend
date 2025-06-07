@@ -63,7 +63,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
         type,
         amount: 0,
         date: new Date(),
-        category: undefined,
+        categoryId: undefined,
         title: "",
         currency,
       });
@@ -98,7 +98,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             type,
             amount: 0,
             date: new Date(),
-            category: undefined,
+            categoryId: undefined,
             title: "",
             currency,
           });
@@ -147,7 +147,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
           />
           <Field
             control={form.control}
-            name="category"
+            name="categoryId"
             label="Category"
             description="Transaction category"
             specificNode={

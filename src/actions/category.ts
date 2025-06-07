@@ -63,8 +63,7 @@ export async function deleteCategory(form: deleteSchemaType) {
   const transactionsToDelete = await prisma.transaction.findMany({
     where: {
       userId: user.id,
-      category: categoryRow?.name,
-      categoryIcon: categoryRow?.icon,
+      categoryId: categoryRow?.id,
     },
     select: {
       id: true,

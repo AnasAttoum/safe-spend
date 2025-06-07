@@ -38,13 +38,14 @@ export function DeleteMyDataDialog() {
         `Your data deleted successfully`,
         { id: 'delete-my-data' }
       );
-
+      
       router.push(routes.currency);
       queryClient.invalidateQueries({
         queryKey: [queryKey.category, queryKey.history, queryKey.overview, queryKey.periods, queryKey.statistics, queryKey.transaction, queryKey.user],
       });
     },
-    onError: () => {
+    onError: (error) => {
+      console.log("🚀 ~ DeleteMyDataDialog ~ error:", error)
       toast.error("Something went wrong", { id: 'delete-my-data' });
     },
   });
