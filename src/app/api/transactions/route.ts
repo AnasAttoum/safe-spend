@@ -44,4 +44,12 @@ const getHistoryData = async (userId: string, from: Date, to: Date) =>
     orderBy: {
       date: "desc",
     },
+    include: {
+      Category: {
+        select: {
+          name: true,
+          icon: true,
+        },
+      },
+    },
   });

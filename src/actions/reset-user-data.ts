@@ -10,10 +10,10 @@ export async function resetUserData() {
   if (!user) redirect(routes.signIn);
 
   await prisma.$transaction([
+    prisma.transaction.deleteMany({ where: { userId: user.id } }),
     prisma.category.deleteMany({ where: { userId: user.id } }),
     prisma.exchange.deleteMany({ where: { userId: user.id } }),
     prisma.monthTable.deleteMany({ where: { userId: user.id } }),
-    prisma.transaction.deleteMany({ where: { userId: user.id } }),
     prisma.yearTable.deleteMany({ where: { userId: user.id } }),
     prisma.user.delete({ where: { userId: user.id } }),
   ]);

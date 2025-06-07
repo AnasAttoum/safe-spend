@@ -34,12 +34,12 @@ export default function CategoryStatistic({ type, data }: Props) {
               const percentage = (amount * 100) / (total || amount);
               return (
                 <div
-                  key={el.categoryIcon + el.category + el.currency}
+                  key={el.categoryId}
                   className="flex flex-col gap-2"
                 >
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
-                      {el.categoryIcon} {el.category}
+                      {el.category?.icon} {el.category?.name}
                       <span className="text-blue-primary text-xs">
                         ({percentage.toFixed(1)}% {el.currency})
                       </span>

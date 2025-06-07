@@ -11,8 +11,7 @@ export const createTransactionSchema = z.object({
     .multipleOf(0.01, { message: "Amount must be a multiple of 0.01." }),
   title: z.string().min(3).max(100),
   date: z.coerce.date(),
-  category: z.string().min(3).max(50),
-  categoryIcon: z.string().max(20),
+  categoryId: z.string().min(3),
   type: z.union([z.literal("income"), z.literal("expense")]),
   currency: z.custom((value) => {
     const found = currencies.some((currency) => currency.value === value);

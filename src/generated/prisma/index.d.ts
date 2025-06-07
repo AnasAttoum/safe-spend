@@ -1319,6 +1319,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type CategoryCountOutputType
+   */
+
+  export type CategoryCountOutputType = {
+    transactions: number
+  }
+
+  export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | CategoryCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryCountOutputType
+     */
+    select?: CategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
 
   /**
    * Models
@@ -2452,6 +2482,8 @@ export namespace Prisma {
     icon?: boolean
     type?: boolean
     createdAt?: boolean
+    transactions?: boolean | Category$transactionsArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2482,10 +2514,18 @@ export namespace Prisma {
   }
 
   export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "icon" | "type" | "createdAt", ExtArgs["result"]["category"]>
+  export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | Category$transactionsArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Category"
-    objects: {}
+    objects: {
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
@@ -2887,6 +2927,7 @@ export namespace Prisma {
    */
   export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    transactions<T extends Category$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Category$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2939,6 +2980,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * Filter, which Category to fetch.
      */
     where: CategoryWhereUniqueInput
@@ -2957,6 +3002,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * Filter, which Category to fetch.
      */
     where: CategoryWhereUniqueInput
@@ -2974,6 +3023,10 @@ export namespace Prisma {
      * Omit specific fields from the Category
      */
     omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
     /**
      * Filter, which Category to fetch.
      */
@@ -3023,6 +3076,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * Filter, which Category to fetch.
      */
     where?: CategoryWhereInput
@@ -3071,6 +3128,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * Filter, which Categories to fetch.
      */
     where?: CategoryWhereInput
@@ -3113,6 +3174,10 @@ export namespace Prisma {
      * Omit specific fields from the Category
      */
     omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
     /**
      * The data needed to create a Category.
      */
@@ -3161,6 +3226,10 @@ export namespace Prisma {
      * Omit specific fields from the Category
      */
     omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
     /**
      * The data needed to update a Category.
      */
@@ -3228,6 +3297,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * The filter to search for the Category to update in case it exists.
      */
     where: CategoryWhereUniqueInput
@@ -3254,6 +3327,10 @@ export namespace Prisma {
      */
     omit?: CategoryOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
      * Filter which Category to delete.
      */
     where: CategoryWhereUniqueInput
@@ -3274,6 +3351,30 @@ export namespace Prisma {
   }
 
   /**
+   * Category.transactions
+   */
+  export type Category$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
    * Category without action
    */
   export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3285,6 +3386,10 @@ export namespace Prisma {
      * Omit specific fields from the Category
      */
     omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
   }
 
 
@@ -3314,8 +3419,7 @@ export namespace Prisma {
     amount: number | null
     title: string | null
     type: string | null
-    category: string | null
-    categoryIcon: string | null
+    categoryId: string | null
     currency: string | null
     date: Date | null
     createdAt: Date | null
@@ -3328,8 +3432,7 @@ export namespace Prisma {
     amount: number | null
     title: string | null
     type: string | null
-    category: string | null
-    categoryIcon: string | null
+    categoryId: string | null
     currency: string | null
     date: Date | null
     createdAt: Date | null
@@ -3342,8 +3445,7 @@ export namespace Prisma {
     amount: number
     title: number
     type: number
-    category: number
-    categoryIcon: number
+    categoryId: number
     currency: number
     date: number
     createdAt: number
@@ -3366,8 +3468,7 @@ export namespace Prisma {
     amount?: true
     title?: true
     type?: true
-    category?: true
-    categoryIcon?: true
+    categoryId?: true
     currency?: true
     date?: true
     createdAt?: true
@@ -3380,8 +3481,7 @@ export namespace Prisma {
     amount?: true
     title?: true
     type?: true
-    category?: true
-    categoryIcon?: true
+    categoryId?: true
     currency?: true
     date?: true
     createdAt?: true
@@ -3394,8 +3494,7 @@ export namespace Prisma {
     amount?: true
     title?: true
     type?: true
-    category?: true
-    categoryIcon?: true
+    categoryId?: true
     currency?: true
     date?: true
     createdAt?: true
@@ -3495,8 +3594,7 @@ export namespace Prisma {
     amount: number
     title: string
     type: string
-    category: string
-    categoryIcon: string
+    categoryId: string
     currency: string
     date: Date
     createdAt: Date
@@ -3528,12 +3626,12 @@ export namespace Prisma {
     amount?: boolean
     title?: boolean
     type?: boolean
-    category?: boolean
-    categoryIcon?: boolean
+    categoryId?: boolean
     currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3542,12 +3640,12 @@ export namespace Prisma {
     amount?: boolean
     title?: boolean
     type?: boolean
-    category?: boolean
-    categoryIcon?: boolean
+    categoryId?: boolean
     currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3556,12 +3654,12 @@ export namespace Prisma {
     amount?: boolean
     title?: boolean
     type?: boolean
-    category?: boolean
-    categoryIcon?: boolean
+    categoryId?: boolean
     currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
@@ -3570,27 +3668,36 @@ export namespace Prisma {
     amount?: boolean
     title?: boolean
     type?: boolean
-    category?: boolean
-    categoryIcon?: boolean
+    categoryId?: boolean
     currency?: boolean
     date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "category" | "categoryIcon" | "currency" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "title" | "type" | "categoryId" | "currency" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
-    objects: {}
+    objects: {
+      Category: Prisma.$CategoryPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       amount: number
       title: string
       type: string
-      category: string
-      categoryIcon: string
+      categoryId: string
       currency: string
       date: Date
       createdAt: Date
@@ -3989,6 +4096,7 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4023,8 +4131,7 @@ export namespace Prisma {
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly title: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'String'>
-    readonly category: FieldRef<"Transaction", 'String'>
-    readonly categoryIcon: FieldRef<"Transaction", 'String'>
+    readonly categoryId: FieldRef<"Transaction", 'String'>
     readonly currency: FieldRef<"Transaction", 'String'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
@@ -4046,6 +4153,10 @@ export namespace Prisma {
      */
     omit?: TransactionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where: TransactionWhereUniqueInput
@@ -4064,6 +4175,10 @@ export namespace Prisma {
      */
     omit?: TransactionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where: TransactionWhereUniqueInput
@@ -4081,6 +4196,10 @@ export namespace Prisma {
      * Omit specific fields from the Transaction
      */
     omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * Filter, which Transaction to fetch.
      */
@@ -4130,6 +4249,10 @@ export namespace Prisma {
      */
     omit?: TransactionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where?: TransactionWhereInput
@@ -4178,6 +4301,10 @@ export namespace Prisma {
      */
     omit?: TransactionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transactions to fetch.
      */
     where?: TransactionWhereInput
@@ -4221,6 +4348,10 @@ export namespace Prisma {
      */
     omit?: TransactionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * The data needed to create a Transaction.
      */
     data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
@@ -4254,6 +4385,10 @@ export namespace Prisma {
      */
     data: TransactionCreateManyInput | TransactionCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4268,6 +4403,10 @@ export namespace Prisma {
      * Omit specific fields from the Transaction
      */
     omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * The data needed to update a Transaction.
      */
@@ -4320,6 +4459,10 @@ export namespace Prisma {
      * Limit how many Transactions to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4334,6 +4477,10 @@ export namespace Prisma {
      * Omit specific fields from the Transaction
      */
     omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * The filter to search for the Transaction to update in case it exists.
      */
@@ -4360,6 +4507,10 @@ export namespace Prisma {
      * Omit specific fields from the Transaction
      */
     omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * Filter which Transaction to delete.
      */
@@ -4392,6 +4543,10 @@ export namespace Prisma {
      * Omit specific fields from the Transaction
      */
     omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
   }
 
 
@@ -7658,8 +7813,7 @@ export namespace Prisma {
     amount: 'amount',
     title: 'title',
     type: 'type',
-    category: 'category',
-    categoryIcon: 'categoryIcon',
+    categoryId: 'categoryId',
     currency: 'currency',
     date: 'date',
     createdAt: 'createdAt',
@@ -7837,6 +7991,7 @@ export namespace Prisma {
     icon?: StringFilter<"Category"> | string
     type?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
+    transactions?: TransactionListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
@@ -7846,6 +8001,7 @@ export namespace Prisma {
     icon?: SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -7859,6 +8015,7 @@ export namespace Prisma {
     icon?: StringFilter<"Category"> | string
     type?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
+    transactions?: TransactionListRelationFilter
   }, "id" | "name_userId_type">
 
   export type CategoryOrderByWithAggregationInput = {
@@ -7894,12 +8051,12 @@ export namespace Prisma {
     amount?: FloatFilter<"Transaction"> | number
     title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
-    category?: StringFilter<"Transaction"> | string
-    categoryIcon?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
     currency?: StringFilter<"Transaction"> | string
     date?: DateTimeFilter<"Transaction"> | Date | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+    Category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -7908,12 +8065,12 @@ export namespace Prisma {
     amount?: SortOrder
     title?: SortOrder
     type?: SortOrder
-    category?: SortOrder
-    categoryIcon?: SortOrder
+    categoryId?: SortOrder
     currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Category?: CategoryOrderByWithRelationInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -7925,12 +8082,12 @@ export namespace Prisma {
     amount?: FloatFilter<"Transaction"> | number
     title?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
-    category?: StringFilter<"Transaction"> | string
-    categoryIcon?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
     currency?: StringFilter<"Transaction"> | string
     date?: DateTimeFilter<"Transaction"> | Date | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+    Category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -7939,8 +8096,7 @@ export namespace Prisma {
     amount?: SortOrder
     title?: SortOrder
     type?: SortOrder
-    category?: SortOrder
-    categoryIcon?: SortOrder
+    categoryId?: SortOrder
     currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
@@ -7961,8 +8117,7 @@ export namespace Prisma {
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     title?: StringWithAggregatesFilter<"Transaction"> | string
     type?: StringWithAggregatesFilter<"Transaction"> | string
-    category?: StringWithAggregatesFilter<"Transaction"> | string
-    categoryIcon?: StringWithAggregatesFilter<"Transaction"> | string
+    categoryId?: StringWithAggregatesFilter<"Transaction"> | string
     currency?: StringWithAggregatesFilter<"Transaction"> | string
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -8215,6 +8370,7 @@ export namespace Prisma {
     icon: string
     type?: string
     createdAt?: Date | string
+    transactions?: TransactionCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
@@ -8224,6 +8380,7 @@ export namespace Prisma {
     icon: string
     type?: string
     createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
@@ -8233,6 +8390,7 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
@@ -8242,6 +8400,7 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
@@ -8277,12 +8436,11 @@ export namespace Prisma {
     amount: number
     title: string
     type?: string
-    category: string
-    categoryIcon: string
     currency: string
     date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Category: CategoryCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
@@ -8291,8 +8449,7 @@ export namespace Prisma {
     amount: number
     title: string
     type?: string
-    category: string
-    categoryIcon: string
+    categoryId: string
     currency: string
     date: Date | string
     createdAt?: Date | string
@@ -8305,12 +8462,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    categoryIcon?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Category?: CategoryUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
@@ -8319,8 +8475,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    categoryIcon?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8333,8 +8488,7 @@ export namespace Prisma {
     amount: number
     title: string
     type?: string
-    category: string
-    categoryIcon: string
+    categoryId: string
     currency: string
     date: Date | string
     createdAt?: Date | string
@@ -8347,8 +8501,6 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    categoryIcon?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8361,8 +8513,7 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    categoryIcon?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8652,6 +8803,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type TransactionListRelationFilter = {
+    every?: TransactionWhereInput
+    some?: TransactionWhereInput
+    none?: TransactionWhereInput
+  }
+
+  export type TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CategoryNameUserIdTypeCompoundUniqueInput = {
     name: string
     userId: string
@@ -8710,14 +8871,18 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
+  }
+
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     amount?: SortOrder
     title?: SortOrder
     type?: SortOrder
-    category?: SortOrder
-    categoryIcon?: SortOrder
+    categoryId?: SortOrder
     currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
@@ -8734,8 +8899,7 @@ export namespace Prisma {
     amount?: SortOrder
     title?: SortOrder
     type?: SortOrder
-    category?: SortOrder
-    categoryIcon?: SortOrder
+    categoryId?: SortOrder
     currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
@@ -8748,8 +8912,7 @@ export namespace Prisma {
     amount?: SortOrder
     title?: SortOrder
     type?: SortOrder
-    category?: SortOrder
-    categoryIcon?: SortOrder
+    categoryId?: SortOrder
     currency?: SortOrder
     date?: SortOrder
     createdAt?: SortOrder
@@ -8958,8 +9121,56 @@ export namespace Prisma {
     set?: string
   }
 
+  export type TransactionCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
+    createMany?: TransactionCreateManyCategoryInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
+    createMany?: TransactionCreateManyCategoryInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type TransactionUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutCategoryInput | TransactionUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: TransactionCreateManyCategoryInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutCategoryInput | TransactionUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutCategoryInput | TransactionUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutCategoryInput | TransactionUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: TransactionCreateManyCategoryInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutCategoryInput | TransactionUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutCategoryInput | TransactionUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type CategoryCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutTransactionsInput
+    connect?: CategoryWhereUniqueInput
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -8968,6 +9179,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type CategoryUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutTransactionsInput
+    upsert?: CategoryUpsertWithoutTransactionsInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutTransactionsInput, CategoryUpdateWithoutTransactionsInput>, CategoryUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -9086,6 +9305,172 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type TransactionCreateWithoutCategoryInput = {
+    id?: string
+    userId: string
+    amount: number
+    title: string
+    type?: string
+    currency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransactionUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    userId: string
+    amount: number
+    title: string
+    type?: string
+    currency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransactionCreateOrConnectWithoutCategoryInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type TransactionCreateManyCategoryInputEnvelope = {
+    data: TransactionCreateManyCategoryInput | TransactionCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutCategoryInput, TransactionUncheckedUpdateWithoutCategoryInput>
+    create: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutCategoryInput, TransactionUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutCategoryInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type TransactionScalarWhereInput = {
+    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    OR?: TransactionScalarWhereInput[]
+    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    title?: StringFilter<"Transaction"> | string
+    type?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    date?: DateTimeFilter<"Transaction"> | Date | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+  }
+
+  export type CategoryCreateWithoutTransactionsInput = {
+    id?: string
+    userId: string
+    name: string
+    icon: string
+    type?: string
+    createdAt?: Date | string
+  }
+
+  export type CategoryUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    userId: string
+    name: string
+    icon: string
+    type?: string
+    createdAt?: Date | string
+  }
+
+  export type CategoryCreateOrConnectWithoutTransactionsInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type CategoryUpsertWithoutTransactionsInput = {
+    update: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+    where?: CategoryWhereInput
+  }
+
+  export type CategoryUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type CategoryUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionCreateManyCategoryInput = {
+    id?: string
+    userId: string
+    amount: number
+    title: string
+    type?: string
+    currency: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransactionUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

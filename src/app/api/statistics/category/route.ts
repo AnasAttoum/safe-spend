@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
 async function getCategoriesStats(id: string, from: Date, to: Date) {
   const stats = await prisma.transaction.groupBy({
-    by: ["type", "currency", "category", "categoryIcon"],
+    by: ["type", "currency", "categoryId"],
     where: {
       userId: id,
       date: {
@@ -44,7 +44,23 @@ async function getCategoriesStats(id: string, from: Date, to: Date) {
     },
   });
 
-  return stats;
+  const categories = await prisma.category.findMany({
+    where: {
+      userId: id,
+    },
+    select: {
+      id: true,
+      name: true,
+      icon: true,
+    },
+  });
+
+  const StatsWithCategory = stats.map((transaction) => ({
+    ...transaction,
+    category: categories.find(({ id }) => id === transaction.categoryId),
+  }));
+
+  return StatsWithCategory;
 }
 
 export type Categoriestype = Awaited<ReturnType<typeof getCategoriesStats>>;
