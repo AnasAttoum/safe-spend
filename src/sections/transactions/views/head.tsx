@@ -21,7 +21,6 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
           showCompare={false}
           onUpdate={(values) => {
             const { from, to } = values.range;
-            console.log("🚀 ~ Head ~ values.range:", values.range)
             if (!from || !to) return;
             setDateRange({ from, to });
           }}

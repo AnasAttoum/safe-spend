@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { queryKey } from "@/config/query-key";
-import { dateToUTCDate } from "@/lib/date-helper";
+import { getUTCRange } from "@/lib/date-helper";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -37,13 +37,12 @@ export default function TransactionsTable({ from, to }: Props) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
+  const { fromUTC, toUTC } = getUTCRange(from, to);
   const { data, isLoading } = useQuery<getTransactionsHistoryDataResponseType>({
     queryKey: [queryKey.transaction, queryKey.history, from, to],
     queryFn: () =>
       fetch(
-        `/api/history/transactions?from=${dateToUTCDate(
-          from
-        )}&to=${dateToUTCDate(to)}`
+        `/api/history/transactions?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
       ).then((res) => res.json()),
   });
 

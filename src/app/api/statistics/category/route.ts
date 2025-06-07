@@ -2,7 +2,6 @@ import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
-import { format } from "date-fns";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
@@ -31,8 +30,8 @@ async function getCategoriesStats(id: string, from: Date, to: Date) {
     where: {
       userId: id,
       date: {
-        gte: new Date(format(from, "yyyy-MM-dd 00:00:00")),
-        lte: new Date(format(to, "yyyy-MM-dd 00:00:00")),
+        gte: from,
+        lte: to,
       },
     },
     _sum: {
