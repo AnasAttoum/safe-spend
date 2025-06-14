@@ -2,7 +2,6 @@ import { getHistoryDataResponseType } from "@/app/api/history/data/route";
 import { Separator } from "@/components/ui/separator";
 import { Timeframe } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Divide } from "lucide-react";
 import React from "react";
 import CountUp from "react-countup";
 import {
