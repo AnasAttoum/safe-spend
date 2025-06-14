@@ -9,7 +9,7 @@ export default function SettingsBtn() {
   return (
     <Link href={routes.settings}>
       <Button
-        variant="outline"
+        variant="secondary"
         className="px-2 cursor-pointer"
       >
         <Icon icon="settings" rotate />

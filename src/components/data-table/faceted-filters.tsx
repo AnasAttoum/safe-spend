@@ -20,6 +20,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
+import Icon from "../icon/icon"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
@@ -42,8 +43,8 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
-          <PlusCircle />
+        <Button variant="secondary" size="sm" className="h-8 border-dashed">
+          <Icon icon="filter" />
           {title}
           {selectedValues?.size > 0 && (
             <>

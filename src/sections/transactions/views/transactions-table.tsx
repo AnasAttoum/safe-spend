@@ -127,7 +127,7 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     cell: ({ row }) => (
       <div
         className={cn(
-          "text-center p-2 rounded capitalize",
+          "text-white text-center p-2 rounded capitalize",
           row.original.type === "income" && "bg-income",
           row.original.type === "expense" && "bg-expense"
         )}
