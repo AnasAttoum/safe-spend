@@ -190,8 +190,9 @@ const RowActions = ({
 }: {
   transaction: getTransactionsHistoryDataResponseType[0];
 }) => {
+  const [openMenu, setOpenMenu] = useState(false)
   return (
-    <DropdownMenu >
+    <DropdownMenu open={openMenu} onOpenChange={(open) => setOpenMenu(open)}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
           <Icon icon="more" />
@@ -210,6 +211,7 @@ const RowActions = ({
               Delete
             </Button>
           }
+          closeMenu={()=>setOpenMenu(false)}
         />
         {/* </DropdownMenuItem> */}
       </DropdownMenuContent>

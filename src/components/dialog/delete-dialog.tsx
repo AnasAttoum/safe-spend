@@ -19,9 +19,10 @@ type Props = {
   item: "category" | "transaction";
   trigger: ReactNode;
   id: string;
+  closeMenu?: () => void
 };
 
-export function DeleteDialog({ item, trigger, id }: Props) {
+export function DeleteDialog({ item, trigger, id, closeMenu = () => {} }: Props) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -40,6 +41,7 @@ export function DeleteDialog({ item, trigger, id }: Props) {
       queryClient.invalidateQueries({
         queryKey: [item],
       });
+      closeMenu()
     },
     onError: () => {
       toast.error("Something went wrong", { id });
