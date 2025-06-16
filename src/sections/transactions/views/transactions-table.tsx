@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { queryKey } from "@/config/query-key";
 import { getUTCRange } from "@/lib/date-helper";
 import { cn } from "@/lib/utils";
@@ -99,6 +100,14 @@ export default function TransactionsTable({ from, to }: Props) {
           />
         )}
 
+        {(data?.length ?? 0) > 1 && <Input
+          placeholder="Search..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          onChange={(transaction) =>
+            table.getColumn("title")?.setFilterValue(transaction.target.value)
+          }
+          className="max-w-xs h-8"
+        />}
         <DataTableViewOptions table={table} />
       </div>
       <DataTable
@@ -116,7 +125,15 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) => row.original.title,
+    filterFn: (row, _id, value) => {
+      const title = row.original.title?.toLowerCase() || "";
+      const category = row.original.Category?.name?.toLowerCase() || "";
+      return (
+        title.includes(value.toLowerCase()) ||
+        category.includes(value.toLowerCase())
+      );
+    },
+    cell: ({ row }) => <div className="flex-1">{row.original.title}</div>,
   },
   {
     accessorKey: "type",
@@ -127,7 +144,7 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     cell: ({ row }) => (
       <div
         className={cn(
-          "text-white text-center p-2 rounded capitalize",
+          "text-white text-center p-2 rounded capitalize flex-1",
           row.original.type === "income" && "bg-income",
           row.original.type === "expense" && "bg-expense"
         )}
@@ -211,7 +228,7 @@ const RowActions = ({
               Delete
             </Button>
           }
-          closeMenu={()=>setOpenMenu(false)}
+          closeMenu={() => setOpenMenu(false)}
         />
         {/* </DropdownMenuItem> */}
       </DropdownMenuContent>
