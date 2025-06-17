@@ -157,7 +157,7 @@ const TooltipRow = ({
         duration={0.5}
         end={value}
         preserveValue
-        decimals={0}
+        decimals={Number.isInteger(value) ? 0 : 2}
         className={cn(textColor, 'font-bold')}
       />
     </div>
