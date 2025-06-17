@@ -8,15 +8,17 @@ export const createExchangeSchema = z
         invalid_type_error: "Amount must be a number",
         required_error: "Amount is required",
       })
-      .positive("Amount must be greater than 0.")
-      .multipleOf(0.01, { message: "Amount must be a multiple of 0.01." }),
+      .positive("Amount must be greater than 0")
+      .max(1000000000, { message: "Max exchange amount is 1000000000" })
+      .multipleOf(0.01, { message: "Amount must be a multiple of 0.01" }),
     collectedAmount: z.coerce
       .number({
         invalid_type_error: "Amount must be a number",
         required_error: "Amount is required",
       })
-      .positive("Amount must be greater than 0.")
-      .multipleOf(0.01, { message: "Amount must be a multiple of 0.01." }),
+      .positive("Amount must be greater than 0")
+      .max(1000000000, { message: "Max collected amount is 1000000000" })
+      .multipleOf(0.01, { message: "Amount must be a multiple of 0.01" }),
     title: z.string().min(3).max(100),
     date: z.coerce.date(),
     exchangeCurrency: z.custom((value) => {

@@ -142,7 +142,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             name="amount"
             label={`Amount ( ${watch("currency")} )`}
             description="Transaction amount"
-            // type="number"
+            type="number"
             defaultValue={0}
           />
           <Field
