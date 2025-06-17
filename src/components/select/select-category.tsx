@@ -32,7 +32,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
   const { isLoading, data } = useQuery<Category[]>({
     queryKey: [queryKey.category, type],
     queryFn: () =>
-      fetch(`/api/category?type=${type}`).then((res) => res.json()),
+      fetch(`/api/categories?type=${type}`).then((res) => res.json()),
   });
 
   return (

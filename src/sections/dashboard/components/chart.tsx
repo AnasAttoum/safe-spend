@@ -1,4 +1,5 @@
 import { getHistoryDataResponseType } from "@/app/api/history/data/route";
+import { Separator } from "@/components/ui/separator";
 import { Timeframe } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -71,7 +72,7 @@ export default function Chart({ data, timeframe }: Props) {
           <YAxis stroke="#888" fontSize={12} />
           <Tooltip
             cursor={{ opacity: 0.1 }}
-            content={(props) => <CustomTooltip {...props} />}
+            content={(props) => <CustomTooltip timeframe={timeframe} {...props} />}
           />
           {/* <Legend /> */}
           <Bar
@@ -95,14 +96,26 @@ export default function Chart({ data, timeframe }: Props) {
   );
 }
 
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload, timeframe }: any) => {
   if (!active || !payload || payload.length === 0) return null;
 
   const data = payload[0].payload;
-  const { income, expense } = data;
+  const { income, expense, year, month, day = 1 } = data;
+
+  const date = new Date(year, month, day);
+  const dateFormat = timeframe === "year" ? date.toLocaleDateString("default", {
+    year: "numeric",
+    month: "long",
+  }) : date.toLocaleDateString("default", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div className="min-w-[250px] rounded bg-background p-4">
+      <p className="text-blue-primary font-bold text-lg">{dateFormat}</p>
+      <Separator className="my-1" />
       <TooltipRow
         label="Income"
         value={income}
@@ -144,8 +157,8 @@ const TooltipRow = ({
         duration={0.5}
         end={value}
         preserveValue
-        decimals={0}
-        className={textColor}
+        decimals={Number.isInteger(value) ? 0 : 2}
+        className={cn(textColor, 'font-bold')}
       />
     </div>
   </div>

@@ -17,7 +17,7 @@ export default function CategoryList({ type }: Props) {
   const { data, isLoading } = useQuery({
     queryKey: [queryKey.category, type],
     queryFn: () =>
-      fetch(`/api/category?type=${type}`).then((res) => res.json()),
+      fetch(`/api/categories?type=${type}`).then((res) => res.json()),
   });
 
   const dataAvailable = data && Array.isArray(data) && data.length;
