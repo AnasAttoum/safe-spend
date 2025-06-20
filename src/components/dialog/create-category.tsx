@@ -24,20 +24,19 @@ import {
 import { FullForm } from "../ui/form";
 import Field from "../fields/field";
 import { queryKey } from "@/config/query-key";
+import { SimpleCategory } from "@/lib/types";
 
 type Props = {
   type: "income" | "expense";
-  setValue?: (val: Category) => void;
   setOpen?: (val: false) => void;
   setValueTransaction?: (
-    name: "categoryId",
-    val: string
+    name: "category",
+    val: SimpleCategory
   ) => void;
 };
 
 export default function CreateCategory({
   type,
-  setValue,
   setOpen: setOpenCategoriesList,
   setValueTransaction,
 }: Props) {
@@ -61,10 +60,8 @@ export default function CreateCategory({
     },
 
     onSuccess: async (data: Category) => {
-      if (setValue) setValue(data);
-
       if (setValueTransaction) {
-        setValueTransaction("categoryId", data.id);
+        setValueTransaction("category", data);
       }
       queryClient.invalidateQueries({ queryKey: [queryKey.category, type] });
       reset({
