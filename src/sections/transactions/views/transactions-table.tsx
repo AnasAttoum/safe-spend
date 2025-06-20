@@ -4,6 +4,7 @@ import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { DataTableFacetedFilter } from "@/components/data-table/faceted-filters";
 import { DeleteDialog } from "@/components/dialog/delete-dialog";
+import { TransactionDialog } from "@/components/dialog/transaction-dialog";
 import Icon from "@/components/icon/icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -218,19 +219,32 @@ const RowActions = ({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* <DropdownMenuItem onSelect={() => setOpena(false)}> */}
+        <TransactionDialog
+          trigger={
+            <Button variant="ghost" className="w-full text-start grid grid-cols-2">
+              <div className="flex justify-center">
+                <Icon icon="pen" />
+              </div>
+              Edit
+            </Button>
+          }
+          type="income"
+          transaction={transaction}
+          closeMenu={() => setOpenMenu(false)}
+        />
         <DeleteDialog
           item="transaction"
           id={transaction.id}
           trigger={
-            <Button variant="ghost" className="w-full text-start">
-              <Icon icon="trash" />
+            <Button variant="ghost" className="w-full text-start grid grid-cols-2">
+              <div className="flex justify-center">
+                <Icon icon="trash" />
+              </div>
               Delete
             </Button>
           }
           closeMenu={() => setOpenMenu(false)}
         />
-        {/* </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

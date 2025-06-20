@@ -12,27 +12,31 @@ import {
 import {
   createTransactionSchema,
   createTransactionType,
+  updateTransactionType,
 } from "@/schema/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Field from "../fields/field";
 import SelectCategory from "../select/select-category";
 import { FullForm } from "../ui/form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTransaction } from "@/actions/transaction";
+import { createTransaction, updateTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
 import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { queryKey } from "@/config/query-key";
+import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
 
 type Props = {
   trigger: ReactNode;
   type: "income" | "expense";
-  currency: string;
+  currency?: string;
+  transaction?: getTransactionsHistoryDataResponseType[0];
+  closeMenu?: () => void
 };
 
-export function TransactionDialog({ trigger, type, currency }: Props) {
+export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -46,16 +50,29 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
   });
 
   const { setValue, handleSubmit, reset, watch } = form;
+  const selectedCategory = watch('category')
+
+  useEffect(() => {
+    if (transaction)
+      reset({
+        amount: transaction.amount,
+        title: transaction.title,
+        date: transaction.date,
+        category: { ...transaction.Category, id: transaction.categoryId },
+        type: transaction.type as "income" | "expense",
+        currency: transaction.currency
+      })
+  }, [open, transaction, reset])
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (form: createTransactionType) => {
-      const res = await createTransaction(form);
+    mutationFn: async (form: createTransactionType | updateTransactionType) => {
+      const res = transaction ? await updateTransaction({ ...form, id: transaction.id }) : await createTransaction(form);
       if (res && res.error) {
         throw new Error(res.error);
       }
     },
     onSuccess: () => {
-      toast.success(`Transaction created successfully 🎉`, {
+      toast.success(transaction ? `Transaction updated successfully 🎉` : `Transaction created successfully 🎉`, {
         id: "create-transaction",
       });
       setOpen(false);
@@ -63,13 +80,15 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
         type,
         amount: 0,
         date: new Date(),
-        categoryId: undefined,
+        category: undefined,
         title: "",
         currency,
       });
 
       queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
       queryClient.invalidateQueries({ queryKey: [queryKey.transaction] });
+
+      if (closeMenu) closeMenu()
     },
     onError: (error) => {
       toast.error(
@@ -82,7 +101,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
-    toast.loading(`Creating transaction...`, {
+    toast.loading(transaction ? `Updating transaction...` : `Creating transaction...`, {
       id: "create-transaction",
     });
     mutate({ ...data, date: dateToUTCDate(data.date) });
@@ -98,7 +117,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             type,
             amount: 0,
             date: new Date(),
-            categoryId: undefined,
+            category: undefined,
             title: "",
             currency,
           });
@@ -111,7 +130,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Create a new{" "}
+            {transaction ? "Update" : "Create a new"}{" "}
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
@@ -151,7 +170,11 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
             label="Category"
             description="Transaction category"
             specificNode={
-              <SelectCategory type={type} setValueTransaction={setValue} />
+              <SelectCategory
+                type={type}
+                setValueTransaction={setValue}
+                selectedCategory={selectedCategory}
+              />
             }
           />
           <Field
@@ -167,7 +190,7 @@ export function TransactionDialog({ trigger, type, currency }: Props) {
               type="submit"
               className={clsx("cursor-pointer", `${type}Btn`)}
             >
-              {isPending ? "Loading..." : "Create"}
+              {isPending ? "Loading..." : transaction ? "Update" : "Create"}
             </Button>
           </DialogFooter>
         </FullForm>

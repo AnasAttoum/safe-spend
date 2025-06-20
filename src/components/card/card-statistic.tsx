@@ -36,7 +36,7 @@ export default function CardStatistic({ title, icon, value, currency }: Props) {
           alt="Safe Spend Logo"
           width={150}
           height={100}
-          className="absolute right-0 opacity-25 mask-gradient"
+          className="absolute right-0 opacity-40 mask-gradient"
         />
       </div>
     </Card>

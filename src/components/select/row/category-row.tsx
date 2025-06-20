@@ -1,8 +1,8 @@
-import { Category } from "@/generated/prisma";
+import { SimpleCategory } from "@/lib/types";
 import React from "react";
 
 type Props = {
-  category: Category;
+  category: SimpleCategory;
 };
 
 export default function CategoryRow({ category }: Props) {

@@ -9,3 +9,9 @@ export type HistoryData = {
   income: number;
   expense: number;
 };
+
+export type SimpleCategory = {
+  id: string;
+  name: string;
+  icon: string;
+};

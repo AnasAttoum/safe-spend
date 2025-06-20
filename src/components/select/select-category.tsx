@@ -19,14 +19,16 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import CategoryRow from "./row/category-row";
 import { queryKey } from "@/config/query-key";
+import { SimpleCategory } from "@/lib/types";
 
 type Props = {
   type: "income" | "expense";
-  setValueTransaction: (name: "categoryId", val: string) => void;
+  setValueTransaction: (name: "category", val: SimpleCategory) => void;
+  selectedCategory: SimpleCategory | undefined;
 };
 
-export default function SelectCategory({ type, setValueTransaction }: Props) {
-  const [value, setValue] = useState<Category>();
+export default function SelectCategory({ type, setValueTransaction, selectedCategory }: Props) {
+
   const [open, setOpen] = useState(false);
 
   const { isLoading, data } = useQuery<Category[]>({
@@ -39,8 +41,8 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="cursor-pointer flex justify-start">
-          {!!value ? (
-            <CategoryRow category={value} />
+          {!!selectedCategory ? (
+            <CategoryRow category={selectedCategory} />
           ) : (
             <span className="text-gray-400 font-normal">Select category</span>
           )}
@@ -51,7 +53,6 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
           <CommandInput placeholder="Search category..." className="h-9" />
           <CreateCategory
             type={type}
-            setValue={setValue}
             setValueTransaction={setValueTransaction}
             setOpen={setOpen}
           />
@@ -70,8 +71,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
                           key={category.name}
                           // value={category.name}
                           onSelect={() => {
-                            setValue(category);
-                            setValueTransaction("categoryId", category.id);
+                            setValueTransaction("category", category);
                             setOpen(false);
                           }}
                           className="cursor-pointer"
@@ -80,7 +80,7 @@ export default function SelectCategory({ type, setValueTransaction }: Props) {
                           <Check
                             className={cn(
                               "ml-auto",
-                              value?.name === category.name
+                              selectedCategory?.name === category.name
                                 ? "opacity-100"
                                 : "opacity-0"
                             )}
