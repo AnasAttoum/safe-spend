@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <>
       <DesktopHeader />
-      <MobileHeader />
+      {/* <MobileHeader /> */}
     </>
   );
 }

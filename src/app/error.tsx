@@ -23,7 +23,7 @@ export default function Error({
     <>
       <Header />
 
-      {/* <h1 className="text-3xl font-bold text-center text-blue-primary my-5">An unexpected error occurred.<br/> Please try again later.</h1> */}
+      {/* <h1 className="text-3xl font-bold text-center text-safeSpend-primary my-5">An unexpected error occurred.<br/> Please try again later.</h1> */}
       <div className="flex flex-col items-center">
         <div className="relative w-full h-[30rem]">
           <Image src={`/assets/pages/500.svg?cache=${imgKey}`} alt="500" fill />

@@ -22,7 +22,7 @@ export default function CategoriesStats({ from, to }: Props) {
   });
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
       <SkeletonWrapper isLoading={isLoading}>
         <CategoryStatistic type="income" data={data || []} />
       </SkeletonWrapper>

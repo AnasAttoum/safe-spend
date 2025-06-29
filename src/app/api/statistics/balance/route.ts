@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   return Response.json(stats);
 }
 
-async function getBalanceStats(id: string, from: Date, to: Date) {
+export async function getBalanceStats(id: string, from: Date, to: Date) {
   const totalTransactions = await prisma.transaction.groupBy({
     by: ["type", "currency"],
     where: {
@@ -89,8 +89,8 @@ async function getBalanceStats(id: string, from: Date, to: Date) {
       };
     }
 
-    stats[exchangeCurrency].expense = _sum.exchangeAmount || 0;
-    stats[targetCurrency].income = _sum.collectedAmount || 0;
+    stats[exchangeCurrency].expense += _sum.exchangeAmount || 0;
+    stats[targetCurrency].income += _sum.collectedAmount || 0;
   }
 
   return Object.values(stats);

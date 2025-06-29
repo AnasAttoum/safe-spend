@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   const timeframe = searchParams.get("timeframe");
   const year = searchParams.get("year");
   const month = searchParams.get("month");
-  const currency = searchParams.get("currency") || '';
+  const currency = searchParams.get("currency") || "";
 
   const parsedBody = getHistoryDataSchema.safeParse({
     timeframe,
@@ -101,6 +101,8 @@ const getMonthHistoryData = async (
     });
   }
 
+  if (history.every((el) => el.income === 0 && el.expense === 0)) return [];
+  
   return history;
 };
 
@@ -140,6 +142,8 @@ const getYearHistoryData = async (
       expense,
     });
   }
+
+  if (history.every((el) => el.income === 0 && el.expense === 0)) return [];
 
   return history;
 };

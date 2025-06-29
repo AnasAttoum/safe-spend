@@ -114,7 +114,7 @@ const CustomTooltip = ({ active, payload, timeframe }: any) => {
 
   return (
     <div className="min-w-[250px] rounded bg-background p-4">
-      <p className="text-blue-primary font-bold text-lg">{dateFormat}</p>
+      <p className="text-safeSpend-primary font-bold text-lg">{dateFormat}</p>
       <Separator className="my-1" />
       <TooltipRow
         label="Income"
@@ -131,8 +131,8 @@ const CustomTooltip = ({ active, payload, timeframe }: any) => {
       <TooltipRow
         label="Balance"
         value={income - expense}
-        bgColor="bg-blue-primary"
-        textColor="text-blue-primary"
+        bgColor="bg-safeSpend-primary"
+        textColor="text-safeSpend-primary"
       />
     </div>
   );

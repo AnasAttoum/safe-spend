@@ -13,9 +13,11 @@ export default function TotalBalanceCards() {
   });
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="w-full">
       <SkeletonWrapper isLoading={isLoading}>
-        {data && data.map((balance: { currency: string; total: number }, index: number) => <CardBalanceTotal key={index} balance={balance} />)}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {data && data.map((balance: { currency: string; total: number; diff: number }, index: number) => <CardBalanceTotal key={index} balance={balance} />)}
+        </div>
       </SkeletonWrapper>
     </div>
   );

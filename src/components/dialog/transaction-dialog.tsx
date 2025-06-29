@@ -166,7 +166,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           />
           <Field
             control={form.control}
-            name="categoryId"
+            name="category"
             label="Category"
             description="Transaction category"
             specificNode={

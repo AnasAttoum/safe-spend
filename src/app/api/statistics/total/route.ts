@@ -3,6 +3,8 @@ import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { getBalanceStats } from "../balance/route";
+import { startOfMonth } from "date-fns";
 
 export async function GET() {
   const user = await currentUser();
@@ -19,10 +21,12 @@ export async function GET() {
     },
   });
 
-  const result = total.map(({ currency, _sum }) => ({
-    currency,
-    total: (_sum.income || 0) - (_sum.expense || 0),
-  }));
+  const result = total
+    .map(({ currency, _sum }) => ({
+      currency,
+      total: (_sum.income || 0) - (_sum.expense || 0),
+    }))
+    .filter((el) => el.total !== 0);
 
   if (!result.length) {
     const userRow = await prisma.user.findFirst({
@@ -33,5 +37,15 @@ export async function GET() {
     ]);
   }
 
-  return Response.json(result);
+  const now = new Date();
+  const currentMonthStart = startOfMonth(now);
+  const diffThisMonth = await getBalanceStats(user.id, currentMonthStart, now);
+  const resultWithDiffThisMonth = result.map((res) => {
+    const diff = diffThisMonth.find(
+      ({ currency }) => res.currency === currency
+    );
+    return { ...res, diff: (diff?.income || 0) - (diff?.expense || 0) };
+  });
+
+  return Response.json(resultWithDiffThisMonth);
 }

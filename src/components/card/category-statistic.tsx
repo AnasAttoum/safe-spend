@@ -2,6 +2,7 @@ import { Categoriestype } from "@/app/api/statistics/category/route";
 import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
 import { ScrollArea } from "../ui/scroll-area";
+import { currencies } from "@/config/currencies";
 
 type Props = {
   type: "income" | "expense";
@@ -29,8 +30,9 @@ export default function CategoryStatistic({ type, data }: Props) {
             {filteredData.map((el) => {
               const amount = el._sum.amount || 0;
               const total = filteredData
-                .filter((data) => data.currency === el.currency)
-                .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
+              .filter((data) => data.currency === el.currency)
+              .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
+              const symbol = currencies.find((curr) => curr.value === el.currency)?.symbol || ''
               const percentage = (amount * 100) / (total || amount);
               return (
                 <div
@@ -40,13 +42,13 @@ export default function CategoryStatistic({ type, data }: Props) {
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
                       {el.category?.icon} {el.category?.name}
-                      <span className="text-blue-primary text-xs">
-                        ({percentage.toFixed(1)}% {el.currency})
+                      <span className="bg-safeSpend-light text-white rounded-md text-xs px-1">
+                        {percentage.toFixed(1)}% {el.currency}
                       </span>
                     </div>
 
                     <div>
-                      {amount} {el.currency}
+                      {amount} {symbol}
                     </div>
                   </div>
 

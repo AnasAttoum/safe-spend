@@ -105,7 +105,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Create a new <span className={"text-blue-primary"}>exchange</span>{" "}
+            Create a new <span className={"text-safeSpend-primary"}>exchange</span>{" "}
           </DialogTitle>
           {/* <DialogDescription>
           Add your transactions

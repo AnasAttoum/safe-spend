@@ -5,6 +5,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/providers/theme-provider";
 import Bounded from "@/components/bounded";
 import { Toaster } from "@/components/ui/sonner";
+import { AppSidebar } from "@/components/sidebar";
+import SidebarProviderHandler from "@/providers/sidebar-provider-handler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,9 +58,19 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Bounded>{children}</Bounded>
+            <SidebarProviderHandler>
+              <AppSidebar />
+              {/* <div className="fixed inset-0 overflow-hidden pointer-events-none -z-50">
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-500"></div>
+              </div> */}
+              <Bounded>
+                {children}
+              </Bounded>
+            </SidebarProviderHandler>
           </ThemeProvider>
-          <Toaster richColors position="top-right"/>
+          <Toaster position="top-right" />
         </body>
       </html>
     </ClerkProvider>

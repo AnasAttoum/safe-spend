@@ -28,7 +28,7 @@ export default function EmojiPicker({ fieldValue, onChange }: Props) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-transparent border-0">
-        <div className="absolute flex justify-center -bottom-16 -left-8">
+        <div className="absolute flex justify-center -bottom-16 -left-8 z-50 max-h-[434px] overflow-auto">
           <Picker
             data={data}
             onEmojiSelect={(emoji: { native: string }) => {
