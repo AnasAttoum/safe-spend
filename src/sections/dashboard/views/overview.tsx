@@ -28,7 +28,7 @@ export default function Overview({ currency }: { currency: string }) {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-5">
         <TotalBalanceCards />
         
         <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} />

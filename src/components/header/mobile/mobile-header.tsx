@@ -24,7 +24,7 @@ export default function MobileHeader() {
       <div className="flex items-center gap-3 pr-1">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" className="cursor-pointer">
+            <Button variant="outline" size="icon" className="cursor-pointer">
               <Icon icon="hamb" />
             </Button>
           </SheetTrigger>

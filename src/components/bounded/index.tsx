@@ -7,5 +7,5 @@ type Props = {
 };
 
 export default function Bounded({ children, className }: Props) {
-  return <div className={clsx("max-w-6xl mx-auto p-2 px-4", className)}>{children}</div>;
+  return <div className={clsx("w-full mx-auto py-2 px-4 md:pe-10 overflow-auto", className)}>{children}</div>;
 }

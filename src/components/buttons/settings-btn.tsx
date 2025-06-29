@@ -1,18 +1,18 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { routes } from "@/config/routes";
-import Icon from "../icon/icon";
 import Link from "next/link";
+import SettingsIcon from "../icon/lib/settings-icon";
 
 export default function SettingsBtn() {
 
   return (
     <Link href={routes.settings}>
       <Button
-        variant="outline"
+        variant="secondary"
         className="px-2 cursor-pointer"
       >
-        <Icon icon="settings" rotate />
+        <SettingsIcon rotate />
       </Button>
     </Link>
   );

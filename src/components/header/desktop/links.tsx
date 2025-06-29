@@ -16,8 +16,8 @@ export default function HeaderLinks() {
         <Link
           href={link}
           className={clsx(
-            "hover:text-blue-primary transition-all duration-200",
-            isActive && "text-blue-primary"
+            "hover:text-safeSpend-primary transition-all duration-200",
+            isActive && "text-safeSpend-primary"
           )}
         >
           {label}
@@ -25,7 +25,7 @@ export default function HeaderLinks() {
         <div
           className={clsx(
             isActive &&
-              "absolute -bottom-0.5 w-full border-2 border-blue-primary transition-all duration-200"
+              "absolute -bottom-0.5 w-full border-2 border-safeSpend-primary transition-all duration-200"
           )}
         ></div>
       </div>

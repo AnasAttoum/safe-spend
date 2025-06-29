@@ -4,6 +4,7 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { queryKey } from "@/config/query-key";
 import { getUTCRange } from "@/lib/date-helper";
 import { useQuery } from "@tanstack/react-query";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 type Props = {
   from: Date;
@@ -27,12 +28,12 @@ export default function StatisticCards({ from, to, currency }: Props) {
   const balance = income - expense || 0;
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+    <div className="flex flex-col gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full">
         <SkeletonWrapper isLoading={isLoading}>
           <CardStatistic
             title="Income"
-            icon="statistic-up"
+            icon={TrendingUp}
             value={income}
             currency={currency}
           />
@@ -40,7 +41,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
         <SkeletonWrapper isLoading={isLoading}>
           <CardStatistic
             title="Expense"
-            icon="statistic-down"
+            icon={TrendingDown}
             value={expense}
             currency={currency}
           />
@@ -59,11 +60,11 @@ export default function StatisticCards({ from, to, currency }: Props) {
         data
           ?.filter((el) => el.currency !== currency)
           .map((el) => (
-            <div key={el.currency} className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+            <div key={el.currency} className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full">
               <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Income"
-                  icon="statistic-up"
+                  icon={TrendingUp}
                   value={el.income}
                   currency={el.currency}
                 />
@@ -71,7 +72,7 @@ export default function StatisticCards({ from, to, currency }: Props) {
               <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
                   title="Expense"
-                  icon="statistic-down"
+                  icon={TrendingDown}
                   value={el.expense}
                   currency={el.currency}
                 />

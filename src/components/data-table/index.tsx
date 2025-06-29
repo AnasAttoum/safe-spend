@@ -23,7 +23,7 @@ export default function DataTable({
     <div className="rounded-md border">
       <SkeletonWrapper isLoading={isLoading}>
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-safeSpend-secondary h-14">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

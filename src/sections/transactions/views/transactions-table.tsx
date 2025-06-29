@@ -1,26 +1,12 @@
 import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
 import DataTable from "@/components/data-table";
-import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { DataTableFacetedFilter } from "@/components/data-table/faceted-filters";
-import { DeleteDialog } from "@/components/dialog/delete-dialog";
-import { TransactionDialog } from "@/components/dialog/transaction-dialog";
-import Icon from "@/components/icon/icon";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { queryKey } from "@/config/query-key";
 import { getUTCRange } from "@/lib/date-helper";
-import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import {
-  ColumnDef,
   ColumnFiltersState,
   getCoreRowModel,
   getFilteredRowModel,
@@ -30,6 +16,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import { columns } from "../components/transaction-columns";
 
 type Props = { from: Date; to: Date };
 
@@ -120,132 +107,4 @@ export default function TransactionsTable({ from, to }: Props) {
   );
 }
 
-export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
-  {
-    accessorKey: "title",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
-    ),
-    filterFn: (row, _id, value) => {
-      const title = row.original.title?.toLowerCase() || "";
-      const category = row.original.Category?.name?.toLowerCase() || "";
-      return (
-        title.includes(value.toLowerCase()) ||
-        category.includes(value.toLowerCase())
-      );
-    },
-    cell: ({ row }) => <div className="flex-1">{row.original.title}</div>,
-  },
-  {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-    cell: ({ row }) => (
-      <div
-        className={cn(
-          "text-white text-center p-2 rounded capitalize flex-1",
-          row.original.type === "income" && "bg-income",
-          row.original.type === "expense" && "bg-expense"
-        )}
-      >
-        {row.original.type}
-      </div>
-    ),
-  },
-  {
-    accessorKey: "category",
-    accessorFn: (row) => row.Category.name,
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Category" />
-    ),
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-    cell: ({ row }) => (
-      <div>
-        {row.original.Category.icon} {row.original.Category.name}
-      </div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Amount" />
-    ),
-    cell: ({ row }) => row.original.amount,
-  },
-  {
-    accessorKey: "currency",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Currency" />
-    ),
-    cell: ({ row }) => row.original.currency,
-  },
-  {
-    accessorKey: "date",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date" />
-    ),
-    cell: ({ row }) => {
-      const date = new Date(row.original.date);
-      return date.toLocaleDateString("default", {
-        timeZone: "UTC",
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
-      });
-    },
-  },
-  {
-    accessorKey: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => <RowActions transaction={row.original} />,
-  },
-];
 
-const RowActions = ({
-  transaction,
-}: {
-  transaction: getTransactionsHistoryDataResponseType[0];
-}) => {
-  const [openMenu, setOpenMenu] = useState(false)
-  return (
-    <DropdownMenu open={openMenu} onOpenChange={(open) => setOpenMenu(open)}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
-          <Icon icon="more" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <TransactionDialog
-          trigger={
-            <Button variant="ghost" className="w-full text-start grid grid-cols-2">
-              <div className="flex justify-center">
-                <Icon icon="pen" />
-              </div>
-              Edit
-            </Button>
-          }
-          type="income"
-          transaction={transaction}
-          closeMenu={() => setOpenMenu(false)}
-        />
-        <DeleteDialog
-          item="transaction"
-          id={transaction.id}
-          trigger={
-            <Button variant="ghost" className="w-full text-start grid grid-cols-2">
-              <div className="flex justify-center">
-                <Icon icon="trash" />
-              </div>
-              Delete
-            </Button>
-          }
-          closeMenu={() => setOpenMenu(false)}
-        />
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};

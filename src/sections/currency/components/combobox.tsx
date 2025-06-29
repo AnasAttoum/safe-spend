@@ -26,6 +26,7 @@ import { User } from "@/generated/prisma";
 import { updateUserCurrency } from "@/actions/user";
 import { toast } from "sonner";
 import { queryKey } from "@/config/query-key";
+import PlusIcon from "@/components/icon/lib/plus-icon";
 
 type Status = {
   value: string;
@@ -96,7 +97,7 @@ export function ComboBox() {
                 <>{selectedOption.label}</>
               ) : (
                 <>
-                  <Icon icon="plus" /> Add Currency
+                  <PlusIcon/> Add Currency
                 </>
               )}
             </Button>
