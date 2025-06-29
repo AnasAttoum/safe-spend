@@ -1,6 +1,5 @@
 import { routes } from "@/config/routes";
 import { getBalanceStats } from "@/lib/get-balance-stats";
-import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
