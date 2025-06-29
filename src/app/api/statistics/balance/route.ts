@@ -1,4 +1,5 @@
 import { routes } from "@/config/routes";
+import { getBalanceStats } from "@/lib/get-balance-stats";
 import { prisma } from "@/lib/prisma";
 import { overviewSchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
@@ -24,76 +25,6 @@ export async function GET(request: Request) {
   return Response.json(stats);
 }
 
-export async function getBalanceStats(id: string, from: Date, to: Date) {
-  const totalTransactions = await prisma.transaction.groupBy({
-    by: ["type", "currency"],
-    where: {
-      userId: id,
-      date: {
-        gte: from,
-        lte: to,
-      },
-    },
-    _sum: {
-      amount: true,
-    },
-  });
 
-  const totalExchanges = await prisma.exchange.groupBy({
-    by: ["exchangeCurrency", "targetCurrency"],
-    where: {
-      userId: id,
-      date: {
-        gte: from,
-        lte: to,
-      },
-    },
-    _sum: {
-      exchangeAmount: true,
-      collectedAmount: true,
-    },
-  });
-
-  const stats: Record<
-    string,
-    { currency: string; income: number; expense: number }
-  > = {};
-
-  for (const item of totalTransactions) {
-    const { currency, type, _sum } = item;
-    if (!stats[currency]) {
-      stats[currency] = { currency, income: 0, expense: 0 };
-    }
-
-    if (type === "income") {
-      stats[currency].income = _sum.amount || 0;
-    } else if (type === "expense") {
-      stats[currency].expense = _sum.amount || 0;
-    }
-  }
-
-  for (const item of totalExchanges) {
-    const { exchangeCurrency, targetCurrency, _sum } = item;
-    if (!stats[exchangeCurrency]) {
-      stats[exchangeCurrency] = {
-        currency: exchangeCurrency,
-        income: 0,
-        expense: 0,
-      };
-    }
-    if (!stats[targetCurrency]) {
-      stats[targetCurrency] = {
-        currency: targetCurrency,
-        income: 0,
-        expense: 0,
-      };
-    }
-
-    stats[exchangeCurrency].expense += _sum.exchangeAmount || 0;
-    stats[targetCurrency].income += _sum.collectedAmount || 0;
-  }
-
-  return Object.values(stats);
-}
 
 export type Balancetype = Awaited<ReturnType<typeof getBalanceStats>>;

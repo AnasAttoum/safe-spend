@@ -3,8 +3,8 @@ import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getBalanceStats } from "../balance/route";
 import { startOfMonth } from "date-fns";
+import { getBalanceStats } from "@/lib/get-balance-stats";
 
 export async function GET() {
   const user = await currentUser();
