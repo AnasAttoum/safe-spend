@@ -1,6 +1,5 @@
 import { ExchangeDialog } from "@/components/dialog/exchange-dialog";
 import { TransactionDialog } from "@/components/dialog/transaction-dialog";
-import Icon from "@/components/icon/icon";
 import ExchangeIcon from "@/components/icon/lib/exchange-icon";
 import SmileIcon from "@/components/icon/lib/smile-icon";
 import { Button } from "@/components/ui/button";

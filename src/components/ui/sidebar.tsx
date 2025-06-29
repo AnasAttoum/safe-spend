@@ -23,12 +23,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import Icon from "../icon/icon"
 import { setCookie } from 'cookies-next';
 import HambIcon from "../icon/lib/hamb-icon"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
+// const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
@@ -56,7 +55,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
+  // defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -64,7 +63,7 @@ function SidebarProvider({
   children,
   ...props
 }: React.ComponentProps<"div"> & {
-  defaultOpen?: boolean
+  // defaultOpen?: boolean
   open: boolean
   onOpenChange?: (open: boolean) => void
 }) {
@@ -525,7 +524,7 @@ function SidebarMenuButton({
   const Comp = asChild ? Slot : "button"
   const { isMobile, state, setOpenMobile } = useSidebar()
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = () => {
     if (isMobile) {
       setOpenMobile(false)
     }
@@ -701,7 +700,7 @@ function SidebarMenuSubButton({
   const Comp = asChild ? Slot : "a"
   const { isMobile, setOpenMobile } = useSidebar()
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = () => {
     if (isMobile) {
       setOpenMobile(false)
     }

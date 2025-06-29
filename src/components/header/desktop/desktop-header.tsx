@@ -1,10 +1,7 @@
-import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import Logo from "@/components/logo";
 import { UserButton } from "@clerk/nextjs";
-import HeaderLinks from "./links";
 import SettingsBtn from "@/components/buttons/settings-btn";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import ThemeBtn from "@/components/buttons/theme-btn";
 
 export default function DesktopHeader() {

@@ -4,7 +4,7 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { queryKey } from "@/config/query-key";
 import { getUTCRange } from "@/lib/date-helper";
 import { useQuery } from "@tanstack/react-query";
-import { Calculator, TrendingDown, TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 type Props = {
   from: Date;
