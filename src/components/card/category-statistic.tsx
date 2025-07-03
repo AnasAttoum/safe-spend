@@ -3,6 +3,7 @@ import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
 import { ScrollArea } from "../ui/scroll-area";
 import { currencies } from "@/config/currencies";
+import CountUp from "react-countup";
 
 type Props = {
   type: "income" | "expense";
@@ -48,7 +49,8 @@ export default function CategoryStatistic({ type, data }: Props) {
                     </div>
 
                     <div>
-                      {amount} {symbol}
+                      <CountUp end={amount} decimals={Number.isInteger(amount) ? 0 : 2} suffix={` ${symbol}`}/>
+                      {/* {amount} {symbol} */}
                     </div>
                   </div>
 

@@ -1,0 +1,73 @@
+import { DataTableColumnHeader } from "@/components/data-table/column-header";
+import { cn } from "@/lib/utils";
+import {
+  ColumnDef,
+} from "@tanstack/react-table";
+import { getExchangesHistoryDataResponseType } from "@/app/api/exchanges/route";
+
+export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
+  {
+    accessorKey: "title",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Title" />
+    ),
+    filterFn: (row, _id, value) => {
+      const title = row.original.title?.toLowerCase() || "";
+      return title.includes(value.toLowerCase())
+    },
+    cell: ({ row }) => <div className="flex-1">{row.original.title}</div>,
+  },
+  {
+    accessorKey: "exchangeAmount",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Exchange Amount" />
+    ),
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    cell: ({ row }) => (
+      <div
+        className={cn(
+          "text-white text-center p-2 rounded capitalize flex-1 bg-expense",
+        )}
+      >
+        {row.original.exchangeAmount} {row.original.exchangeCurrency}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "collectedAmount",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Collected Amount" />
+    ),
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    cell: ({ row }) => (
+      <div
+        className={cn(
+          "text-white text-center p-2 rounded capitalize flex-1 bg-income",
+        )}
+      >
+        {row.original.collectedAmount} {row.original.targetCurrency}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "date",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Date" />
+    ),
+    cell: ({ row }) => {
+      const date = new Date(row.original.date);
+      return date.toLocaleDateString("default", {
+        timeZone: "UTC",
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      });
+    },
+  },
+
+  // {
+  //   accessorKey: "Actions",
+  //   enableHiding: false,
+  //   cell: ({ row }) => <RowActions transaction={row.original} />,
+  // },
+];

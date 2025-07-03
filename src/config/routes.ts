@@ -4,6 +4,7 @@ export const routes = {
 
   dashboard: "/",
   transactions: "/transactions",
+  exchanges: "/exchanges",
   currency: "/currency",
 
   settings: "/settings",

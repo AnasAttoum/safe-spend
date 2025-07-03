@@ -143,7 +143,7 @@ export default function CreateCategory({
             >
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 cursor-pointer">
+            <Button type="submit" className="flex-1 cursor-pointer" disabled={isPending}>
               {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>

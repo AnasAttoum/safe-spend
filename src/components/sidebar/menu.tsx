@@ -3,7 +3,6 @@
 import React from 'react'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
 import { headerlinks } from '@/config/header-links'
-import { Separator } from '../ui/separator'
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -14,7 +13,7 @@ export default function Menu() {
 
     return (
         <SidebarMenu>
-            {headerlinks.map(({ icon: Icon, label, link }, index) => {
+            {headerlinks.map(({ icon: Icon, label, link }) => {
                 const isActive = link === pathname;
                 return (
                     <div key={label} className='flex flex-col gap-1'>
@@ -29,7 +28,7 @@ export default function Menu() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
-                        {index !== headerlinks.length - 1 && <Separator />}
+                        {/* {index !== headerlinks.length - 1 && <Separator />} */}
                     </div>
                 )
             })}

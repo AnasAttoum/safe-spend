@@ -189,6 +189,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             <Button
               type="submit"
               className={clsx("cursor-pointer", `${type}Btn`)}
+              disabled={isPending}
             >
               {isPending ? "Loading..." : transaction ? "Update" : "Create"}
             </Button>

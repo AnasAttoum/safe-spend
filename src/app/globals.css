@@ -148,7 +148,7 @@
 body {
   overflow-y: scroll;
 }
-  
+
 /* CLERK */
 .cl-internal-1hp5nqm,
 .cl-internal-1dauvpw {
@@ -226,6 +226,10 @@ body {
 }
 .expenseBtn {
   @apply bg-gradient-to-r from-expense to-expense-dark text-white hover:from-expense-dark hover:text-white border-none;
+}
+
+.primaryBtn {
+  @apply bg-gradient-to-r from-safeSpend-light to-safeSpend-primary text-white hover:from-safeSpend-primary hover:text-white border-none;
 }
 
 .mask-gradient {

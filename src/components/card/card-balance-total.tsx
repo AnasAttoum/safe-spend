@@ -29,7 +29,7 @@ export default function CardBalanceTotal({ balance }: Props) {
         <div className="flex flex-col gap-2 w-full text-2xl md:text-3xl text-white font-bold">
           <p className="text-sm uppercase text-gray-300">Total {label} balance</p>
           <CountUp end={total} decimals={Number.isInteger(total) ? 0 : 2} suffix={` ${symbol}`} className="transition-all duration-300 group-hover:scale-105 group-hover:translate-x-3" />
-          {diff && <small className="text-sm font-light flex items-center gap-2">
+          {!!diff && <small className="text-sm font-light flex items-center gap-2">
             <span className={cn("rounded-2xl px-2", diff > 0 ? 'bg-income' : 'bg-expense')}>{diff > 0 && '+'}{diff.toLocaleString('en-US')}</span>
             <small>This month</small>
           </small>}

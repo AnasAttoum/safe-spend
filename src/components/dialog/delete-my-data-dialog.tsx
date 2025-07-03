@@ -59,10 +59,10 @@ export function DeleteMyDataDialog() {
           </Button>
         </AlertDialogTrigger>
       </div>
-      <AlertDialogContent className="text-white bg-red-900" onEscapeKeyDown={() => setOpen(false)}>
+      <AlertDialogContent onEscapeKeyDown={() => setOpen(false)}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?!</AlertDialogTitle>
-          <AlertDialogDescription className="text-white">
+          <AlertDialogTitle className="text-red-900">Are you sure?!</AlertDialogTitle>
+          <AlertDialogDescription>
             {`This action cannot be undone. This will permanently delete your data.`}
             <br />
             <strong>Warning:</strong> Thats include your categories, transactions, exchanges and your history data.
@@ -70,7 +70,7 @@ export function DeleteMyDataDialog() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="cursor-pointer uppercase"
+            className="cursor-pointer uppercase text-red-900 hover:text-red-700"
             onClick={() => {
               toast.loading(`Deleting your data...`, { id: 'delete-my-data' });
               mutate();

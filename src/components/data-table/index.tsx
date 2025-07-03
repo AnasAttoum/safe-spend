@@ -25,10 +25,10 @@ export default function DataTable({
         <Table>
           <TableHeader className="bg-safeSpend-secondary h-14">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="aria-[sort]:bg-safeSpend-secondary hover:bg-safeSpend-secondar">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="aria-[sort]:bg-safeSpend-secondary">
                       {header.isPlaceholder
                         ? null
                         : flexRender(

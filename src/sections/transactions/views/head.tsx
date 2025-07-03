@@ -1,7 +1,7 @@
 import { TransactionDialog } from "@/components/dialog/transaction-dialog";
-import Icon from "@/components/icon/icon";
 import { Button } from "@/components/ui/button";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { Plus, Sparkles, Zap } from "lucide-react";
 
 type Props = {
   dateRange: { from: Date; to: Date };
@@ -30,9 +30,10 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
         <div className="flex flex-wrap gap-3">
           <TransactionDialog
             trigger={
-              <Button variant="outline" className="incomeBtn flex-1">
+              <Button variant="outline" className="incomeBtn flex-1 flex">
+                <Plus className="w-4 h-4" />
                 New Income
-                <Icon icon="income" />
+                <Sparkles className="w-4 h-4" />
               </Button>
             }
             type="income"
@@ -42,8 +43,9 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
           <TransactionDialog
             trigger={
               <Button variant="outline" className="expenseBtn flex-1">
+                <Plus className="w-5 h-5" />
                 New expense
-                <Icon icon="expense" />
+                <Zap className="w-4 h-4" />
               </Button>
             }
             type="expense"

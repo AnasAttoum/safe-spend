@@ -63,7 +63,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
       });
 
       // Invalidate the overview query which will refetch data in the home page
-      queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.overview, queryKey.exchange] });
     },
     onError: (error) => {
       toast.error(
@@ -152,7 +152,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
           />
 
           <DialogFooter>
-            <Button type="submit" className="cursor-pointer Btn">
+            <Button type="submit" className="cursor-pointer primaryBtn" disabled={isPending}>
               {isPending ? "Loading..." : "Create"}
             </Button>
           </DialogFooter>
