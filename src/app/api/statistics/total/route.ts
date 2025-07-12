@@ -5,6 +5,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { startOfMonth } from "date-fns";
 import { getBalanceStats } from "@/lib/get-balance-stats";
+import { getUTCRange } from "@/lib/date-helper";
 
 export async function GET() {
   const user = await currentUser();
@@ -39,7 +40,9 @@ export async function GET() {
 
   const now = new Date();
   const currentMonthStart = startOfMonth(now);
-  const diffThisMonth = await getBalanceStats(user.id, currentMonthStart, now);
+  const { fromUTC, toUTC } = getUTCRange(currentMonthStart, now);
+
+  const diffThisMonth = await getBalanceStats(user.id, fromUTC, toUTC);
   const resultWithDiffThisMonth = result.map((res) => {
     const diff = diffThisMonth.find(
       ({ currency }) => res.currency === currency
