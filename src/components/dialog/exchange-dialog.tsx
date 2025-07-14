@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Field from "../fields/field";
 import { FullForm } from "../ui/form";
@@ -18,15 +18,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { createExchangeSchema, createExchangeType } from "@/schema/exchange";
-import { createExchange } from "@/actions/exchange";
+import { createExchange, updateExchange } from "@/actions/exchange";
 import { queryKey } from "@/config/query-key";
+import { getExchangesHistoryDataResponseType } from "@/app/api/exchanges/route";
 
 type Props = {
   trigger: ReactNode;
-  currency: string;
+  currency?: string;
+  exchange?: getExchangesHistoryDataResponseType[0];
+  closeMenu?: () => void;
 };
 
-export function ExchangeDialog({ trigger, currency }: Props) {
+export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -41,15 +44,28 @@ export function ExchangeDialog({ trigger, currency }: Props) {
 
   const { handleSubmit, reset, watch } = form;
 
+  useEffect(() => {
+    if (exchange)
+      reset({
+        exchangeAmount: exchange.exchangeAmount,
+        collectedAmount: exchange.collectedAmount,
+        date: exchange.date,
+        exchangeCurrency: exchange.exchangeCurrency,
+        targetCurrency: exchange.targetCurrency,
+        title: exchange.title,
+      })
+  }, [open, exchange, reset])
+
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (form: createExchangeType) => {
-      const res = await createExchange(form);
+      const res = exchange ? await updateExchange({ ...form, id: exchange.id }) : await createExchange(form);
       if (res && res.error) {
         throw new Error(res.error);
       }
     },
     onSuccess: () => {
-      toast.success(`Exchange created successfully 🎉`, {
+      toast.success(exchange ? `Exchange updated successfully 🎉` : `Exchange created successfully 🎉`, {
         id: "create-exchange",
       });
       setOpen(false);
@@ -63,7 +79,10 @@ export function ExchangeDialog({ trigger, currency }: Props) {
       });
 
       // Invalidate the overview query which will refetch data in the home page
-      queryClient.invalidateQueries({ queryKey: [queryKey.overview, queryKey.exchange] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
+      queryClient.invalidateQueries({ queryKey: [queryKey.exchange] });
+
+      if (closeMenu) closeMenu()
     },
     onError: (error) => {
       toast.error(
@@ -76,7 +95,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
   });
 
   const onSubmit = handleSubmit((data: createExchangeType) => {
-    toast.loading(`Creating transaction...`, {
+    toast.loading(exchange ? `Updating exchange...` : `Creating exchange...`, {
       id: "create-exchange",
     });
     mutate({ ...data, date: dateToUTCDate(data.date) });
@@ -105,7 +124,8 @@ export function ExchangeDialog({ trigger, currency }: Props) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Create a new <span className={"text-safeSpend-primary"}>exchange</span>{" "}
+            {exchange ? "Update" : "Create a new"}{" "}
+            <span className={"text-safeSpend-primary"}>exchange</span>{" "}
           </DialogTitle>
           {/* <DialogDescription>
           Add your transactions
@@ -139,9 +159,8 @@ export function ExchangeDialog({ trigger, currency }: Props) {
           <Field
             control={form.control}
             name="collectedAmount"
-            label={`Amount ${
-              watch("targetCurrency") ? `( ${watch("targetCurrency")} )` : ""
-            }`}
+            label={`Amount ${watch("targetCurrency") ? `( ${watch("targetCurrency")} )` : ""
+              }`}
             defaultValue={0}
           />
           <Field
@@ -153,7 +172,7 @@ export function ExchangeDialog({ trigger, currency }: Props) {
 
           <DialogFooter>
             <Button type="submit" className="cursor-pointer primaryBtn" disabled={isPending}>
-              {isPending ? "Loading..." : "Create"}
+              {isPending ? "Loading..." : exchange ? "Update" : "Create"}
             </Button>
           </DialogFooter>
         </FullForm>

@@ -33,7 +33,6 @@ export default function ExchangesTable({ from, to }: Props) {
         `/api/exchanges?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
       ).then((res) => res.json()),
   });
-  console.log("🚀 ~ ExchangesTable ~ data:", data)
 
   const table = useReactTable({
     data: data || emptyData,

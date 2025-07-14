@@ -33,7 +33,7 @@ type Props = {
   type: "income" | "expense";
   currency?: string;
   transaction?: getTransactionsHistoryDataResponseType[0];
-  closeMenu?: () => void
+  closeMenu?: () => void;
 };
 
 export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {

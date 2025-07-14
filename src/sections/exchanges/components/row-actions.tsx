@@ -1,6 +1,6 @@
-import { getTransactionsHistoryDataResponseType } from '@/app/api/transactions/route';
+import { getExchangesHistoryDataResponseType } from '@/app/api/exchanges/route';
 import { DeleteDialog } from '@/components/dialog/delete-dialog';
-import { TransactionDialog } from '@/components/dialog/transaction-dialog';
+import { ExchangeDialog } from '@/components/dialog/exchange-dialog';
 import Icon from '@/components/icon/icon';
 import MoreIcon from '@/components/icon/lib/more-icon';
 import { Button } from '@/components/ui/button';
@@ -8,9 +8,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSepar
 import React, { useState } from 'react'
 
 export const RowActions = ({
-    transaction,
+    exchange,
 }: {
-    transaction: getTransactionsHistoryDataResponseType[0];
+    exchange: getExchangesHistoryDataResponseType[0];
 }) => {
     const [openMenu, setOpenMenu] = useState(false)
     return (
@@ -23,7 +23,7 @@ export const RowActions = ({
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <TransactionDialog
+                <ExchangeDialog
                     trigger={
                         <Button variant="ghost" className="w-full text-start grid grid-cols-2">
                             <div className="flex justify-center">
@@ -32,13 +32,12 @@ export const RowActions = ({
                             Edit
                         </Button>
                     }
-                    type="income"
-                    transaction={transaction}
+                    exchange={exchange}
                     closeMenu={() => setOpenMenu(false)}
                 />
                 <DeleteDialog
-                    item="transaction"
-                    id={transaction.id}
+                    item="exchange"
+                    id={exchange.id}
                     trigger={
                         <Button variant="ghost" className="w-full text-start grid grid-cols-2">
                             <div className="flex justify-center">

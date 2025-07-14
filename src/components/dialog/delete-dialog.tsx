@@ -1,4 +1,5 @@
 import { deleteCategory } from "@/actions/category";
+import { deleteExchange } from "@/actions/exchange";
 import { deleteTransaction } from "@/actions/transaction";
 import {
   AlertDialog,
@@ -16,7 +17,7 @@ import { ReactNode } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  item: "category" | "transaction";
+  item: "category" | "transaction" | "exchange";
   trigger: ReactNode;
   id: string;
   closeMenu?: () => void
@@ -29,8 +30,11 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => {} }: Props)
     mutationFn: async (formId: string) => {
       if (item === "category") {
         return await deleteCategory(formId);
-      } else {
+      } else if(item === "transaction") {
         return await deleteTransaction(formId);
+      }
+      else if(item === "exchange") {
+        return await deleteExchange(formId);
       }
     },
     onSuccess: () => {

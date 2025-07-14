@@ -4,6 +4,7 @@ import {
   ColumnDef,
 } from "@tanstack/react-table";
 import { getExchangesHistoryDataResponseType } from "@/app/api/exchanges/route";
+import { RowActions } from "./row-actions";
 
 export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
@@ -65,9 +66,9 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "Actions",
-  //   enableHiding: false,
-  //   cell: ({ row }) => <RowActions transaction={row.original} />,
-  // },
+  {
+    accessorKey: "Actions",
+    enableHiding: false,
+    cell: ({ row }) => <RowActions exchange={row.original} />,
+  },
 ];
