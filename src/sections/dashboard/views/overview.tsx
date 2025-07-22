@@ -30,7 +30,7 @@ export default function Overview({ currency }: { currency: string }) {
 
       <div className="flex flex-col gap-5">
         <TotalBalanceCards />
-        
+
         <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} />
 
         <CategoriesStats from={dateRange.from} to={dateRange.to} />

@@ -7,6 +7,7 @@ import Head from "./views/head";
 import Overview from "./views/overview";
 import { defaultCurrency } from "@/config/currencies";
 import History from "./views/history";
+import AllTimeHistory from "./views/all-time-history";
 
 export default async function Dashboard() {
   const user = await currentUser();
@@ -24,6 +25,8 @@ export default async function Dashboard() {
       <Overview currency={userData.currency || defaultCurrency.value} />
 
       <History currency={userData.currency || defaultCurrency.value} />
+
+      <AllTimeHistory />
     </>
   );
 }

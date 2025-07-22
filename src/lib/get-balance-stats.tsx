@@ -1,12 +1,12 @@
 import { prisma } from "./prisma";
 
-export async function getBalanceStats(id: string, from: Date, to: Date) {
+export async function getBalanceStats(id: string, from: Date | undefined, to: Date) {
   const totalTransactions = await prisma.transaction.groupBy({
     by: ["type", "currency"],
     where: {
       userId: id,
       date: {
-        gte: from,
+        ...(from ? { gte: from } : {}),
         lte: to,
       },
     },
@@ -20,7 +20,7 @@ export async function getBalanceStats(id: string, from: Date, to: Date) {
     where: {
       userId: id,
       date: {
-        gte: from,
+        ...(from ? { gte: from } : {}),
         lte: to,
       },
     },
