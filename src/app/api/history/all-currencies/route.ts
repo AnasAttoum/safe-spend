@@ -45,36 +45,40 @@ const getHistoryData = async (userId: string) => {
   const uniqeCurrencies: string[] = Array.from(currencies);
 
   const allCurrenciesBalance: Record<string, number>[] = [];
-  for (const year of uniqeYears) {
-    for (let month = 0; month < 12; month++) {
+  await Promise.all(
+    uniqeYears.map(async (year) => {
+      await Promise.all(
+        Array.from({ length: 12 }, async (_, month) => {
+          const currentMonth = new Date().getMonth();
+          const currentYear = new Date().getFullYear();
+          if (year === currentYear && month > currentMonth) return;
 
-      const currentMonth = new Date().getMonth();
-      const currentYear = new Date().getFullYear();
-      if (year === currentYear && month > currentMonth) continue;
-      
-      const endOfMonth = lastDayOfMonth(new Date(year, month));
-      const balanceOfThisMonth = await getBalanceStats(
-        userId,
-        undefined,
-        endOfMonth
+          const endOfMonth = lastDayOfMonth(new Date(year, month));
+          const balanceOfThisMonth = await getBalanceStats(
+            userId,
+            undefined,
+            endOfMonth
+          );
+
+          const stepData: Record<string, number> = {};
+          uniqeCurrencies.forEach((curr) => {
+            const found = balanceOfThisMonth.find(
+              ({ currency }) => currency === curr
+            ) || { income: 0, expense: 0 };
+            stepData[curr] = found.income - found.expense;
+          });
+
+          allCurrenciesBalance.push({ year, month, ...stepData });
+        })
       );
+    })
+  );
 
-      const stepData: Record<string, number> = {};
-      uniqeCurrencies.forEach((curr) => {
-        const found = balanceOfThisMonth.find(
-          ({ currency }) => currency === curr
-        ) || { income: 0, expense: 0 };
-
-        stepData[curr] = found.income - found.expense;
-      });
-
-      allCurrenciesBalance.push({
-        year,
-        month,
-        ...stepData,
-      });
-    }
-  }
-
-  return { uniqeCurrencies, allCurrenciesBalance };
+  return {
+    uniqeCurrencies,
+    allCurrenciesBalance: allCurrenciesBalance.sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.month - b.month;
+    }),
+  };
 };
