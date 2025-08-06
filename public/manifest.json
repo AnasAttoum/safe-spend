@@ -2,8 +2,8 @@
   "name": "Safe Spend",
   "short_name": "Safe Spend",
   "description": "Take control of your finances with Safe Spend. Easily track your expenses, set budgets, and achieve your saving goals with a clean and intuitive interface.",
-  "theme_color": "#8936FF",
-  "background_color": "#2EC6FE",
+  "theme_color": "#023e8a",
+  "background_color": "#023e8a",
   "icons": [
     {
       "purpose": "maskable",
