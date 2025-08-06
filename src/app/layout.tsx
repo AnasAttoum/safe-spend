@@ -39,6 +39,12 @@ export const metadata: Metadata = {
     { name: "Anas Attoum", url: "https://anas-attoum-portfolio.vercel.app" },
   ],
   creator: "Anas Attoum",
+  manifest: '/manifest.json',
+  themeColor: '#8936FF',
+  icons: {
+    icon: '/safeSpend_rounded.png',
+    apple: '/safeSpend_maskable.png',
+  },
 };
 
 export default function RootLayout({
