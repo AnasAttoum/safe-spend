@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     { name: "Anas Attoum", url: "https://anas-attoum-portfolio.vercel.app" },
   ],
   creator: "Anas Attoum",
-  manifest: '/manifest.json',
+  manifest: './manifest.ts',
   icons: {
     icon: '/safeSpend_rounded.png',
     apple: '/safeSpend_maskable.png',
