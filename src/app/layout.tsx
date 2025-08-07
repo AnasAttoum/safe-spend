@@ -40,12 +40,21 @@ export const metadata: Metadata = {
   ],
   creator: "Anas Attoum",
   manifest: '/manifest.json',
-  themeColor: '#8936FF',
   icons: {
     icon: '/safeSpend_rounded.png',
     apple: '/safeSpend_maskable.png',
   },
 };
+
+export function generateViewport() {
+  return {
+    themeColor: "#023e8a", // or any color you want
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  };
+}
 
 export default function RootLayout({
   children,
