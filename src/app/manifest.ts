@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
       "Take control of your finances with Safe Spend. Easily track your expenses, set budgets, and achieve your saving goals with a clean and intuitive interface.",
     start_url: "/",
     display: "standalone",
-    background_color: "#023e8a",
+    background_color: "#ffffff",
     theme_color: "#023e8a",
     icons: [
       {

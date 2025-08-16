@@ -590,6 +590,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                   onUpdate?.({ range, rangeCompare });
                 }
               }}
+              className="primaryBtn"
             >
               Apply
             </Button>

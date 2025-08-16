@@ -6,6 +6,7 @@ export const routes = {
   transactions: "/transactions",
   exchanges: "/exchanges",
   currency: "/currency",
+  categories: "/categories",
 
   settings: "/settings",
 };

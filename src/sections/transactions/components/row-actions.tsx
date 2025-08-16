@@ -32,7 +32,7 @@ export const RowActions = ({
                             Edit
                         </Button>
                     }
-                    type="income"
+                    type={transaction.type as "income" | "expense"}
                     transaction={transaction}
                     closeMenu={() => setOpenMenu(false)}
                 />
