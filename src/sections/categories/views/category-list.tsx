@@ -53,7 +53,7 @@ export default function CategoryList({ type }: Props) {
               Create one to get started...
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
               {data.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}

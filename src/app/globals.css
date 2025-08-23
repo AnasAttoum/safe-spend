@@ -237,6 +237,6 @@ body {
   mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), transparent);
 }
 
-/* .card{
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-} */
+.cardBg{
+  @apply bg-gray-100 dark:bg-neutral-800
+}

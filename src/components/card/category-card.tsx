@@ -1,20 +1,20 @@
-import { DeleteDialog } from "../dialog/delete-dialog";
-import Icon from "../icon/icon";
-import { Button } from "../ui/button";
+import WaveIcon from "../icon/lib/wave-icon";
 
 type Props = {
   category: { id: string; name: string; icon: string };
 };
 
 export default function CategoryCard({ category }: Props) {
-  const { id = "", icon = "", name = "" } = category;
+  const { icon = "", name = "" } = category;
   return (
-    <div className="bg-gray-300 text-black rounded-lg">
-      <div className="p-5">
-        {icon} {name}
+    <div className="relative cardBg text-black rounded-sm">
+      <WaveIcon className="absolute -left-10 w-full rotate-90" size={100} />
+      <div className="flex items-center gap-3 p-5 text-safeSpend-primary font-bold">
+        <span className="text-6xl shrink-0">{icon}</span>
+        <span className="truncate max-w-[150px]">{name}</span>
       </div>
 
-      <DeleteDialog
+      {/* <DeleteDialog
         item="category"
         id={id}
         trigger={
@@ -23,7 +23,7 @@ export default function CategoryCard({ category }: Props) {
             Delete
           </Button>
         }
-      />
+      /> */}
     </div>
   );
 }

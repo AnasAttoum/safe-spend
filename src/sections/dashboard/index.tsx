@@ -9,7 +9,8 @@ import { defaultCurrency } from "@/config/currencies";
 import History from "./views/history";
 import AllTimeHistory from "./views/all-time-history";
 
-export default async function Dashboard() {
+export default async function Dashboard({ id }: { id?: string }) {
+  console.log('id: ', id);
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
