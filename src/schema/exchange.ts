@@ -18,7 +18,7 @@ export const baseExchangeSchema = z.object({
     .positive("Amount must be greater than 0")
     .max(1000000000, { message: "Max collected amount is 1000000000" })
     .multipleOf(0.01, { message: "Amount must be a multiple of 0.01" }),
-  title: z.string().min(3).max(100),
+  title: z.string().min(1).max(100),
   date: z.coerce.date(),
   exchangeCurrency: z.custom((value) => {
     const found = currencies.some((currency) => currency.value === value);
@@ -51,7 +51,7 @@ export const createExchangeSchema = baseExchangeSchema.superRefine(
 export type createExchangeType = z.infer<typeof createExchangeSchema>;
 
 export const updateExchangeSchema = baseExchangeSchema.extend({
-  id: z.string().min(3).max(100),
+  id: z.string().min(1).max(100),
 });
 
 export type updateExchangeType = z.infer<typeof updateExchangeSchema>;

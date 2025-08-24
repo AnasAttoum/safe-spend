@@ -10,11 +10,11 @@ export const createTransactionSchema = z.object({
     .positive("Amount must be greater than 0")
     .max(1000000000, { message: "Max transaction amount is 1000000000" })
     .multipleOf(0.01, { message: "Amount must be a multiple of 0.01" }),
-  title: z.string().min(3).max(100),
+  title: z.string().min(1).max(100),
   date: z.coerce.date(),
   category: z.object({
-    id: z.string().min(3),
-    name: z.string().min(3).max(50),
+    id: z.string().min(1),
+    name: z.string().min(1).max(50),
     icon: z.string().max(20),
   }),
   type: z.union([z.literal("income"), z.literal("expense")]),
@@ -29,7 +29,7 @@ export const createTransactionSchema = z.object({
 export type createTransactionType = z.infer<typeof createTransactionSchema>;
 
 export const updateTransactionSchema = createTransactionSchema.extend({
-  id: z.string().min(3).max(100),
+  id: z.string().min(1).max(100),
 });
 
 export type updateTransactionType = z.infer<typeof updateTransactionSchema>;
