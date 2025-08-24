@@ -1,6 +1,9 @@
 import { prisma } from "./prisma";
 
-export async function getBalanceStats(id: string, from: Date | undefined, to: Date) {
+export async function getBalanceStats(id: string, from: Date | undefined, to: Date, categoryId: string | null = "") {
+
+  const hasCategoryId = categoryId && categoryId !== "" && categoryId !== "undefined" && categoryId !== "null";
+
   const totalTransactions = await prisma.transaction.groupBy({
     by: ["type", "currency"],
     where: {
@@ -9,6 +12,7 @@ export async function getBalanceStats(id: string, from: Date | undefined, to: Da
         ...(from ? { gte: from } : {}),
         lte: to,
       },
+      ...(hasCategoryId ? { categoryId } : {})
     },
     _sum: {
       amount: true,
@@ -48,26 +52,27 @@ export async function getBalanceStats(id: string, from: Date | undefined, to: Da
     }
   }
 
-  for (const item of totalExchanges) {
-    const { exchangeCurrency, targetCurrency, _sum } = item;
-    if (!stats[exchangeCurrency]) {
-      stats[exchangeCurrency] = {
-        currency: exchangeCurrency,
-        income: 0,
-        expense: 0,
-      };
-    }
-    if (!stats[targetCurrency]) {
-      stats[targetCurrency] = {
-        currency: targetCurrency,
-        income: 0,
-        expense: 0,
-      };
-    }
+  if (!hasCategoryId)
+    for (const item of totalExchanges) {
+      const { exchangeCurrency, targetCurrency, _sum } = item;
+      if (!stats[exchangeCurrency]) {
+        stats[exchangeCurrency] = {
+          currency: exchangeCurrency,
+          income: 0,
+          expense: 0,
+        };
+      }
+      if (!stats[targetCurrency]) {
+        stats[targetCurrency] = {
+          currency: targetCurrency,
+          income: 0,
+          expense: 0,
+        };
+      }
 
-    stats[exchangeCurrency].expense += _sum.exchangeAmount || 0;
-    stats[targetCurrency].income += _sum.collectedAmount || 0;
-  }
+      stats[exchangeCurrency].expense += _sum.exchangeAmount || 0;
+      stats[targetCurrency].income += _sum.collectedAmount || 0;
+    }
 
   return Object.values(stats);
 }

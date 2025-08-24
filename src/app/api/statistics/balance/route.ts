@@ -11,19 +11,20 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from");
   const to = searchParams.get("to");
+  const categoryId = searchParams.get("categoryId");
 
-  const parsedBody = overviewSchema.safeParse({ from, to });
+  const parsedBody = overviewSchema.safeParse({ from, to, categoryId });
+
   if (!parsedBody.success)
     return Response.json(parsedBody.error.message, { status: 400 });
 
   const stats = await getBalanceStats(
     user.id,
     parsedBody.data.from,
-    parsedBody.data.to
+    parsedBody.data.to,
+    categoryId
   );
   return Response.json(stats);
 }
-
-
 
 export type Balancetype = Awaited<ReturnType<typeof getBalanceStats>>;

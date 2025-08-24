@@ -10,21 +10,22 @@ type Props = {
   from: Date;
   to: Date;
   currency: string;
+  categoryId?: string;
 };
 
-export default function StatisticCards({ from, to, currency }: Props) {
+export default function StatisticCards({ from, to, currency, categoryId }: Props) {
   const { fromUTC, toUTC } = getUTCRange(from, to);
 
   const { data, isLoading } = useQuery<Balancetype>({
-    queryKey: [queryKey.overview, queryKey.statistics, from, to],
+    queryKey: [queryKey.overview, queryKey.statistics, from, to, categoryId],
     queryFn: () =>
-      fetch(`/api/statistics/balance?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`).then((res) =>
+      fetch(`/api/statistics/balance?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}&categoryId=${categoryId}`).then((res) =>
         res.json()
-      ),
-  });
+  ),
+});
 
-  const income = data?.find((el) => el.currency === currency)?.income || 0;
-  const expense = data?.find((el) => el.currency === currency)?.expense || 0;
+  const income = (data ?? [])?.find((el) => el?.currency === currency)?.income || 0;
+  const expense = (data ?? [])?.find((el) => el?.currency === currency)?.expense || 0;
   const balance = income - expense || 0;
 
   return (

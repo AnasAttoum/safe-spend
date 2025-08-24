@@ -54,7 +54,7 @@ export function DeleteMyDataDialog() {
     <AlertDialog open={open} onOpenChange={setOpen}>
       <div className="flex justify-end">
         <AlertDialogTrigger asChild>
-          <Button className="cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase">
+          <Button className="deleteBtn">
             Delete My Data
           </Button>
         </AlertDialogTrigger>

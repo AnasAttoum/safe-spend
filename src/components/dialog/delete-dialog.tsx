@@ -1,3 +1,5 @@
+"use client";
+
 import { deleteCategory } from "@/actions/category";
 import { deleteExchange } from "@/actions/exchange";
 import { deleteTransaction } from "@/actions/transaction";
@@ -12,7 +14,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { routes } from "@/config/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -23,17 +27,19 @@ type Props = {
   closeMenu?: () => void
 };
 
-export function DeleteDialog({ item, trigger, id, closeMenu = () => {} }: Props) {
+export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props) {
   const queryClient = useQueryClient();
+
+  const router = useRouter();
 
   const { mutate } = useMutation({
     mutationFn: async (formId: string) => {
       if (item === "category") {
         return await deleteCategory(formId);
-      } else if(item === "transaction") {
+      } else if (item === "transaction") {
         return await deleteTransaction(formId);
       }
-      else if(item === "exchange") {
+      else if (item === "exchange") {
         return await deleteExchange(formId);
       }
     },
@@ -45,7 +51,10 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => {} }: Props)
       queryClient.invalidateQueries({
         queryKey: [item],
       });
-      closeMenu()
+      closeMenu();
+
+      if (item === "category")
+        router.push(routes.categories)
     },
     onError: () => {
       toast.error("Something went wrong", { id });

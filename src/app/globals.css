@@ -240,3 +240,7 @@ body {
 .cardBg{
   @apply bg-gray-100 dark:bg-neutral-800
 }
+
+.deleteBtn{
+  @apply cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase
+}

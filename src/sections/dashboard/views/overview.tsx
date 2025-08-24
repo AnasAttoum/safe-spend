@@ -7,7 +7,7 @@ import StatisticCards from "../components/statistic-cards";
 import CategoriesStats from "../components/categories-stats";
 import TotalBalanceCards from "../components/total-balance-cards";
 
-export default function Overview({ currency }: { currency: string }) {
+export default function Overview({ currency, categoryId }: { currency: string; categoryId?: string }) {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
@@ -29,11 +29,11 @@ export default function Overview({ currency }: { currency: string }) {
       </div>
 
       <div className="flex flex-col gap-5">
-        <TotalBalanceCards />
+        {!categoryId && <TotalBalanceCards />}
 
-        <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} />
+        <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} categoryId={categoryId} />
 
-        <CategoriesStats from={dateRange.from} to={dateRange.to} />
+        {!categoryId && <CategoriesStats from={dateRange.from} to={dateRange.to} />}
       </div>
     </>
   );
