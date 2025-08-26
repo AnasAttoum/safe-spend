@@ -29,7 +29,7 @@ export default function Error({
           <Image src={`/assets/pages/500.svg?cache=${imgKey}`} alt="500" fill />
         </div>
 
-        <Button onClick={reset} className="text-2xl py-5 w-full md:w-1/2">Reset</Button>
+        <Button onClick={reset} className="text-2xl py-5 w-full md:w-1/2 primaryBtn">Reset</Button>
       </div>
     </>);
 }

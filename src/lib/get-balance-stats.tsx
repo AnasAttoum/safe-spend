@@ -18,7 +18,7 @@ export async function getBalanceStats(id: string, from: Date | undefined, to: Da
       amount: true,
     },
   });
-
+  
   const totalExchanges = await prisma.exchange.groupBy({
     by: ["exchangeCurrency", "targetCurrency"],
     where: {
@@ -33,7 +33,7 @@ export async function getBalanceStats(id: string, from: Date | undefined, to: Da
       collectedAmount: true,
     },
   });
-
+  
   const stats: Record<
     string,
     { currency: string; income: number; expense: number }

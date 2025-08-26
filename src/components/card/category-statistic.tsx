@@ -28,16 +28,16 @@ export default function CategoryStatistic({ type, data }: Props) {
       ) : (
         <ScrollArea className="h-36 px-4">
           <div className="flex flex-col gap-4">
-            {filteredData.map((el) => {
+            {filteredData.map((el, index) => {
               const amount = el._sum.amount || 0;
               const total = filteredData
-              .filter((data) => data.currency === el.currency)
-              .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
+                .filter((data) => data.currency === el.currency)
+                .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
               const symbol = currencies.find((curr) => curr.value === el.currency)?.symbol || ''
               const percentage = (amount * 100) / (total || amount);
               return (
                 <div
-                  key={el.categoryId}
+                  key={index}
                   className="flex flex-col gap-2"
                 >
                   <div className="flex justify-between">
@@ -49,7 +49,7 @@ export default function CategoryStatistic({ type, data }: Props) {
                     </div>
 
                     <div>
-                      <CountUp end={amount} decimals={Number.isInteger(amount) ? 0 : 2} suffix={` ${symbol}`}/>
+                      <CountUp end={amount} decimals={Number.isInteger(amount) ? 0 : 2} suffix={` ${symbol}`} />
                       {/* {amount} {symbol} */}
                     </div>
                   </div>

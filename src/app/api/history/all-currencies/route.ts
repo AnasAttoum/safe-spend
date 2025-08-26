@@ -1,8 +1,7 @@
 import { routes } from "@/config/routes";
 import { getBalanceStats } from "@/lib/get-balance-stats";
-import { prisma } from "@/lib/prisma";
+import { getHistory } from "@/lib/get-history";
 import { currentUser } from "@clerk/nextjs/server";
-import { lastDayOfMonth } from "date-fns";
 import { redirect } from "next/navigation";
 
 export async function GET() {
@@ -19,19 +18,7 @@ export type getHistoryAllCurrenciesResponseType = Awaited<
 >;
 
 const getHistoryData = async (userId: string) => {
-  const result = await prisma.yearTable.groupBy({
-    by: ["month", "year", "currency"],
-    where: { userId },
-    _sum: {
-      expense: true,
-      income: true,
-    },
-    orderBy: [
-      {
-        month: "desc",
-      },
-    ],
-  });
+  const result = (await getHistory(userId)) || [];
   if (!result || result.length === 0)
     return { uniqeCurrencies: [], allCurrenciesBalance: [] };
 
@@ -53,7 +40,10 @@ const getHistoryData = async (userId: string) => {
           const currentYear = new Date().getFullYear();
           if (year === currentYear && month > currentMonth) return;
 
-          const endOfMonth = lastDayOfMonth(new Date(year, month));
+          const endOfMonth = new Date(
+            Date.UTC(year, month + 1, 0, 23, 59, 59, 999)
+          );
+          // const endOfMonth = lastDayOfMonth(new Date(year, month));
           const balanceOfThisMonth = await getBalanceStats(
             userId,
             undefined,

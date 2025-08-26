@@ -1,9 +1,8 @@
 import { routes } from "@/config/routes";
-import { prisma } from "@/lib/prisma";
-import { HistoryData, Period, Timeframe } from "@/lib/types";
+import { getHistory } from "@/lib/get-history";
+import { Period, Timeframe } from "@/lib/types";
 import { getHistoryDataSchema } from "@/schema/history";
 import { currentUser } from "@clerk/nextjs/server";
-import { getDaysInMonth } from "date-fns";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
@@ -49,101 +48,13 @@ const getHistoryData = async (
 ) => {
   switch (timeframe) {
     case "month":
-      return await getMonthHistoryData(
+      return await getHistory(
         userId,
+        currency,
         period.year,
-        period.month,
-        currency
+        period.month
       );
     case "year":
-      return await getYearHistoryData(userId, period.year, currency);
+      return await getHistory(userId, currency, period.year);
   }
-};
-
-const getMonthHistoryData = async (
-  userId: string,
-  year: number,
-  month: number,
-  currency: string
-) => {
-  const result = await prisma.monthTable.groupBy({
-    by: ["day"],
-    where: { userId, year, month, currency },
-    _sum: {
-      expense: true,
-      income: true,
-    },
-    orderBy: [
-      {
-        day: "asc",
-      },
-    ],
-  });
-  if (!result || result.length === 0) return [];
-
-  const history: HistoryData[] = [];
-  const daysInMonth = getDaysInMonth(new Date(year, month));
-
-  for (let i = 1; i <= daysInMonth; i++) {
-    let income = 0,
-      expense = 0;
-    const day = result.find((row) => row.day === i);
-    if (day) {
-      income = day._sum.income || 0;
-      expense = day._sum.expense || 0;
-    }
-    history.push({
-      day: i,
-      month,
-      year,
-      income,
-      expense,
-    });
-  }
-
-  if (history.every((el) => el.income === 0 && el.expense === 0)) return [];
-  
-  return history;
-};
-
-const getYearHistoryData = async (
-  userId: string,
-  year: number,
-  currency: string
-) => {
-  const result = await prisma.yearTable.groupBy({
-    by: ["month"],
-    where: { userId, year, currency },
-    _sum: {
-      expense: true,
-      income: true,
-    },
-    orderBy: [
-      {
-        month: "asc",
-      },
-    ],
-  });
-  if (!result || result.length === 0) return [];
-
-  const history: HistoryData[] = [];
-  for (let i = 0; i < 12; i++) {
-    let income = 0,
-      expense = 0;
-    const month = result.find((row) => row.month === i);
-    if (month) {
-      income = month._sum.income || 0;
-      expense = month._sum.expense || 0;
-    }
-    history.push({
-      month: i,
-      year,
-      income,
-      expense,
-    });
-  }
-
-  if (history.every((el) => el.income === 0 && el.expense === 0)) return [];
-
-  return history;
 };

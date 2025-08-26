@@ -33,7 +33,7 @@ export default function Chart({ data, timeframe }: Props) {
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={data.map((el) => ({ ...el, day: (el?.day || 0) + 1 }))}
           margin={{
             top: 5,
             right: 30,

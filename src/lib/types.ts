@@ -8,6 +8,7 @@ export type HistoryData = {
   day?: number;
   income: number;
   expense: number;
+  currency: string;
 };
 
 export type SimpleCategory = {
