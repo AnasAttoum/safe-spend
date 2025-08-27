@@ -15,20 +15,47 @@ export type getHistoryPeriodsType = Awaited<
   ReturnType<typeof getHistoryPeriods>
 >;
 
+const getYears = (dates: Date[]) =>
+  Array.from(new Set(dates.map((d) => d.getFullYear()))).sort((a, b) => a - b);
+
 const getHistoryPeriods = async (userId: string) => {
-  const result = await prisma.monthTable.findMany({
-    where: {
-      userId,
-    },
-    select: {
-      year: true,
-    },
-    distinct: ["year"],
-    orderBy: [{ year: "asc" }],
-  });
+  const [firstTransaction, firstExchange, allTransactions, allExchanges] =
+    await Promise.all([
+      // Get earliest transaction
+      prisma.transaction.aggregate({
+        where: { userId },
+        _min: { date: true },
+      }),
+      // Get earliest exchange
+      prisma.exchange.aggregate({
+        where: { userId },
+        _min: { date: true },
+      }),
+      // Get all transaction dates
+      prisma.transaction.findMany({
+        where: { userId },
+        select: { date: true },
+      }),
+      // Get all exchange dates
+      prisma.exchange.findMany({
+        where: { userId },
+        select: { date: true },
+      }),
+    ]);
 
-  const years = result.map((el) => el.year);
-
-  if (years.length === 0) return [new Date().getFullYear()];
-  return years;
+  const allDates = [
+    ...allTransactions.map((t) => t.date),
+    ...allExchanges.map((e) => e.date),
+  ];
+  return {
+    // Extract earliest date
+    firstDate:
+      [firstTransaction._min.date, firstExchange._min.date]
+        .filter((d): d is Date => d !== null)
+        .sort((a, b) => a.getTime() - b.getTime())?.[0] || new Date(),
+    // Return all years
+    allYears: !!allDates.length
+      ? [new Date().getFullYear()]
+      : getYears(allDates),
+  };
 };

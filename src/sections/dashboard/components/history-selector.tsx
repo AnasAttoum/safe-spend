@@ -72,7 +72,7 @@ export default function HistorySelector({
             <YearSelector
               period={period}
               setPeriod={setPeriod}
-              years={data || []}
+              years={data?.allYears || []}
             />
 
             {timeframe === "month" && (
@@ -116,7 +116,7 @@ const YearSelector = ({
 }: {
   period: Period;
   setPeriod: (period: Period) => void;
-  years: getHistoryPeriodsType;
+  years: getHistoryPeriodsType["allYears"];
 }) => (
   <Select
     value={period.year.toString()}

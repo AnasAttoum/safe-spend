@@ -5,7 +5,9 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Card } from "@/components/ui/card";
 import { currencies } from "@/config/currencies";
 import { queryKey } from "@/config/query-key";
+import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import CountUp from "react-countup";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export function AllCurrenciesChart() {
@@ -49,7 +51,13 @@ export function AllCurrenciesChart() {
                           {data?.uniqeCurrencies.map((currency) => {
                             const color = currencies.find((({ value }) => value === currency))?.color
                             return <span key={currency} className="flex justify-between gap-2 font-bold" style={{ color }}>
-                              <span>{point?.[currency]}</span>
+                              <CountUp
+                                duration={0.5}
+                                end={point?.[currency]}
+                                preserveValue
+                                decimals={Number.isInteger(point?.[currency]) ? 0 : 2}
+                                className='font-bold'
+                              />
                               <span>{currency}</span>
                             </span>
                           })}

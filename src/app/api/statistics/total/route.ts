@@ -1,53 +1,47 @@
-import { defaultCurrency } from "@/config/currencies";
 import { routes } from "@/config/routes";
-import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { startOfMonth } from "date-fns";
-import { getBalanceStats } from "@/lib/get-balance-stats";
-import { getUTCRange } from "@/lib/date-helper";
+import { getHistoryData } from "@/lib/get-history";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
-  const total = await prisma.yearTable.groupBy({
-    by: ["currency"],
-    where: {
-      userId: user.id,
-    },
-    _sum: {
-      income: true,
-      expense: true,
-    },
-  });
+  const userData = await prisma.user.findUnique({ where: { userId: user.id } });
+  if (!userData) redirect(routes.currency);
 
-  const result = total
-    .map(({ currency, _sum }) => ({
-      currency,
-      total: (_sum.income || 0) - (_sum.expense || 0),
-    }))
-    .filter((el) => el.total !== 0);
+  const { allCurrenciesBalance } = await getHistoryData(user.id);
 
-  if (!result.length) {
-    const userRow = await prisma.user.findFirst({
-      where: { userId: user.id },
+  if (!allCurrenciesBalance.length)
+    return Response.json({
+      currency: userData.currency,
+      total: 0,
+      diff: 0,
     });
-    return Response.json([
-      { currency: userRow?.currency || defaultCurrency.value, total: 0 },
-    ]);
-  }
 
-  const now = new Date();
-  const currentMonthStart = startOfMonth(now);
-  const { fromUTC, toUTC } = getUTCRange(currentMonthStart, now);
+  const lastIndex = allCurrenciesBalance.length - 1;
+  const lastBalance = allCurrenciesBalance[lastIndex];
+  const allCurrencies = Object.keys(lastBalance).filter(
+    (key) => key !== "year" && key !== "month"
+  );
 
-  const diffThisMonth = await getBalanceStats(user.id, fromUTC, toUTC);
-  const resultWithDiffThisMonth = result.map((res) => {
-    const diff = diffThisMonth.find(
-      ({ currency }) => res.currency === currency
-    );
-    return { ...res, diff: (diff?.income || 0) - (diff?.expense || 0) };
+  const defaultBalance = {
+    year: lastBalance.year,
+    month: lastBalance.month,
+    ...Object.fromEntries(allCurrencies.map((key) => [key, 0])),
+  };
+
+  const secondFromTheLastBalance =
+    allCurrenciesBalance?.[lastIndex - 1] || defaultBalance;
+  const resultWithDiffThisMonth = allCurrencies.map((currency) => {
+    return {
+      currency,
+      total: lastBalance[currency] || 0,
+      diff:
+        (lastBalance[currency] || 0) -
+        (secondFromTheLastBalance[currency] || 0),
+    };
   });
 
   return Response.json(resultWithDiffThisMonth);

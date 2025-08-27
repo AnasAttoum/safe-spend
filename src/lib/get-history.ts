@@ -1,6 +1,7 @@
 import { getDaysInMonth } from "date-fns";
 import { prisma } from "./prisma";
 import { HistoryData } from "./types";
+import { getBalanceStats } from "./get-balance-stats";
 
 export async function getHistory(
   userId: string,
@@ -282,3 +283,59 @@ export async function getHistory(
       );
   return completeEmptyMissingData;
 }
+
+export const getHistoryData = async (userId: string) => {
+  const result = (await getHistory(userId)) || [];
+  if (!result || result.length === 0)
+    return { uniqeCurrencies: [], allCurrenciesBalance: [] };
+
+  const years = new Set<number>();
+  const currencies = new Set<string>();
+  result.forEach((el) => {
+    years.add(el.year);
+    currencies.add(el.currency);
+  });
+  const uniqeYears: number[] = Array.from(years);
+  const uniqeCurrencies: string[] = Array.from(currencies);
+
+  const allCurrenciesBalance: Record<string, number>[] = [];
+  await Promise.all(
+    uniqeYears.map(async (year) => {
+      await Promise.all(
+        Array.from({ length: 12 }, async (_, month) => {
+          const currentMonth = new Date().getMonth();
+          const currentYear = new Date().getFullYear();
+          if (year === currentYear && month > currentMonth) return;
+
+          const endOfMonth = new Date(
+            Date.UTC(year, month + 1, 0, 23, 59, 59, 999)
+          );
+          // const endOfMonth = lastDayOfMonth(new Date(year, month));
+          const balanceOfThisMonth = await getBalanceStats(
+            userId,
+            undefined,
+            endOfMonth
+          );
+
+          const stepData: Record<string, number> = {};
+          uniqeCurrencies.forEach((curr) => {
+            const found = balanceOfThisMonth.find(
+              ({ currency }) => currency === curr
+            ) || { income: 0, expense: 0 };
+            stepData[curr] = found.income - found.expense;
+          });
+
+          allCurrenciesBalance.push({ year, month, ...stepData });
+        })
+      );
+    })
+  );
+
+  return {
+    uniqeCurrencies,
+    allCurrenciesBalance: allCurrenciesBalance.sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.month - b.month;
+    }),
+  };
+};

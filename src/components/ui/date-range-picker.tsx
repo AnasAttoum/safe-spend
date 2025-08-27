@@ -154,7 +154,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       };
     }, []);
 
-    const [firstYear, setFirstYear] = useState<number>()
+    const [firstDate, setFirstDate] = useState<Date>(new Date())
     const { data } = useQuery<getHistoryPeriodsType>({
       queryKey: [queryKey.overview, queryKey.history, queryKey.periods],
       queryFn: () => fetch("/api/history/periods").then((res) => res.json()),
@@ -162,7 +162,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 
     useEffect(() => {
       if (data)
-        setFirstYear(Math.min(...data))
+        setFirstDate(new Date(data?.firstDate))
     }, [data])
 
     const getPresetRange = (presetName: string): DateRange => {
@@ -174,9 +174,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 
       switch (preset.name) {
         case "all":
-          from.setFullYear(firstYear ?? 2000, 0, 1); // Jan 1, 2000
-          from.setHours(0, 0, 0, 0);
-          to.setHours(23, 59, 59, 999);
+          from.setTime((firstDate ?? new Date()).getTime());
           break;
         case "today":
           from.setHours(0, 0, 0, 0);
