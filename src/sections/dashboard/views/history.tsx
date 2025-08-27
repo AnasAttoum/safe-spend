@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getHistoryDataResponseType } from "@/app/api/history/data/route";
 import { queryKey } from "@/config/query-key";
 
-export default function History({ currency }: { currency: string }) {
+export default function History({ currency, categoryId }: { currency: string; categoryId?: string }) {
   const [curr, setCurr] = useState(currency);
   const [timeframe, setTimeframe] = useState<Timeframe>("year");
   const [period, setPeriod] = useState<Period>({
@@ -19,7 +19,7 @@ export default function History({ currency }: { currency: string }) {
     queryKey: [queryKey.overview, queryKey.history, timeframe, period, curr],
     queryFn: () =>
       fetch(
-        `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}&currency=${curr}`
+        `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}&currency=${curr}&categoryId=${categoryId}`
       ).then((res) => res.json()),
   });
 

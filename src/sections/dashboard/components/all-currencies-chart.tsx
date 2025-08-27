@@ -5,7 +5,6 @@ import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Card } from "@/components/ui/card";
 import { currencies } from "@/config/currencies";
 import { queryKey } from "@/config/query-key";
-import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import CountUp from "react-countup";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"

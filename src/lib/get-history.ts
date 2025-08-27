@@ -7,8 +7,15 @@ export async function getHistory(
   userId: string,
   currency: string | undefined = undefined,
   year: number | undefined = undefined,
-  month: number | undefined = undefined
+  month: number | undefined = undefined,
+  categoryId: string | null | undefined = undefined
 ) {
+  const hasCategoryId =
+    categoryId &&
+    categoryId !== "" &&
+    categoryId !== "undefined" &&
+    categoryId !== "null";
+
   const monthHistory = year && month !== undefined;
   const start = monthHistory
     ? new Date(Date.UTC(year, month, 1))
@@ -27,6 +34,7 @@ export async function getHistory(
           lt: end,
         },
       }),
+      ...(hasCategoryId && { categoryId }),
     },
     select: { amount: true, type: true, date: true, currency: true },
   });
@@ -195,9 +203,9 @@ export async function getHistory(
 
     return acc;
   }, {} as Record<string, { year: number; month: number; day?: number; income: number; expense: number; currency: string }>);
-  const finalExchanges = Object.values(groupedExchanges).sort(
-    (a, b) => a.month - b.month
-  );
+  const finalExchanges = hasCategoryId
+    ? []
+    : Object.values(groupedExchanges).sort((a, b) => a.month - b.month);
 
   const years = new Set<number>();
   const currencies = new Set<string>();
@@ -239,8 +247,6 @@ export async function getHistory(
   }
 
   if (history.every((el) => el.income === 0 && el.expense === 0)) return [];
-
-  
 
   const completeEmptyMissingData = monthHistory
     ? Array.from({ length: daysInMonth }, (_, i) => {

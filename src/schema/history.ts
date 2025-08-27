@@ -12,6 +12,7 @@ export const getHistoryDataSchema = z.object({
 
     return value;
   }),
+  categoryId: z.string().min(1).max(100).optional().nullable(),
 });
 
 export type GetHistoryDataSchemaType = z.infer<typeof getHistoryDataSchema>;

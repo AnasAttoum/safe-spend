@@ -14,12 +14,19 @@ export async function GET(request: Request) {
   const year = searchParams.get("year");
   const month = searchParams.get("month");
   const currency = searchParams.get("currency") || "";
+  const categoryId = searchParams.get("categoryId") || "";
+  const hasCategoryId =
+    categoryId &&
+    categoryId !== "" &&
+    categoryId !== "undefined" &&
+    categoryId !== "null";
 
   const parsedBody = getHistoryDataSchema.safeParse({
     timeframe,
     year,
     month,
     currency,
+    ...(hasCategoryId && { categoryId }),
   });
   if (!parsedBody.success)
     return Response.json(parsedBody.error.message, { status: 400 });
@@ -31,7 +38,8 @@ export async function GET(request: Request) {
       month: parsedBody.data.month,
       year: parsedBody.data.year,
     },
-    currency
+    currency,
+    parsedBody.data.categoryId
   );
   return Response.json(periods);
 }
@@ -44,17 +52,13 @@ const getHistoryData = async (
   userId: string,
   timeframe: Timeframe,
   period: Period,
-  currency: string
+  currency: string,
+  categoryId: string | null | undefined = undefined
 ) => {
   switch (timeframe) {
     case "month":
-      return await getHistory(
-        userId,
-        currency,
-        period.year,
-        period.month
-      );
+      return await getHistory(userId, currency, period.year, period.month, categoryId);
     case "year":
-      return await getHistory(userId, currency, period.year);
+      return await getHistory(userId, currency, period.year, undefined,categoryId);
   }
 };

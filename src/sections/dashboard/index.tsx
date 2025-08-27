@@ -29,7 +29,7 @@ export default async function Dashboard({ categoryId }: { categoryId?: string })
         categoryId={categoryId}
       />
 
-      {!categoryId && <History currency={userData.currency || defaultCurrency.value} />}
+      <History currency={userData.currency || defaultCurrency.value} categoryId={categoryId} />
 
       {!categoryId && <AllTimeHistory />}
 
