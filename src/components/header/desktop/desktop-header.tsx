@@ -8,8 +8,8 @@ export default function DesktopHeader() {
   return (
     <header className="flex items-center justify-between border-b h-14">
       <div className="flex gap-2 items-center">
-        <SidebarTrigger/>
-      <Logo />
+        <SidebarTrigger />
+        <Logo />
       </div>
       {/* <div className="col-span-2 flex justify-evenly">
         <HeaderLinks />

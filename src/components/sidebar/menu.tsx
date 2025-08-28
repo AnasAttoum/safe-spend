@@ -6,8 +6,11 @@ import { headerlinks } from '@/config/header-links'
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { PoundSterling } from 'lucide-react';
+import { routes } from '@/config/routes';
+import { Separator } from '../ui/separator';
 
-export default function Menu() {
+export default function Menu({ SYPCurrency }: { SYPCurrency: boolean }) {
 
     const pathname = usePathname();
 
@@ -32,6 +35,24 @@ export default function Menu() {
                     </div>
                 )
             })}
+            {SYPCurrency &&
+                <>
+                    <Separator />
+                    <div className='flex flex-col gap-1'>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton asChild className={cn(
+                                "relative w-full text-center text-white hover:text-white rounded-md transition-all duration-200 py-7",
+                                routes.syrianPoundToday === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
+                            )}>
+                                <Link href={routes.syrianPoundToday}>
+                                    <PoundSterling color="#fff" />
+                                    <span>Syrian Pound Today</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        {/* {index !== headerlinks.length - 1 && <Separator />} */}
+                    </div>
+                </>}
         </SidebarMenu>
     )
 }

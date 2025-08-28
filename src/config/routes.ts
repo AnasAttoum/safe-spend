@@ -9,4 +9,6 @@ export const routes = {
   categories: "/categories",
 
   settings: "/settings",
+
+  syrianPoundToday: "/syrian-pound-today",
 };
