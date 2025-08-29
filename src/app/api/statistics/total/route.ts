@@ -20,8 +20,18 @@ export async function GET() {
       diff: 0,
     });
 
+  const date = new Date();
+  const thisYear = date.getUTCFullYear();
+  const thisMonth = date.getUTCMonth();
+
+  // Calculate last month/year
+  const lastMonthDate = new Date(Date.UTC(thisYear, thisMonth - 1, 1));
+  const lastMonth = lastMonthDate.getUTCMonth();
+  const lastMonthYear = lastMonthDate.getUTCFullYear();
+
   const lastIndex = allCurrenciesBalance.length - 1;
   const lastBalance = allCurrenciesBalance[lastIndex];
+
   const allCurrencies = Object.keys(lastBalance).filter(
     (key) => key !== "year" && key !== "month"
   );
@@ -31,16 +41,22 @@ export async function GET() {
     month: lastBalance.month,
     ...Object.fromEntries(allCurrencies.map((key) => [key, 0])),
   };
+  const balanceThisMonth: Record<string, number> =
+    allCurrenciesBalance.find(
+      (bal) => bal.year === thisYear && bal.month === thisMonth
+    ) || defaultBalance;
 
-  const secondFromTheLastBalance =
-    allCurrenciesBalance?.[lastIndex - 1] || defaultBalance;
+  const balanceLastMonth: Record<string, number> =
+    allCurrenciesBalance.find(
+      (bal) => bal.year === lastMonthYear && bal.month === lastMonth
+    ) || defaultBalance;
+
   const resultWithDiffThisMonth = allCurrencies.map((currency) => {
     return {
       currency,
       total: lastBalance[currency] || 0,
       diff:
-        (lastBalance[currency] || 0) -
-        (secondFromTheLastBalance[currency] || 0),
+        (balanceThisMonth[currency] || 0) - (balanceLastMonth[currency] || 0),
     };
   });
 
