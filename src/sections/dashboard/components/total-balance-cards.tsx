@@ -11,7 +11,6 @@ export default function TotalBalanceCards() {
         res.json()
       ),
   });
-  console.log('data: ', data);
 
   return (
     <div className="w-full">

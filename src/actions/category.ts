@@ -81,3 +81,34 @@ export async function deleteCategory(form: deleteSchemaType) {
     },
   });
 }
+
+export async function getCategory(form: deleteSchemaType) {
+  const parsedBody = deleteSchema.safeParse(form);
+  if (!parsedBody.success) return null;
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const id = parsedBody.data;
+
+  const category = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+
+  let transactionsCount = 0;
+  if (category) {
+    const count = await prisma.transaction.aggregate({
+      where: {
+        userId: user.id,
+        categoryId: id,
+      },
+      _count: { _all: true },
+    });
+    transactionsCount = count._count._all;
+  }
+
+  return category ? { category, transactionsCount } : null;
+}

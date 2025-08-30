@@ -10,8 +10,14 @@ import History from "./views/history";
 import AllTimeHistory from "./views/all-time-history";
 import { DeleteDialog } from "@/components/dialog/delete-dialog";
 import { Button } from "@/components/ui/button";
+import { Category } from "@/generated/prisma";
 
-export default async function Dashboard({ categoryId }: { categoryId?: string }) {
+export type CategoryOverview = {
+  category: Category;
+  transactionsCount: number;
+}
+
+export default async function Dashboard({ categoryOverview }: { categoryOverview?: CategoryOverview | null }) {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -20,22 +26,30 @@ export default async function Dashboard({ categoryId }: { categoryId?: string })
 
   return (
     <>
-      <Head
+      {!categoryOverview && <Head
         name={user.firstName || "User"}
         currency={userData.currency || defaultCurrency.value}
-      />
+      />}
+
+      {categoryOverview && categoryOverview.category && <div className="flex gap-3 items-center p-5 w-full">
+        <span className="text-7xl" >{categoryOverview.category.icon}</span>
+        <div className="flex flex-col w-full truncate">
+          <p className="text-safeSpend-primary font-bold w-full truncate">{categoryOverview.category.name}</p>
+          <small className="text-gray-500">({categoryOverview.transactionsCount} Transaction{categoryOverview.transactionsCount > 1 && "s"})</small>
+        </div>
+      </div>}
       <Overview
         currency={userData.currency || defaultCurrency.value}
-        categoryId={categoryId}
+        categoryId={categoryOverview?.category?.id}
       />
 
-      <History currency={userData.currency || defaultCurrency.value} categoryId={categoryId} />
+      <History currency={userData.currency || defaultCurrency.value} categoryId={categoryOverview?.category?.id} />
 
-      {!categoryId && <AllTimeHistory />}
+      {!categoryOverview?.category?.id && <AllTimeHistory />}
 
-      {categoryId && <DeleteDialog
+      {categoryOverview?.category?.id && <DeleteDialog
         item="category"
-        id={categoryId}
+        id={categoryOverview?.category?.id}
         trigger={
           <Button className="deleteBtn w-full">
             Delete Category
