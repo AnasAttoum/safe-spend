@@ -1,6 +1,6 @@
 "use client";
 
-import { createCategory } from "@/actions/category";
+import { createCategory, updateCategory } from "@/actions/category";
 import { Category } from "@/generated/prisma";
 import {
   createCategorySchema,
@@ -8,7 +8,7 @@ import {
 } from "@/schema/category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -25,6 +25,7 @@ import { FullForm } from "../ui/form";
 import Field from "../fields/field";
 import { queryKey } from "@/config/query-key";
 import { SimpleCategory } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 type Props = {
   type: "income" | "expense";
@@ -33,12 +34,16 @@ type Props = {
     name: "category",
     val: SimpleCategory
   ) => void;
+  trigger?: ReactNode;
+  category?: SimpleCategory;
 };
 
 export default function CreateCategory({
   type,
   setOpen: setOpenCategoriesList,
   setValueTransaction,
+  trigger,
+  category
 }: Props) {
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
@@ -50,9 +55,14 @@ export default function CreateCategory({
 
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    if (category)
+      reset(category)
+  }, [open, category, reset])
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (form: CreateCategorySchemaType) => {
-      const res = await createCategory(form);
+      const res = category ? await updateCategory({ ...form, id: category.id }) : await createCategory(form);
       if (res.error) {
         throw new Error(res.error);
       }
@@ -68,7 +78,7 @@ export default function CreateCategory({
         name: "",
         icon: "",
       });
-      toast.success(`Category ${data.name} created successfully 🎉`, {
+      toast.success(`Category ${data.name} ${category ? "updated" : "created"} successfully 🎉`, {
         id: "create-category",
       });
       setOpen(false);
@@ -85,7 +95,7 @@ export default function CreateCategory({
   });
 
   const onSubmit = handleSubmit((values: CreateCategorySchemaType) => {
-    toast.loading("Creating category", {
+    toast.loading(category ? "Updating category" : "Creating category", {
       id: "create-category",
     });
     mutate(values);
@@ -102,14 +112,17 @@ export default function CreateCategory({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" className="cursor-pointer">
-          Create new
-        </Button>
+        {trigger
+          ? trigger
+          : <Button variant="outline" className="cursor-pointer">
+            Create new
+          </Button>
+        }
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Create{" "}
+            {category ? "Update" : "Create"}{" "}
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
@@ -117,9 +130,9 @@ export default function CreateCategory({
             </span>{" "}
             category
           </DialogTitle>
-          <DialogDescription>
+          {!category && <DialogDescription>
             create category to group your transactions
-          </DialogDescription>
+          </DialogDescription>}
         </DialogHeader>
 
         <FullForm form={form} onSubmit={onSubmit}>
@@ -143,8 +156,8 @@ export default function CreateCategory({
             >
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 cursor-pointer" disabled={isPending}>
-              {isPending ? "Loading..." : "Create"}
+            <Button type="submit" className={cn("flex-1 cursor-pointer", `${type}Btn`)} disabled={isPending}>
+              {isPending ? "Loading..." : category ? "Update" : "Create"}
             </Button>
           </DialogFooter>
         </FullForm>

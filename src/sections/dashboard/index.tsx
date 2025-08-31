@@ -11,7 +11,8 @@ import AllTimeHistory from "./views/all-time-history";
 import { DeleteDialog } from "@/components/dialog/delete-dialog";
 import { Button } from "@/components/ui/button";
 import { Category } from "@/generated/prisma";
-import { cn } from "@/lib/utils";
+import CategoryOverviewData from "./components/category-overview-data";
+import CreateCategory from "@/components/dialog/create-category";
 
 export type CategoryOverview = {
   category: Category;
@@ -32,15 +33,7 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
         currency={userData.currency || defaultCurrency.value}
       />}
 
-      {categoryOverview && categoryOverview.category && <div className="flex gap-3 items-center p-5 w-full">
-        <span className="text-7xl" >{categoryOverview.category.icon}</span>
-        <div className="flex flex-col w-full truncate">
-          <p className={cn("font-bold w-full truncate",
-            categoryOverview.category.type === 'income' ? 'text-income' : 'text-expense'
-          )}>{categoryOverview.category.name}</p>
-          <small className="text-gray-500">({categoryOverview.transactionsCount} Transaction{categoryOverview.transactionsCount > 1 && "s"})</small>
-        </div>
-      </div>}
+      {categoryOverview && categoryOverview.category && <CategoryOverviewData categoryOverview={categoryOverview} />}
       <Overview
         currency={userData.currency || defaultCurrency.value}
         categoryId={categoryOverview?.category?.id}
@@ -50,15 +43,24 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
 
       {!categoryOverview?.category?.id && <AllTimeHistory />}
 
-      {categoryOverview?.category?.id && <DeleteDialog
-        item="category"
-        id={categoryOverview?.category?.id}
-        trigger={
-          <Button className="deleteBtn w-full">
-            Delete Category
-          </Button>
-        }
-      />}
+      {categoryOverview?.category?.id &&
+        <div className="flex flex-wrap items-center gap-3 w-full mt-5">
+          <CreateCategory
+            type={categoryOverview.category.type as "income" | "expense"}
+            trigger={<Button variant="default" className="primaryBtn flex-1 py-5 uppercase">Update Category</Button>}
+            category={categoryOverview.category}
+          />
+          <DeleteDialog
+            item="category"
+            id={categoryOverview?.category?.id}
+            trigger={
+              <Button className="deleteBtn flex-1 !my-0">
+                Delete Category
+              </Button>
+            }
+          />
+        </div>
+      }
     </>
   );
 }

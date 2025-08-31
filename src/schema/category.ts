@@ -11,3 +11,9 @@ export type CreateCategorySchemaType = z.infer<typeof createCategorySchema>;
 export const deleteSchema = z.string().min(1);
 
 export type deleteSchemaType = z.infer<typeof deleteSchema>;
+
+export const updateCategorySchema = createCategorySchema.extend({
+  id: z.string().min(1).max(100),
+});
+
+export type updateCategoryType = z.infer<typeof updateCategorySchema>;

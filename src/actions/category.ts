@@ -7,10 +7,13 @@ import {
   CreateCategorySchemaType,
   deleteSchema,
   deleteSchemaType,
+  updateCategorySchema,
+  updateCategoryType,
 } from "@/schema/category";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { deleteTransaction } from "./transaction";
+import { revalidatePath } from "next/cache";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const parsedBody = createCategorySchema.safeParse(form);
@@ -111,4 +114,40 @@ export async function getCategory(form: deleteSchemaType) {
   }
 
   return category ? { category, transactionsCount } : null;
+}
+
+export async function updateCategory(form: updateCategoryType) {
+  const parsedBody = updateCategorySchema.safeParse(form);
+  if (!parsedBody.success) return { error: "Bad request!" };
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const { id, name, type, icon } = parsedBody.data;
+
+  const category = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+  if (!category) {
+    return { error: "Category not found!" };
+  }
+
+  const cat = await prisma.category.update({
+    where: {
+      userId: user.id,
+      id,
+    },
+    data: {
+      userId: user.id,
+      name,
+      type,
+      icon,
+    },
+  });
+
+  revalidatePath('/')
+  return { data: cat };
 }
