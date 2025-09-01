@@ -154,7 +154,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       };
     }, []);
 
-    const [firstDate, setFirstDate] = useState<Date>(new Date())
+    const [firstDate, setFirstDate] = useState<Date | null>(null)
     const { data } = useQuery<getHistoryPeriodsType>({
       queryKey: [queryKey.overview, queryKey.history, queryKey.periods],
       queryFn: () => fetch("/api/history/periods").then((res) => res.json()),
@@ -271,8 +271,10 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
           normalizedRangeFrom.getTime() === normalizedPresetFrom.getTime() &&
           normalizedRangeTo.getTime() === normalizedPresetTo.getTime()
         ) {
-          setSelectedPreset(preset.name);
-          return;
+          if (preset.name !== 'all' || (preset.name === 'all' && firstDate)) {
+            setSelectedPreset(preset.name);
+            return;
+          }
         }
       }
 
