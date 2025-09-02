@@ -30,7 +30,7 @@ export default async function SyrianPoundToday() {
     : [];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
       {data && Array.isArray(data) &&
         data.map((currencyToday) => <SYPTodayCard key={data.name} currencyToday={currencyToday} />)}
     </div>
