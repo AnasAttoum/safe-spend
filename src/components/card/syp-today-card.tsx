@@ -11,9 +11,9 @@ export default function SYPTodayCard({ currencyToday }: Props) {
   return (
     <Card className="rounded-sm transition-all duration-300 group hover:scale-101 hover:-translate-y-1 py-0">
       <div className="flex flex-col justify-between">
-        <div className="flex flex-1 justify-between items-center px-5 text-safeSpend-primary font-bold py-5">
-          <span>{name}</span>
-          {change_percentage !== '0.00' &&
+        <div className="grid grid-cols-3 px-5 text-center text-safeSpend-primary font-bold py-5">
+          <span className="text-left">{name}</span>
+          {change_percentage !== '0.00' ?
             <span
               className={cn(
                 "rounded-2xl px-2",
@@ -21,17 +21,18 @@ export default function SYPTodayCard({ currencyToday }: Props) {
                 arrow === "1" && "text-income"
               )}
             >{arrow === "0" && '-'}{arrow === "1" && '+'}{change_percentage}%</span>
+            : <span></span>
           }
-          <span>{ar_name}</span>
+          <span className="text-right">{ar_name}</span>
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-safeSpend-primary text-white py-5">
           <div>
             <span>Buy: &nbsp;</span>
-            <span className=" font-bold">{ask}</span>
+            <span className="text-2xl font-bold">{ask}</span>
           </div>
           <div>
             <span>Sell: &nbsp;</span>
-            <span className="text-white font-bold">{bid}</span>
+            <span className="text-2xl font-bold">{bid}</span>
           </div>
         </div>
       </div>
