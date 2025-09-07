@@ -147,20 +147,20 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             control={form.control}
             name="title"
             label="Title"
-            description="Transaction title"
+            // description="Transaction title"
           />
           <Field
             control={form.control}
             name="currency"
             label="Currency"
-            description="Transaction currency"
+            // description="Transaction currency"
             nodetype="currency"
           />
           <Field
             control={form.control}
             name="amount"
             label={`Amount ( ${watch("currency")} )`}
-            description="Transaction amount"
+            // description="Transaction amount"
             type="number"
             defaultValue={0}
           />
@@ -168,7 +168,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             control={form.control}
             name="category"
             label="Category"
-            description="Transaction category"
+            // description="Transaction category"
             specificNode={
               <SelectCategory
                 type={type}
@@ -181,7 +181,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             control={form.control}
             name="date"
             label="Date"
-            description="Select a date for this transaction"
+            // description="Select a date for this transaction"
             nodetype="date"
           />
 
