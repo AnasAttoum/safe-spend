@@ -116,6 +116,28 @@ export async function getCategory(form: deleteSchemaType) {
   return category ? { category, transactionsCount } : null;
 }
 
+export async function getCategories() {
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const categories = await prisma.category.findMany({
+    where: {
+      userId: user.id,
+    },
+    include: {
+      _count: {
+        select: { transactions: true },
+      },
+    },
+  });
+
+  return {
+    income: categories.filter(({ type }) => type === "income"),
+    expense: categories.filter(({ type }) => type === "expense"),
+  };
+}
+export type TypedCategoriesType = Awaited<ReturnType<typeof getCategories>>;
+
 export async function updateCategory(form: updateCategoryType) {
   const parsedBody = updateCategorySchema.safeParse(form);
   if (!parsedBody.success) return { error: "Bad request!" };
@@ -148,6 +170,6 @@ export async function updateCategory(form: updateCategoryType) {
     },
   });
 
-  revalidatePath('/')
+  revalidatePath("/");
   return { data: cat };
 }

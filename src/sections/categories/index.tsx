@@ -3,6 +3,7 @@ import CategoryList from "./views/category-list";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
+import { getCategories } from "@/actions/category";
 
 export default async function Categories() {
   const user = await currentUser();
@@ -11,6 +12,8 @@ export default async function Categories() {
   const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
+  const categories = await getCategories()
+
   return (
     <>
       <div className="py-3">
@@ -18,8 +21,8 @@ export default async function Categories() {
       </div>
 
       <div className="flex flex-col gap-3 mt-3">
-        <CategoryList type="income" />
-        <CategoryList type="expense" />
+        <CategoryList type="income" data={categories.income} />
+        <CategoryList type="expense" data={categories.expense} />
       </div>
     </>
   );
