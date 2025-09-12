@@ -20,7 +20,7 @@ export default function HeaderLinks({ setOpen }: Props) {
         return (
           <Link
             key={label}
-            href={link}
+            href={link ?? '/'}
             className={clsx(
               "relative w-full text-center my-1 p-3 rounded-md transition-all duration-200",
               isActive && "text-safeSpend-primary bg-gray-700"

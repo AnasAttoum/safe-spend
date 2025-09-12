@@ -14,7 +14,7 @@ export default function HeaderLinks() {
     return (
       <div key={label} className="relative h-full flex items-center">
         <Link
-          href={link}
+          href={link ?? '/'}
           className={clsx(
             "hover:text-safeSpend-primary transition-all duration-200",
             isActive && "text-safeSpend-primary"
@@ -25,7 +25,7 @@ export default function HeaderLinks() {
         <div
           className={clsx(
             isActive &&
-              "absolute -bottom-0.5 w-full border-2 border-safeSpend-primary transition-all duration-200"
+            "absolute -bottom-0.5 w-full border-2 border-safeSpend-primary transition-all duration-200"
           )}
         ></div>
       </div>

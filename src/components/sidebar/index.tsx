@@ -22,7 +22,7 @@ export async function AppSidebar() {
     <Sidebar variant="floating" collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2 text-white">
+          <SidebarGroupLabel className="mb-2 text-gray-300">
             PAGES
           </SidebarGroupLabel>
           <SidebarGroupContent>
