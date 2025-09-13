@@ -3,7 +3,7 @@
 import React from 'react'
 import { SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
 import { headerlinks } from '@/config/header-links'
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PoundSterling } from 'lucide-react';
@@ -13,11 +13,15 @@ import { Separator } from '../ui/separator';
 export default function Menu({ SYPCurrency }: { SYPCurrency: boolean }) {
 
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const params = searchParams.toString();
+
+    const fullPath = params ? `${pathname}?${params}` : pathname;
 
     return (
         <SidebarMenu>
             {headerlinks.map(({ icon: Icon, label, link }) => {
-                const isActive = link === pathname;
+                const isActive = link === fullPath;
                 return link
                     ? (
                         <div key={label} className='flex flex-col gap-1'>
