@@ -30,7 +30,7 @@ export default function Menu({ SYPCurrency }: { SYPCurrency: boolean }) {
                                     "relative w-full text-center text-white hover:text-white rounded-md transition-all duration-200 py-7",
                                     isActive && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
                                 )}>
-                                    <Link href={link}>
+                                    <Link href={link} className='z-10'>
                                         <Icon color="#fff" />
                                         <span>{label}</span>
                                     </Link>
@@ -50,7 +50,7 @@ export default function Menu({ SYPCurrency }: { SYPCurrency: boolean }) {
             {SYPCurrency &&
                 <>
                     <Separator className='!h-[.5px]' />
-                    <SidebarGroupLabel className="text-gray-300 uppercase">
+                    <SidebarGroupLabel className="mb-1 text-gray-300 uppercase">
                         Exchange rates
                     </SidebarGroupLabel>
                     <div className='flex flex-col gap-1'>
