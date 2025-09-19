@@ -29,20 +29,27 @@ interface DataTableFacetedFilterProps<TData, TValue> {
     label: string
     value: string
     icon?: React.ComponentType<{ className?: string }>
-  }[]
+  }[];
+  fixedValue?: string;
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
+  fixedValue,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
-  const selectedValues = new Set(column?.getFilterValue() as string[])
+  const selectedValues = fixedValue ? new Set([fixedValue]) : new Set(column?.getFilterValue() as string[])
+
+  React.useEffect(() => {
+    if (fixedValue)
+      column?.setFilterValue(fixedValue)
+  }, [fixedValue])
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={!!fixedValue}>
         <Button variant="secondary" size="sm" className="h-8 border-dashed">
           <FilterIcon />
           {title}

@@ -17,12 +17,13 @@ import {
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { columns } from "../components/transaction-columns";
+import { CategoryOverview } from "@/sections/dashboard";
 
-type Props = { from: Date; to: Date };
+type Props = { from: Date; to: Date; categoryOverview?: CategoryOverview };
 
 const emptyData: any[] = [];
 
-export default function TransactionsTable({ from, to }: Props) {
+export default function TransactionsTable({ from, to, categoryOverview }: Props) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -75,6 +76,7 @@ export default function TransactionsTable({ from, to }: Props) {
             title="Category"
             column={table.getColumn("category")}
             options={categoriesOptions}
+            fixedValue={categoryOverview?.category.name}
           />
         )}
         {(data?.length ?? 0) > 1 && table.getColumn("type") && (
@@ -85,6 +87,7 @@ export default function TransactionsTable({ from, to }: Props) {
               { label: "Income", value: "income" },
               { label: "Expence", value: "expense" },
             ]}
+            fixedValue={categoryOverview?.category.type}
           />
         )}
 

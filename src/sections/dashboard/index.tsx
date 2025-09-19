@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Category } from "@/generated/prisma";
 import CategoryOverviewData from "./components/category-overview-data";
 import CreateCategory from "@/components/dialog/create-category";
+import Transactions from "../transactions";
 
 export type CategoryOverview = {
   category: Category;
@@ -38,6 +39,11 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
         currency={userData.currency || defaultCurrency.value}
         categoryId={categoryOverview?.category?.id}
       />
+
+      {categoryOverview && categoryOverview.category && <Transactions
+        currency={userData.currency || defaultCurrency.value}
+        categoryOverview={categoryOverview}
+      />}
 
       <History currency={userData.currency || defaultCurrency.value} categoryId={categoryOverview?.category?.id} />
 

@@ -1,18 +1,20 @@
 import { TransactionDialog } from "@/components/dialog/transaction-dialog";
 import { Button } from "@/components/ui/button";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { cn } from "@/lib/utils";
 import { Plus, Sparkles, Zap } from "lucide-react";
 
 type Props = {
   dateRange: { from: Date; to: Date };
   setDateRange: (val: { from: Date; to: Date }) => void;
   currency: string;
+  category: boolean
 };
 
-export default function Head({ dateRange, setDateRange, currency }: Props) {
+export default function Head({ dateRange, setDateRange, currency, category }: Props) {
   return (
     <>
-      <div className="flex justify-between flex-wrap gap-2 py-3">
+      <div className={cn("flex justify-between flex-wrap gap-2 py-3", category && "p-5")}>
         <h3 className="text-3xl">Transactions</h3>
 
         <DateRangePicker
@@ -26,7 +28,7 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
           }}
         />
       </div>
-      <div className="flex justify-end mb-3">
+      {!category && <div className="flex justify-end mb-3">
         <div className="flex flex-wrap gap-3">
           <TransactionDialog
             trigger={
@@ -52,7 +54,7 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
             currency={currency}
           />
         </div>
-      </div>
+      </div>}
     </>
   );
 }
