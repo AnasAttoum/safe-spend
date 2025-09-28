@@ -20,7 +20,7 @@ export async function createExchange(form: createExchangeType) {
   if (!user) redirect(routes.signIn);
 
   const {
-    title,
+    title = "",
     exchangeAmount,
     collectedAmount,
     date,

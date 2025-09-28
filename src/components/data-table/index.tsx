@@ -32,9 +32,9 @@ export default function DataTable({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -48,14 +48,18 @@ export default function DataTable({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell, index) => {
+                    console.log('cell: ', index, cell.getValue());
+
+                    return (
+                      <TableCell key={cell.id}>
+                        {cell.getValue() !== "" ? flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        ) : '-'}
+                      </TableCell>
+                    )
+                  })}
                 </TableRow>
               ))
             ) : (
@@ -70,7 +74,7 @@ export default function DataTable({
             )}
           </TableBody>
         </Table>
-        <DataTablePagination table={table}/>
+        <DataTablePagination table={table} />
       </SkeletonWrapper>
     </div>
   );
