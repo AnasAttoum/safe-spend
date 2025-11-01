@@ -16,7 +16,7 @@ export default function History({ currency, categoryId }: { currency: string; ca
   });
 
   const { data, isLoading } = useQuery<getHistoryDataResponseType>({
-    queryKey: [queryKey.overview, queryKey.history, timeframe, period, curr],
+    queryKey: [queryKey.overview, queryKey.history, timeframe, period, curr, categoryId],
     queryFn: () =>
       fetch(
         `/api/history/data?timeframe=${timeframe}&month=${period.month}&year=${period.year}&currency=${curr}&categoryId=${categoryId}`
