@@ -31,6 +31,7 @@ interface DataTableFacetedFilterProps<TData, TValue> {
     icon?: React.ComponentType<{ className?: string }>
   }[];
   fixedValue?: string;
+  fixedIcon?: string;
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
@@ -38,6 +39,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   title,
   options,
   fixedValue,
+  fixedIcon,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = fixedValue ? new Set([fixedValue]) : new Set(column?.getFilterValue() as string[])
@@ -53,39 +55,50 @@ export function DataTableFacetedFilter<TData, TValue>({
         <Button variant="secondary" size="sm" className="h-8 border-dashed">
           <FilterIcon />
           {title}
-          {selectedValues?.size > 0 && (
+          {fixedValue ?
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
+                className="rounded-sm px-1 font-normal"
               >
-                {selectedValues.size}
+                {!!fixedIcon && fixedIcon}&nbsp;{fixedValue}
               </Badge>
-              <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedValues.size} selected
-                  </Badge>
-                ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                )}
-              </div>
             </>
-          )}
+            :
+            selectedValues?.size > 0 && (
+              <>
+                <Separator orientation="vertical" className="mx-2 h-4" />
+                <Badge
+                  variant="secondary"
+                  className="rounded-sm px-1 font-normal lg:hidden"
+                >
+                  {selectedValues.size}
+                </Badge>
+                <div className="hidden space-x-1 lg:flex">
+                  {selectedValues.size > 2 ? (
+                    <Badge
+                      variant="secondary"
+                      className="rounded-sm px-1 font-normal"
+                    >
+                      {selectedValues.size} selected
+                    </Badge>
+                  ) : (
+                    options
+                      .filter((option) => selectedValues.has(option.value))
+                      .map((option) => (
+                        <Badge
+                          variant="secondary"
+                          key={option.value}
+                          className="rounded-sm px-1 font-normal"
+                        >
+                          {option.label}
+                        </Badge>
+                      ))
+                  )}
+                </div>
+              </>
+            )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">

@@ -71,15 +71,16 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
   return (
     <>
       <div className="flex flex-wrap gap-2 mb-2">
-        {categoriesOptions.length > 1 && table.getColumn("category") && (
+        {!!categoriesOptions.length && table.getColumn("category") && (
           <DataTableFacetedFilter
             title="Category"
             column={table.getColumn("category")}
             options={categoriesOptions}
             fixedValue={categoryOverview?.category.name}
+            fixedIcon={categoryOverview?.category.icon}
           />
         )}
-        {(data?.length ?? 0) > 1 && table.getColumn("type") && (
+        {!!data?.length && table.getColumn("type") && (
           <DataTableFacetedFilter
             title="Type"
             column={table.getColumn("type")}
