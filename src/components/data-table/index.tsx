@@ -48,18 +48,14 @@ export default function DataTable({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell, index) => {
-                    console.log('cell: ', index, cell.getValue());
-
-                    return (
-                      <TableCell key={cell.id}>
-                        {cell.getValue() !== "" ? flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        ) : '-'}
-                      </TableCell>
-                    )
-                  })}
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {cell.getValue() !== "" ? flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      ) : '-'}
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))
             ) : (
