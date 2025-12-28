@@ -26,13 +26,13 @@ export default async function SyrianPoundToday() {
     redirect(routes.dashboard);
 
   const data:currencyToday = userData.currency === 'SYP'
-    ? await fetch(process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY ?? '').then(res => res.json()).catch((error) => console.error('Error in SYRIAN_POND_TODAY', error))
-    : [];
+  ? await fetch(process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY ?? '').then(res => res.json()).catch((error) => console.error('Error in SYRIAN_POND_TODAY', error))
+  : [];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
       {data && Array.isArray(data) &&
-        data.map((currencyToday) => <SYPTodayCard key={data.name} currencyToday={currencyToday} />)}
+        data.map((currencyToday) => <SYPTodayCard key={currencyToday.name} currencyToday={currencyToday} />)}
     </div>
   );
 }
