@@ -15,6 +15,9 @@ export type currencyToday = {
   change_percentage: string;
 }
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export default async function SyrianPoundToday() {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -25,9 +28,17 @@ export default async function SyrianPoundToday() {
   if (userData.currency !== 'SYP')
     redirect(routes.dashboard);
 
-  const data:currencyToday = userData.currency === 'SYP'
-  ? await fetch(process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY ?? '').then(res => res.json()).catch((error) => console.error('Error in SYRIAN_POND_TODAY', error))
-  : [];
+  const data: currencyToday[] = userData.currency === 'SYP'
+    ? await fetch(
+      process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
+      cache: 'no-store',
+      redirect: 'follow',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0',
+      },
+    }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN_POND_TODAY', error))
+    : [];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
