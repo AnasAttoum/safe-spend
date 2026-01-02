@@ -9,8 +9,8 @@ export default function TotalBalanceCards() {
     queryFn: () =>
       fetch(`/api/statistics/total`).then((res) =>
         res.json()
-      ),
-  });
+  ),
+});
 
   return (
     <div className="w-full">

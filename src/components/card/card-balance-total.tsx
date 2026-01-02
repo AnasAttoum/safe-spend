@@ -17,7 +17,7 @@ export default function CardBalanceTotal({ balance }: Props) {
   const { label, symbol } = currObj
 
   return (
-    <Card className="bg-gradient-to-r from-safeSpend-primary to-safeSpend-secondary overflow-hidden group transition-all duration-300 hover:scale-101 hover:-translate-y-1">
+    <Card className="bg-gradient-to-r from-safeSpend-primary to-safeSpend-secondary overflow-hidden group min-h-36 transition-all duration-300 hover:scale-101 hover:-translate-y-1">
       <div className="flex items-center gap-3 px-5 relative">
         <Image
           src="/assets/safeSpend.svg"

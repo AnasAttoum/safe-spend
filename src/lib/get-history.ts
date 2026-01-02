@@ -297,6 +297,11 @@ export const getHistoryData = async (userId: string) => {
 
   const years = new Set<number>();
   const currencies = new Set<string>();
+
+  const date = new Date();
+  const thisYear = date.getUTCFullYear();
+  years.add(thisYear);
+
   result.forEach((el) => {
     years.add(el.year);
     currencies.add(el.currency);

@@ -46,7 +46,9 @@ const getHistoryPeriods = async (userId: string) => {
   const allDates = [
     ...allTransactions.map((t) => t.date),
     ...allExchanges.map((e) => e.date),
+    new Date(),
   ];
+  
   return {
     // Extract earliest date
     firstDate:
@@ -54,7 +56,7 @@ const getHistoryPeriods = async (userId: string) => {
         .filter((d): d is Date => d !== null)
         .sort((a, b) => a.getTime() - b.getTime())?.[0] || new Date(),
     // Return all years
-    allYears: !!allDates.length
+    allYears: !allDates.length
       ? [new Date().getFullYear()]
       : getYears(allDates),
   };
