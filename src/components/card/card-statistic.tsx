@@ -37,7 +37,7 @@ export default function CardStatistic({ title, icon: SelectedIcon, value, curren
               title.toLowerCase() === "income" ||
                 title.toLowerCase() === "expense"
                 ? `text-${title.toLowerCase()}`
-                : value < 0 ? 'text-expense' : 'text-income'
+                : value < 0 ? 'text-expense' : value === 0 ? 'text-safeSpend-light' : 'text-income'
             )} />
         </div>
         <Image
