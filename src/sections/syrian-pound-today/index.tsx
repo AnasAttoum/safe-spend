@@ -3,16 +3,19 @@ import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import SYPTodayCard from "@/components/card/syp-today-card";
+import { formatDate } from "date-fns";
 
 export type currencyToday = {
-  name: string;
-  ar_name: string;
-  ask: string; //Buy
-  bid: string; //Sell
-  arrow: "0" | "1";
-  icon: string;
-  change: string;
-  change_percentage: string;
+  slug: string;
+  name_ar: string;
+  flag: string;
+  cities: {
+    damascus: {
+      buy: number;
+      sell: number;
+      change: number;
+    }
+  }
 }
 
 export default async function SyrianPoundToday() {
@@ -25,20 +28,25 @@ export default async function SyrianPoundToday() {
   if (userData.currency !== 'SYP')
     redirect(routes.dashboard);
 
-  const data: currencyToday[] = userData.currency === 'SYP'
-    ? await fetch(
-      process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
-      headers: {
-        accept: 'application/json',
-        'User-agent': 'learning app',
-      }
-    }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN_POND_TODAY', error))
-    : [];
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
+    headers: {
+      accept: 'application/json',
+      'User-agent': 'learning app',
+    }
+  }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
+  const rates: currencyToday[] = response?.data?.rates || []
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-      {data && Array.isArray(data) &&
-        data.map((currencyToday) => <SYPTodayCard key={currencyToday.name} currencyToday={currencyToday} />)}
-    </div>
+    <>
+      {response?.data?.currencies_updated_at && <div className="py-3">
+        <h3 className="text-3xl">Last Update: <span className="text-safeSpend-light font-bold">{formatDate(response?.data?.currencies_updated_at, "d.M.yyyy - h:mm a")}</span></h3>
+      </div>}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+        {rates && Array.isArray(rates) &&
+          rates.map((currencyToday) => <SYPTodayCard key={currencyToday.slug} currencyToday={currencyToday} />)}
+      </div>
+    </>
   );
 }
