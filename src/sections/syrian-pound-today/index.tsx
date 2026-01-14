@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import SYPTodayCard from "@/components/card/syp-today-card";
-import { format } from "date-fns";
+import { Time } from "@/components/time";
 
 export type currencyToday = {
   slug: string;
@@ -40,7 +40,11 @@ export default async function SyrianPoundToday() {
   return (
     <>
       {response?.data?.updated_at && <div className="py-3">
-        <h3 className="text-3xl">Last Update: <span className="text-safeSpend-light font-bold">{format(response?.data?.updated_at, "d.M.yyyy - h:mm a")}</span></h3>
+        <h3 className="text-3xl">Last Update: &nbsp;
+          <span className="text-safeSpend-light font-bold">
+            <Time iso={response.data.updated_at} />
+          </span>
+        </h3>
       </div>}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
