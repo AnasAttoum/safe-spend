@@ -1,6 +1,7 @@
 import { capitalizeWords, cn } from "@/lib/utils";
 import { Card } from "../ui/card";
 import { currencyToday } from "@/sections/syrian-pound-today";
+import Count from "../count-up";
 
 type Props = {
   currencyToday: currencyToday;
@@ -20,7 +21,7 @@ export default function SYPTodayCard({ currencyToday }: Props) {
                 change < 0 && "text-expense",
                 change > 0 && "text-income"
               )}
-            >{change < 0 && '-'}{change > 0 && '+'}{change}%</span>
+            >{change > 0 && '+'}{change}%</span>
             : <span></span>
           }
           <span className="text-right">{name_ar}</span>
@@ -28,12 +29,16 @@ export default function SYPTodayCard({ currencyToday }: Props) {
         <div className="flex justify-between items-center flex-1 px-5 bg-safeSpend-primary text-white py-5">
           <div>
             <span>Buy: &nbsp;</span>
-            <span className="text-2xl font-bold">{buy}</span>
+            <span className="text-2xl font-bold">
+              <Count num={buy} />
+            </span>
           </div>
           <div className="text-2xl">{flag}</div>
           <div>
             <span>Sell: &nbsp;</span>
-            <span className="text-2xl font-bold">{sell}</span>
+            <span className="text-2xl font-bold">
+              <Count num={sell} />
+            </span>
           </div>
         </div>
       </div>
