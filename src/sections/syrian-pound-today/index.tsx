@@ -40,7 +40,7 @@ export default async function SyrianPoundToday() {
   return (
     <>
       {response?.data?.updated_at && <div className="py-3">
-        <h3 className="text-lg md:text-3xl">Last Update: &nbsp;
+        <h3 className="text-2xl md:text-3xl">Updated At:&nbsp;
           <span className="text-safeSpend-light font-bold">
             <Time iso={response.data.updated_at} />
           </span>
