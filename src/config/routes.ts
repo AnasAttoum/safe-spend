@@ -11,4 +11,5 @@ export const routes = {
   settings: "/settings",
 
   syrianPoundToday: "/syrian-pound-today",
+  goldToday: "/gold-today",
 };

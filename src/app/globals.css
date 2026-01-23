@@ -49,6 +49,7 @@
   --color-income-light: var(--income-light);
   --color-expense: var(--expense);
   --color-expense-dark: var(--expense-dark);
+  --color-gold: var(--gold);
 }
 
 :root {
@@ -92,6 +93,7 @@
   --income-light: #c7ffe8;
   --expense: #ff4d6d;
   --expense-dark: #c9184a;
+  --gold: #FDC700;
 }
 
 .dark {
@@ -134,6 +136,7 @@
   --income-light: oklch(76.5% 0.177 163.223);
   --expense: #ff4d6d;
   --expense-dark: #c9184a;
+  --gold: #FDC700;
 }
 
 @layer base {

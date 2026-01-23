@@ -6,7 +6,7 @@ import { headerlinks } from '@/config/header-links'
 import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { PoundSterling } from 'lucide-react';
+import { PoundSterling, Trophy } from 'lucide-react';
 import { routes } from '@/config/routes';
 import { Separator } from '../ui/separator';
 
@@ -67,7 +67,17 @@ export default function Menu(
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
-                    {/* {index !== headerlinks.length - 1 && <Separator />} */}
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild className={cn(
+                            "relative w-full text-center text-white hover:text-white rounded-md transition-all duration-200 py-7",
+                            routes.goldToday === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
+                        )}>
+                            <Link href={routes.goldToday}>
+                                <Trophy color="#fff" />
+                                <span>Gold Today</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
                 </div>
             </>
             {/* } */}
