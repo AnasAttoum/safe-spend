@@ -41,103 +41,103 @@ export async function createExchange(form: createExchangeType) {
       },
     }),
 
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: exchangeCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: 0,
-        expense: exchangeAmount,
-        currency: exchangeCurrency,
-      },
-      update: {
-        expense: {
-          increment: exchangeAmount,
-        },
-      },
-    }),
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: targetCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: collectedAmount,
-        expense: 0,
-        currency: targetCurrency,
-      },
-      update: {
-        income: {
-          increment: collectedAmount,
-        },
-      },
-    }),
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: exchangeCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: 0,
+    //     expense: exchangeAmount,
+    //     currency: exchangeCurrency,
+    //   },
+    //   update: {
+    //     expense: {
+    //       increment: exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: targetCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: collectedAmount,
+    //     expense: 0,
+    //     currency: targetCurrency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: collectedAmount,
+    //     },
+    //   },
+    // }),
 
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: exchangeCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: 0,
-        expense: exchangeAmount,
-        currency: exchangeCurrency,
-      },
-      update: {
-        expense: {
-          increment: exchangeAmount,
-        },
-      },
-    }),
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: targetCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: collectedAmount,
-        expense: 0,
-        currency: targetCurrency,
-      },
-      update: {
-        income: {
-          increment: collectedAmount,
-        },
-      },
-    }),
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: exchangeCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: 0,
+    //     expense: exchangeAmount,
+    //     currency: exchangeCurrency,
+    //   },
+    //   update: {
+    //     expense: {
+    //       increment: exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: targetCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: collectedAmount,
+    //     expense: 0,
+    //     currency: targetCurrency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: collectedAmount,
+    //     },
+    //   },
+    // }),
   ]);
 }
 
@@ -168,69 +168,69 @@ export async function deleteExchange(form: deleteSchemaType) {
       },
     }),
 
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: exchange.date.getUTCDate(),
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.exchangeCurrency,
-        },
-      },
-      data: {
-        expense: {
-          decrement: exchange.exchangeAmount,
-        },
-      },
-    }),
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: exchange.date.getUTCDate(),
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.targetCurrency,
-        },
-      },
-      data: {
-        income: {
-          decrement: exchange.collectedAmount,
-        },
-      },
-    }),
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: exchange.date.getUTCDate(),
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.exchangeCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     expense: {
+    //       decrement: exchange.exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: exchange.date.getUTCDate(),
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.targetCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: exchange.collectedAmount,
+    //     },
+    //   },
+    // }),
 
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.exchangeCurrency,
-        },
-      },
-      data: {
-        expense: {
-          decrement: exchange.exchangeAmount,
-        },
-      },
-    }),
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.targetCurrency,
-        },
-      },
-      data: {
-        income: {
-          decrement: exchange.collectedAmount,
-        },
-      },
-    }),
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.exchangeCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     expense: {
+    //       decrement: exchange.exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.targetCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: exchange.collectedAmount,
+    //     },
+    //   },
+    // }),
   ]);
 }
 
@@ -279,166 +279,166 @@ export async function updateExchange(form: updateExchangeType) {
     }),
 
     // remove old exchange
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: exchange.date.getUTCDate(),
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.exchangeCurrency,
-        },
-      },
-      data: {
-        expense: {
-          decrement: exchange.exchangeAmount,
-        },
-      },
-    }),
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: exchange.date.getUTCDate(),
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.targetCurrency,
-        },
-      },
-      data: {
-        income: {
-          decrement: exchange.collectedAmount,
-        },
-      },
-    }),
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.exchangeCurrency,
-        },
-      },
-      data: {
-        expense: {
-          decrement: exchange.exchangeAmount,
-        },
-      },
-    }),
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: exchange.date.getUTCMonth(),
-          year: exchange.date.getUTCFullYear(),
-          currency: exchange.targetCurrency,
-        },
-      },
-      data: {
-        income: {
-          decrement: exchange.collectedAmount,
-        },
-      },
-    }),
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: exchange.date.getUTCDate(),
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.exchangeCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     expense: {
+    //       decrement: exchange.exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: exchange.date.getUTCDate(),
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.targetCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: exchange.collectedAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.exchangeCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     expense: {
+    //       decrement: exchange.exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: exchange.date.getUTCMonth(),
+    //       year: exchange.date.getUTCFullYear(),
+    //       currency: exchange.targetCurrency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: exchange.collectedAmount,
+    //     },
+    //   },
+    // }),
 
     // add new exchange
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: exchangeCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: 0,
-        expense: exchangeAmount,
-        currency: exchangeCurrency,
-      },
-      update: {
-        expense: {
-          increment: exchangeAmount,
-        },
-      },
-    }),
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: targetCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: collectedAmount,
-        expense: 0,
-        currency: targetCurrency,
-      },
-      update: {
-        income: {
-          increment: collectedAmount,
-        },
-      },
-    }),
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: exchangeCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: 0,
+    //     expense: exchangeAmount,
+    //     currency: exchangeCurrency,
+    //   },
+    //   update: {
+    //     expense: {
+    //       increment: exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: targetCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: collectedAmount,
+    //     expense: 0,
+    //     currency: targetCurrency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: collectedAmount,
+    //     },
+    //   },
+    // }),
 
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: exchangeCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: 0,
-        expense: exchangeAmount,
-        currency: exchangeCurrency,
-      },
-      update: {
-        expense: {
-          increment: exchangeAmount,
-        },
-      },
-    }),
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency: targetCurrency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: collectedAmount,
-        expense: 0,
-        currency: targetCurrency,
-      },
-      update: {
-        income: {
-          increment: collectedAmount,
-        },
-      },
-    }),
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: exchangeCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: 0,
+    //     expense: exchangeAmount,
+    //     currency: exchangeCurrency,
+    //   },
+    //   update: {
+    //     expense: {
+    //       increment: exchangeAmount,
+    //     },
+    //   },
+    // }),
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency: targetCurrency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: collectedAmount,
+    //     expense: 0,
+    //     currency: targetCurrency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: collectedAmount,
+    //     },
+    //   },
+    // }),
   ]);
 }

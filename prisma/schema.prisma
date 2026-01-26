@@ -74,31 +74,31 @@ model Exchange {
   updatedAt DateTime @default(now())
 }
 
-model MonthTable {
-  userId String
+// model MonthTable {
+//   userId String
 
-  day   Int
-  month Int
-  year  Int
+//   day   Int
+//   month Int
+//   year  Int
 
-  income  Float
-  expense Float
+//   income  Float
+//   expense Float
 
-  currency String
+//   currency String
 
-  @@id([day, month, year, userId, currency])
-}
+//   @@id([day, month, year, userId, currency])
+// }
 
-model YearTable {
-  userId String
+// model YearTable {
+//   userId String
 
-  month Int
-  year  Int
+//   month Int
+//   year  Int
 
-  income  Float
-  expense Float
+//   income  Float
+//   expense Float
 
-  currency String
+//   currency String
 
-  @@id([month, year, userId, currency])
-}
+//   @@id([month, year, userId, currency])
+// }

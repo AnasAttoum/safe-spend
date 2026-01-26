@@ -49,61 +49,61 @@ export async function createTransaction(form: createTransactionType) {
       },
     }),
 
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: type === "income" ? amount : 0,
-        expense: type === "expense" ? amount : 0,
-        currency,
-      },
-      update: {
-        income: {
-          increment: type === "income" ? amount : 0,
-        },
-        expense: {
-          increment: type === "expense" ? amount : 0,
-        },
-      },
-    }),
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: type === "income" ? amount : 0,
+    //     expense: type === "expense" ? amount : 0,
+    //     currency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: type === "income" ? amount : 0,
+    //     },
+    //     expense: {
+    //       increment: type === "expense" ? amount : 0,
+    //     },
+    //   },
+    // }),
 
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: type === "income" ? amount : 0,
-        expense: type === "expense" ? amount : 0,
-        currency,
-      },
-      update: {
-        income: {
-          increment: type === "income" ? amount : 0,
-        },
-        expense: {
-          increment: type === "expense" ? amount : 0,
-        },
-      },
-    }),
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: type === "income" ? amount : 0,
+    //     expense: type === "expense" ? amount : 0,
+    //     currency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: type === "income" ? amount : 0,
+    //     },
+    //     expense: {
+    //       increment: type === "expense" ? amount : 0,
+    //     },
+    //   },
+    // }),
   ]);
 }
 
@@ -134,52 +134,52 @@ export async function deleteTransaction(form: deleteSchemaType) {
       },
     }),
 
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          day: transaction.date.getUTCDate(),
-          month: transaction.date.getUTCMonth(),
-          year: transaction.date.getFullYear(),
-          userId: user.id,
-          currency: transaction.currency,
-        },
-      },
-      data: {
-        ...(transaction.type === "income" && {
-          income: {
-            decrement: transaction.amount,
-          },
-        }),
-        ...(transaction.type === "expense" && {
-          expense: {
-            decrement: transaction.amount,
-          },
-        }),
-      },
-    }),
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       day: transaction.date.getUTCDate(),
+    //       month: transaction.date.getUTCMonth(),
+    //       year: transaction.date.getFullYear(),
+    //       userId: user.id,
+    //       currency: transaction.currency,
+    //     },
+    //   },
+    //   data: {
+    //     ...(transaction.type === "income" && {
+    //       income: {
+    //         decrement: transaction.amount,
+    //       },
+    //     }),
+    //     ...(transaction.type === "expense" && {
+    //       expense: {
+    //         decrement: transaction.amount,
+    //       },
+    //     }),
+    //   },
+    // }),
 
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          month: transaction.date.getUTCMonth(),
-          year: transaction.date.getFullYear(),
-          userId: user.id,
-          currency: transaction.currency,
-        },
-      },
-      data: {
-        ...(transaction.type === "income" && {
-          income: {
-            decrement: transaction.amount,
-          },
-        }),
-        ...(transaction.type === "expense" && {
-          expense: {
-            decrement: transaction.amount,
-          },
-        }),
-      },
-    }),
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       month: transaction.date.getUTCMonth(),
+    //       year: transaction.date.getFullYear(),
+    //       userId: user.id,
+    //       currency: transaction.currency,
+    //     },
+    //   },
+    //   data: {
+    //     ...(transaction.type === "income" && {
+    //       income: {
+    //         decrement: transaction.amount,
+    //       },
+    //     }),
+    //     ...(transaction.type === "expense" && {
+    //       expense: {
+    //         decrement: transaction.amount,
+    //       },
+    //     }),
+    //   },
+    // }),
   ]);
 }
 
@@ -233,103 +233,103 @@ export async function updateTransaction(form: updateTransactionType) {
       },
     }),
 
-    // remove old transaction from monthTable
-    prisma.monthTable.update({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: transactionRow.date.getUTCDate(),
-          month: transactionRow.date.getUTCMonth(),
-          year: transactionRow.date.getUTCFullYear(),
-          currency: transactionRow.currency,
-        },
-      },
-      data: {
-        income: {
-          decrement: type === "income" ? transactionRow.amount : 0,
-        },
-        expense: {
-          decrement: type === "expense" ? transactionRow.amount : 0,
-        },
-      },
-    }),
+    // // remove old transaction from monthTable
+    // prisma.monthTable.update({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: transactionRow.date.getUTCDate(),
+    //       month: transactionRow.date.getUTCMonth(),
+    //       year: transactionRow.date.getUTCFullYear(),
+    //       currency: transactionRow.currency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: type === "income" ? transactionRow.amount : 0,
+    //     },
+    //     expense: {
+    //       decrement: type === "expense" ? transactionRow.amount : 0,
+    //     },
+    //   },
+    // }),
 
-    // update new monthTable
-    prisma.monthTable.upsert({
-      where: {
-        day_month_year_userId_currency: {
-          userId: user.id,
-          day: date.getUTCDate(),
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency,
-        },
-      },
-      create: {
-        userId: user.id,
-        day: date.getUTCDate(),
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: type === "income" ? amount : 0,
-        expense: type === "expense" ? amount : 0,
-        currency,
-      },
-      update: {
-        income: {
-          increment: type === "income" ? amount : 0,
-        },
-        expense: {
-          increment: type === "expense" ? amount : 0,
-        },
-      },
-    }),
+    // // update new monthTable
+    // prisma.monthTable.upsert({
+    //   where: {
+    //     day_month_year_userId_currency: {
+    //       userId: user.id,
+    //       day: date.getUTCDate(),
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     day: date.getUTCDate(),
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: type === "income" ? amount : 0,
+    //     expense: type === "expense" ? amount : 0,
+    //     currency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: type === "income" ? amount : 0,
+    //     },
+    //     expense: {
+    //       increment: type === "expense" ? amount : 0,
+    //     },
+    //   },
+    // }),
 
-    // remove old transaction from yearTable
-    prisma.yearTable.update({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: transactionRow.date.getUTCMonth(),
-          year: transactionRow.date.getUTCFullYear(),
-          currency: transactionRow.currency,
-        },
-      },
-      data: {
-        income: {
-          decrement: type === "income" ? transactionRow.amount : 0,
-        },
-        expense: {
-          decrement: type === "expense" ? transactionRow.amount : 0,
-        },
-      },
-    }),
+    // // remove old transaction from yearTable
+    // prisma.yearTable.update({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: transactionRow.date.getUTCMonth(),
+    //       year: transactionRow.date.getUTCFullYear(),
+    //       currency: transactionRow.currency,
+    //     },
+    //   },
+    //   data: {
+    //     income: {
+    //       decrement: type === "income" ? transactionRow.amount : 0,
+    //     },
+    //     expense: {
+    //       decrement: type === "expense" ? transactionRow.amount : 0,
+    //     },
+    //   },
+    // }),
 
-    // update new yearTable
-    prisma.yearTable.upsert({
-      where: {
-        month_year_userId_currency: {
-          userId: user.id,
-          month: date.getUTCMonth(),
-          year: date.getUTCFullYear(),
-          currency,
-        },
-      },
-      create: {
-        userId: user.id,
-        month: date.getUTCMonth(),
-        year: date.getUTCFullYear(),
-        income: type === "income" ? amount : 0,
-        expense: type === "expense" ? amount : 0,
-        currency,
-      },
-      update: {
-        income: {
-          increment: type === "income" ? amount : 0,
-        },
-        expense: {
-          increment: type === "expense" ? amount : 0,
-        },
-      },
-    }),
+    // // update new yearTable
+    // prisma.yearTable.upsert({
+    //   where: {
+    //     month_year_userId_currency: {
+    //       userId: user.id,
+    //       month: date.getUTCMonth(),
+    //       year: date.getUTCFullYear(),
+    //       currency,
+    //     },
+    //   },
+    //   create: {
+    //     userId: user.id,
+    //     month: date.getUTCMonth(),
+    //     year: date.getUTCFullYear(),
+    //     income: type === "income" ? amount : 0,
+    //     expense: type === "expense" ? amount : 0,
+    //     currency,
+    //   },
+    //   update: {
+    //     income: {
+    //       increment: type === "income" ? amount : 0,
+    //     },
+    //     expense: {
+    //       increment: type === "expense" ? amount : 0,
+    //     },
+    //   },
+    // }),
   ]);
 }
