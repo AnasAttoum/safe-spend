@@ -25,17 +25,14 @@ export default async function SyrianPoundToday() {
   const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
-  if (userData.currency !== 'SYP')
-    redirect(routes.dashboard);
-
   const response = await fetch(
     process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
-    headers: {
-      accept: 'application/json',
-      'User-agent': 'learning app',
-    }
-  }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
-  const currencies: currencyToday[] = response?.data?.currencies || []
+      headers: {
+        accept: 'application/json',
+        'User-agent': 'learning app',
+      }
+    }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
+    const currencies: currencyToday[] = response?.data?.currencies || []
 
   return (
     <>

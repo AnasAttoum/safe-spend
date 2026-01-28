@@ -27,9 +27,6 @@ export default async function GoldToday() {
   const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
-  if (userData.currency !== 'SYP')
-    redirect(routes.dashboard);
-
   const response = await fetch(
     process.env.NEXT_PUBLIC_gold!, {
     headers: {
@@ -39,7 +36,6 @@ export default async function GoldToday() {
   }).then(res => res.json()).catch((error) => console.error('Error in GOLD TODAY Page', error));
   const karats: karatToday[] = response?.data?.karats || []
   const ounce = response?.data?.spot_price;
-  console.log('ounce: ', ounce);
 
   const responseSYP = await fetch(
     process.env.NEXT_PUBLIC_gold_SYP!, {
