@@ -57,7 +57,7 @@ export default async function GoldToday() {
       </div>}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-        <Card className="sm:text-2xl font-bold flex flex-col justify-evenly transition-all duration-300 hover:scale-101 hover:-translate-y-1 p-5 bg-linear-to-b from-gold to-gold/80">
+        <Card className="text-white sm:text-2xl font-bold flex flex-col justify-evenly transition-all duration-300 hover:scale-101 hover:-translate-y-1 p-5 bg-linear-to-b from-gold to-gold/80">
           <div className="text-center">OUNCE</div>
           <div className="flex flex-row justify-between items-center">
             <div><Count num={ounce.price_usd} suffix=" $" /></div>
