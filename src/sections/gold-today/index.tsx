@@ -26,18 +26,23 @@ export default async function GoldToday() {
   if (!userData) redirect(routes.currency);
 
   const response = await fetch(
-    process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
+    process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
+    headers: {
+      accept: 'application/json',
+      'User-agent': 'learning app',
+    }
+  }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
   const res: ServerResponse = response?.data?.gold || []
   const currencies: CurrencyToday[] = Object.entries(res)
-  .filter(([key]) => key.endsWith(":damascus"))
-  .map(([key, value]) => {
-    return {
-      code: key.split(":")[0],
-      buy: value?.buy,
-      sell: value?.sell,
-      change: value?.change
-    };
-  });
+    .filter(([key]) => key.endsWith(":damascus"))
+    .map(([key, value]) => {
+      return {
+        code: key.split(":")[0],
+        buy: value?.buy,
+        sell: value?.sell,
+        change: value?.change
+      };
+    });
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">

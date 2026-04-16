@@ -45,7 +45,7 @@ export function DeleteMyDataDialog() {
       });
     },
     onError: (error) => {
-      console.log("🚀 ~ DeleteMyDataDialog ~ error:", error)
+      console.error("Error:", error)
       toast.error("Something went wrong", { id: 'delete-my-data' });
     },
   });
