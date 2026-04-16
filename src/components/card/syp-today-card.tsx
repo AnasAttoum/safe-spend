@@ -1,19 +1,34 @@
 import { capitalizeWords, cn } from "@/lib/utils";
 import { Card } from "../ui/card";
-import { currencyToday } from "@/sections/syrian-pound-today";
+import { CurrencyToday } from "@/sections/syrian-pound-today";
 import Count from "../count-up";
 
 type Props = {
-  currencyToday: currencyToday;
+  currencyToday: CurrencyToday;
+};
+const currencyToCountry: Record<string, string> = {
+  USD: "US", EUR: "EU", TRY: "TR", SAR: "SA", AED: "AE",
+  EGP: "EG", LYD: "LY", JOD: "JO", KWD: "KW", GBP: "GB",
+  AUD: "AU", CAD: "CA", CHF: "CH", DKK: "DK", DZD: "DZ",
+};
+
+const getFlagEmoji = (currencyCode: string) => {
+  const countryCode = currencyToCountry[currencyCode.toUpperCase()];
+  if (!countryCode) return "🏳️";
+  const codePoints = countryCode
+    .toUpperCase()
+    .split("")
+    .map((char) => 127397 + char.charCodeAt(0));
+  return String.fromCodePoint(...codePoints);
 };
 
 export default function SYPTodayCard({ currencyToday }: Props) {
-  const { slug, name_ar, flag, cities: { damascus: { buy, sell, change } } } = currencyToday;
+  const { code, buy, sell, change } = currencyToday;
   return (
     <Card className="rounded-sm transition-all duration-300 group hover:scale-101 hover:-translate-y-1 py-0">
       <div className="flex flex-col justify-between">
-        <div className="grid grid-cols-3 px-5 text-center text-safeSpend-primary font-bold py-5">
-          <span className="text-left">{capitalizeWords(slug)}</span>
+        <div className="flex justify-between px-5 text-center text-safeSpend-primary font-bold py-5">
+          <span className="text-left">{capitalizeWords(code)}</span>
           {change !== 0 ?
             <span
               className={cn(
@@ -24,7 +39,6 @@ export default function SYPTodayCard({ currencyToday }: Props) {
             >{change > 0 && '+'}{change}%</span>
             : <span></span>
           }
-          <span className="text-right">{name_ar}</span>
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-safeSpend-primary text-white py-5">
           <div>
@@ -33,7 +47,7 @@ export default function SYPTodayCard({ currencyToday }: Props) {
               <Count num={buy} />
             </span>
           </div>
-          <div className="text-2xl">{flag}</div>
+          <div className="text-2xl flag">{getFlagEmoji(code)}</div>
           <div>
             <span>Sell: &nbsp;</span>
             <span className="text-2xl font-bold">

@@ -3,19 +3,16 @@ import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import SYPTodayCard from "@/components/card/syp-today-card";
-import { Time } from "@/components/time";
 
-export type currencyToday = {
-  slug: string;
-  name_ar: string;
-  flag: string;
-  cities: {
-    damascus: {
-      buy: number;
-      sell: number;
-      change: number;
-    }
-  }
+export type CurrencyToday = {
+  code: string;
+  buy: number;
+  sell: number;
+  change: number;
+}
+
+export interface ServerResponse {
+  [key: string]: CurrencyToday;
 }
 
 export default async function SyrianPoundToday() {
@@ -26,28 +23,23 @@ export default async function SyrianPoundToday() {
   if (!userData) redirect(routes.currency);
 
   const response = await fetch(
-    process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
-      headers: {
-        accept: 'application/json',
-        'User-agent': 'learning app',
-      }
-    }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
-    const currencies: currencyToday[] = response?.data?.currencies || []
+    process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
+  const res: ServerResponse = response?.data?.currencies || []
+  const currencies: CurrencyToday[] = Object.entries(res)
+  .filter(([key]) => key.endsWith(":damascus"))
+  .map(([key, value]) => {
+    return {
+      code: key.split(":")[0],
+      buy: value?.buy,
+      sell: value?.sell,
+      change: value?.change
+    };
+  });
 
   return (
-    <>
-      {response?.data?.updated_at && <div className="py-3">
-        <h3 className="text-2xl md:text-3xl">Updated At:&nbsp;
-          <span className="text-safeSpend-light font-bold">
-            <Time iso={response.data.updated_at} />
-          </span>
-        </h3>
-      </div>}
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
         {currencies && Array.isArray(currencies) &&
-          currencies.map((currencyToday) => <SYPTodayCard key={currencyToday.slug} currencyToday={currencyToday} />)}
+          currencies.map((currencyToday) => <SYPTodayCard key={currencyToday.code} currencyToday={currencyToday} />)}
       </div>
-    </>
   );
 }
