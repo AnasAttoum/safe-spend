@@ -28,7 +28,7 @@ const incomeColor = "var(--income)",
 
 export default function Chart({ data, timeframe }: Props) {
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}

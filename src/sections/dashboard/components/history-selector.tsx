@@ -47,7 +47,7 @@ export default function HistorySelector({
 
   return (
     <SkeletonWrapper isLoading={isLoading}>
-      <Card className="p-5">
+      <Card className="p-5 h-150">
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <div className="flex flex-wrap gap-2">
             <Tabs
@@ -96,7 +96,7 @@ export default function HistorySelector({
           {historyData && historyData.length > 0 ? (
             <Chart data={historyData} timeframe={timeframe} />
           ) : (
-            <div className="flex flex-col justify-center items-center h-[300px]">
+            <div className="flex flex-col justify-center items-center h-full">
               <div>No data for the selected period</div>
               <p className="text-gray-500">
                 Try selecting a different period or adding new transactions
