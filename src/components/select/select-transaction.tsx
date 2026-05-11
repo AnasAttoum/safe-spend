@@ -25,6 +25,7 @@ type Props = {
   reset: UseFormReset<{
     amount: number;
     title: string;
+    description?: string;
     type: "income" | "expense";
     date: Date;
     category: {
@@ -73,6 +74,7 @@ export default function SelectTransaction({ selected, onSelect, reset, type }: P
                     reset({
                       amount: el.amount,
                       title: el.title,
+                      description: el.description || "",
                       date: new Date(),
                       category: { ...el.Category, id: el.categoryId },
                       type: el.type as "income" | "expense",
