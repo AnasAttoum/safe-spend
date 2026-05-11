@@ -27,6 +27,7 @@ import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { queryKey } from "@/config/query-key";
 import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import SelectTransaction from "../select/select-transaction";
 
 type Props = {
   trigger: ReactNode;
@@ -38,6 +39,7 @@ type Props = {
 
 export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {
   const [open, setOpen] = useState(false);
+  const [selectPrevTransaction, setSelectPrevTransaction] = useState(null);
   const queryClient = useQueryClient();
 
   const form = useForm<createTransactionType>({
@@ -121,6 +123,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             title: "",
             currency,
           });
+          setSelectPrevTransaction(null)
         }
       }}
     >
@@ -143,6 +146,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           </DialogDescription> */}
         </DialogHeader>
         <FullForm form={form} onSubmit={onSubmit}>
+          <SelectTransaction type={type} selected={selectPrevTransaction} onSelect={setSelectPrevTransaction} reset={reset} />
           <Field
             control={form.control}
             name="title"

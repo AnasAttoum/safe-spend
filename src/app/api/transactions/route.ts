@@ -12,6 +12,29 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from");
   const to = searchParams.get("to");
+  const type = searchParams.get("type");
+
+  if (!from && !to && type) {
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        userId: user.id,
+        type,
+      },
+      orderBy: {
+        date: "desc",
+      },
+      include: {
+        Category: {
+          select: {
+            name: true,
+            icon: true,
+          },
+        },
+      },
+      take: 10,
+    });
+    return Response.json(transactions);
+  }
 
   const parsedBody = overviewSchema.safeParse({
     from,
@@ -23,7 +46,7 @@ export async function GET(request: Request) {
   const transactions = await getHistoryData(
     user.id,
     parsedBody.data.from,
-    parsedBody.data.to
+    parsedBody.data.to,
   );
   return Response.json(transactions);
 }
