@@ -50,7 +50,7 @@ export default function SelectTransaction({ selected, onSelect, reset, type }: P
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      {(isLoading || data?.length) && <SkeletonWrapper isLoading={isLoading}>
+      {(isLoading || !!data?.length) && <SkeletonWrapper isLoading={isLoading}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="cursor-pointer w-full primaryBtn">
             {!!selected ? (
