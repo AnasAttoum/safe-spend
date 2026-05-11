@@ -57,6 +57,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       reset({
         amount: transaction.amount,
         title: transaction.title,
+        description: transaction.description,
         date: transaction.date,
         category: { ...transaction.Category, id: transaction.categoryId },
         type: transaction.type as "income" | "expense",
@@ -82,6 +83,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
         date: new Date(),
         category: undefined,
         title: "",
+        description: "",
         currency,
       });
 
@@ -119,6 +121,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             date: new Date(),
             category: undefined,
             title: "",
+            description: "",
             currency,
           });
         }
@@ -183,6 +186,13 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             label="Date"
             // description="Select a date for this transaction"
             nodetype="date"
+          />
+
+          <Field
+            control={form.control}
+            name="description"
+            label="Description"
+            nodetype="textarea"
           />
 
           <DialogFooter>

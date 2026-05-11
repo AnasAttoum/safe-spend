@@ -44,9 +44,10 @@ model Transaction {
   id     String @id @default(uuid()) // To make prisma generate it
   userId String
 
-  amount Float
-  title  String
-  type   String @default("income")
+  amount      Float
+  title       String
+  description String @default("")
+  type        String @default("income")
 
   categoryId String
   Category   Category @relation(fields: [categoryId], references: [id])
