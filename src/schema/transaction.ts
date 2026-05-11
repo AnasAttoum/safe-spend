@@ -11,6 +11,7 @@ export const createTransactionSchema = z.object({
     .max(1000000000, { message: "Max transaction amount is 1000000000" })
     .multipleOf(0.01, { message: "Amount must be a multiple of 0.01" }),
   title: z.string().min(1).max(500),
+  description: z.string().max(500).optional(),
   date: z.coerce.date(),
   category: z.object({
     id: z.string().min(1),

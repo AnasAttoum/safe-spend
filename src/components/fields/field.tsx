@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import { DatePicker } from "./date-picker";
 import SelectCurrency from "../select/select-currency";
 import EmojiPicker from "../emoji-picker";
+import { Textarea } from "../ui/textarea";
 
 type Props = {
   control: any;
@@ -20,7 +21,7 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   specificNode?: ReactNode;
-  nodetype?: "date" | "icon"| "currency";
+  nodetype?: "date" | "icon" | "currency" |"textarea";
 };
 
 export default function Field({
@@ -33,7 +34,7 @@ export default function Field({
   specificNode,
   nodetype,
 }: Props) {
-  
+
 
   return (
     <FormField
@@ -50,9 +51,15 @@ export default function Field({
                 <DatePicker selected={field.value} onSelect={field.onChange} />
               ) : nodetype === "icon" ? (
                 <EmojiPicker fieldValue={field.value} onChange={field.onChange} />
-              ) : nodetype==='currency'?(
+              ) : nodetype === 'currency' ? (
                 <SelectCurrency selected={field.value} onSelect={field.onChange} />
-              ): (
+              ) : nodetype === "textarea" ? (
+                <Textarea
+                  className="resize-none"
+                  rows={3}
+                  {...field}
+                />
+              ) : (
                 "NOTFOUND"
               )
             ) : (

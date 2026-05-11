@@ -21,6 +21,7 @@ export async function createTransaction(form: createTransactionType) {
 
   const {
     title,
+    description,
     amount,
     category: { id: categoryId },
     date,
@@ -41,6 +42,7 @@ export async function createTransaction(form: createTransactionType) {
       data: {
         userId: user.id,
         title,
+        description,
         amount,
         categoryId: categoryRow.id,
         date,
@@ -193,6 +195,7 @@ export async function updateTransaction(form: updateTransactionType) {
   const {
     id: transactionId,
     title,
+    description,
     amount,
     category: { id: categoryId },
     date,
@@ -225,6 +228,7 @@ export async function updateTransaction(form: updateTransactionType) {
       },
       data: {
         title,
+        description,
         amount,
         categoryId: categoryRow.id,
         date,
