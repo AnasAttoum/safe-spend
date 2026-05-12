@@ -26,7 +26,7 @@ import { toast } from "sonner";
 import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { queryKey } from "@/config/query-key";
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 
 type Props = {
   trigger: ReactNode;

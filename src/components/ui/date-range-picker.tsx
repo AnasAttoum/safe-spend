@@ -29,7 +29,7 @@ import {
 } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { getHistoryPeriodsType } from "@/app/api/history/periods/route";
+import { getHistoryPeriodsType } from "@/app/[locale]/api/history/periods/route";
 import { queryKey } from "@/config/query-key";
 
 export interface DateRangePickerProps {

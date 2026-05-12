@@ -1,4 +1,4 @@
-import { getHistoryDataResponseType } from "@/app/api/history/data/route";
+import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
 import { Separator } from "@/components/ui/separator";
 import { Timeframe } from "@/lib/types";
 import { cn } from "@/lib/utils";

@@ -1,4 +1,4 @@
-import { Categoriestype } from "@/app/api/statistics/category/route";
+import { Categoriestype } from "@/app/[locale]/api/statistics/category/route";
 import CategoryStatistic from "@/components/card/category-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { queryKey } from "@/config/query-key";

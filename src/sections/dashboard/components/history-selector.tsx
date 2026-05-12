@@ -1,5 +1,5 @@
-import { getHistoryDataResponseType } from "@/app/api/history/data/route";
-import { getHistoryPeriodsType } from "@/app/api/history/periods/route";
+import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
+import { getHistoryPeriodsType } from "@/app/[locale]/api/history/periods/route";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";

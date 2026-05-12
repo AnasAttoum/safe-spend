@@ -1,6 +1,6 @@
 "use client"
 
-import { getHistoryAllCurrenciesResponseType } from "@/app/api/history/all-currencies/route";
+import { getHistoryAllCurrenciesResponseType } from "@/app/[locale]/api/history/all-currencies/route";
 import SelectSpecificCurrencies from "@/components/select/select-specific-currencies";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Card } from "@/components/ui/card";

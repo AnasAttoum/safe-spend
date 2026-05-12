@@ -1,4 +1,4 @@
-import { getExchangesHistoryDataResponseType } from '@/app/api/exchanges/route';
+import { getExchangesHistoryDataResponseType } from '@/app/[locale]/api/exchanges/route';
 import { DeleteDialog } from '@/components/dialog/delete-dialog';
 import { ExchangeDialog } from '@/components/dialog/exchange-dialog';
 import Icon from '@/components/icon/icon';

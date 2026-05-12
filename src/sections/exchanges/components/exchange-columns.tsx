@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import {
   ColumnDef,
 } from "@tanstack/react-table";
-import { getExchangesHistoryDataResponseType } from "@/app/api/exchanges/route";
+import { getExchangesHistoryDataResponseType } from "@/app/[locale]/api/exchanges/route";
 import { RowActions } from "./row-actions";
 import CountUp from "react-countup";
 

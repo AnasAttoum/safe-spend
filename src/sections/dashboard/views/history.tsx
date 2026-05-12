@@ -4,7 +4,7 @@ import { Period, Timeframe } from "@/lib/types";
 import { useState } from "react";
 import HistorySelector from "../components/history-selector";
 import { useQuery } from "@tanstack/react-query";
-import { getHistoryDataResponseType } from "@/app/api/history/data/route";
+import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
 import { queryKey } from "@/config/query-key";
 
 export default function History({ currency, categoryId }: { currency: string; categoryId?: string }) {

@@ -20,7 +20,7 @@ import { dateToUTCDate } from "@/lib/date-helper";
 import { createExchangeSchema, createExchangeType } from "@/schema/exchange";
 import { createExchange, updateExchange } from "@/actions/exchange";
 import { queryKey } from "@/config/query-key";
-import { getExchangesHistoryDataResponseType } from "@/app/api/exchanges/route";
+import { getExchangesHistoryDataResponseType } from "@/app/[locale]/api/exchanges/route";
 
 type Props = {
   trigger: ReactNode;

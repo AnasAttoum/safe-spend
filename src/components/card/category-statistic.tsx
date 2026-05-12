@@ -1,4 +1,4 @@
-import { Categoriestype } from "@/app/api/statistics/category/route";
+import { Categoriestype } from "@/app/[locale]/api/statistics/category/route";
 import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
 import { currencies, defaultCurrency } from "@/config/currencies";

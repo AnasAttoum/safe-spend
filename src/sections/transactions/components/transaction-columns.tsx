@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { cn } from "@/lib/utils";
 import {

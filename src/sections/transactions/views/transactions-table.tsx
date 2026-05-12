@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 import DataTable from "@/components/data-table";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { DataTableFacetedFilter } from "@/components/data-table/faceted-filters";

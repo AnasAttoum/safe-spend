@@ -14,6 +14,7 @@ import { Category } from "@/generated/prisma";
 import CategoryOverviewData from "./components/category-overview-data";
 import CreateCategory from "@/components/dialog/create-category";
 import Transactions from "../transactions";
+import { getTranslations } from "next-intl/server";
 
 export type CategoryOverview = {
   category: Category;
@@ -21,6 +22,7 @@ export type CategoryOverview = {
 }
 
 export default async function Dashboard({ categoryOverview }: { categoryOverview?: CategoryOverview | null }) {
+  const t = await getTranslations();
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -33,6 +35,8 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
         name={user.firstName || "User"}
         currency={userData.currency || defaultCurrency.value}
       />}
+
+      {t("home")}
 
       {categoryOverview && categoryOverview.category && <CategoryOverviewData categoryOverview={categoryOverview} />}
       <Overview
