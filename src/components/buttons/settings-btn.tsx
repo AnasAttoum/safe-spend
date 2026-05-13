@@ -10,7 +10,7 @@ export default function SettingsBtn() {
     <Link href={routes.settings}>
       <Button
         variant="secondary"
-        className="px-2 cursor-pointer"
+        className="px-2 cursor-pointer w-12.5"
       >
         <SettingsIcon rotate />
       </Button>

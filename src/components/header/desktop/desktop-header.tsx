@@ -3,6 +3,7 @@ import { UserButton } from "@clerk/nextjs";
 import SettingsBtn from "@/components/buttons/settings-btn";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ThemeBtn from "@/components/buttons/theme-btn";
+import LocaleSwitcher from "@/components/buttons/locale-switcher";
 
 export default function DesktopHeader() {
   return (
@@ -17,6 +18,7 @@ export default function DesktopHeader() {
       <div className="flex items-center justify-end gap-3">
         <SettingsBtn />
         <ThemeBtn />
+        <LocaleSwitcher />
         <UserButton />
       </div>
     </header>

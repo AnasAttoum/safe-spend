@@ -1,8 +1,8 @@
 import { defineRouting } from "next-intl/routing";
 
 export const localesDetails = [
-  { locale: "de", label: "DE", src: "/icons/localization/de.svg" },
-  { locale: "en", label: "EN", src: "/icons/localization/en.svg" },
+  { locale: "de", label: "DE", src: "/assets/icons/localization/de.svg" },
+  { locale: "en", label: "EN", src: "/assets/icons/localization/en.svg" },
 ] as const;
 
 export const locales = localesDetails.map(({ locale }) => locale);

@@ -13,7 +13,7 @@ export default function ThemeBtn() {
   return (
     <Button
       variant="secondary"
-      className="px-2 cursor-pointer"
+      className="px-2 cursor-pointer w-12.5"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       <SunIcon rotate className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
