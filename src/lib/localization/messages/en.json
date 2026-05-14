@@ -118,6 +118,7 @@
     "target-must-be-different": "Target currency must be different from exchange currency."
   },
   "loading": "Loading...",
+  "apply": "Apply",
   "cancel": "Cancel",
   "continue": "Continue",
   "no-data-for-selected-period": "No data for the selected period",
@@ -158,5 +159,15 @@
   "go-to-main-page": "Go to Main Page",
   "exchange-rates": "Exchange rates",
   "syrian-pound-today": "Syrian Pound Today",
-  "gold-today": "Gold Today"
+  "gold-today": "Gold Today",
+  "All": "All",
+  "Today": "Today",
+  "Yesterday": "Yesterday",
+  "Last 7 days": "Last 7 days",
+  "Last 14 days": "Last 14 days",
+  "Last 30 days": "Last 30 days",
+  "This Week": "This Week",
+  "Last Week": "Last Week",
+  "This Month": "This Month",
+  "Last Month": "Last Month"
 }

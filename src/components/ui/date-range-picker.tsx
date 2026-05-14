@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { getHistoryPeriodsType } from "@/app/[locale]/api/history/periods/route";
 import { queryKey } from "@/config/query-key";
+import { useTranslations } from "next-intl";
 
 export interface DateRangePickerProps {
   /** Click handler for applying the updates from DateRangePicker. */
@@ -110,6 +111,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   locale = "en-US",
   showCompare = true,
 }): JSX.Element => {
+    const t = useTranslations();
     const [isOpen, setIsOpen] = useState(false);
 
     const [range, setRange] = useState<DateRange>({
@@ -338,7 +340,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
           <span className={cn("pr-2 opacity-0", isSelected && "opacity-70")}>
             <CheckIcon width={18} height={18} />
           </span>
-          {label}
+          {t(label)}
         </>
       </Button>
     );
@@ -525,7 +527,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                     <SelectContent>
                       {PRESETS.map((preset) => (
                         <SelectItem key={preset.name} value={preset.name}>
-                          {preset.label}
+                          {t(preset.label)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -575,7 +577,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               }}
               variant="ghost"
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               onClick={() => {
@@ -592,7 +594,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               }}
               className="primaryBtn"
             >
-              Apply
+              {t("apply")}
             </Button>
           </div>
         </PopoverContent>
