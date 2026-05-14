@@ -29,6 +29,7 @@ export async function createTransaction(form: createTransactionType) {
     date,
     type,
     currency,
+    bookmark,
   } = parsedBody.data;
 
   const categoryRow = await prisma.category.findFirst({
@@ -50,6 +51,7 @@ export async function createTransaction(form: createTransactionType) {
         date,
         type,
         currency,
+        bookmark,
       },
     }),
 
@@ -205,6 +207,7 @@ export async function updateTransaction(form: updateTransactionType) {
     date,
     type,
     currency,
+    bookmark,
   } = parsedBody.data;
 
   const [categoryRow, transactionRow] = await Promise.all([
@@ -238,6 +241,7 @@ export async function updateTransaction(form: updateTransactionType) {
         date,
         type,
         currency,
+        bookmark,
       },
     }),
 

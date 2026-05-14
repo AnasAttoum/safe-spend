@@ -13,6 +13,9 @@ import SelectCurrency from "../select/select-currency";
 import EmojiPicker from "../emoji-picker";
 import { Textarea } from "../ui/textarea";
 import { useTranslations } from "next-intl";
+import { BookmarkIcon } from "lucide-react";
+import { Toggle } from "../ui/toggle";
+import { cn } from "@/lib/utils";
 
 type Props = {
   control: any;
@@ -22,7 +25,7 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   specificNode?: ReactNode;
-  nodetype?: "date" | "icon" | "currency" | "textarea";
+  nodetype?: "date" | "icon" | "currency" | "textarea" | "bookmark";
   withoutTranslation?: boolean;
 };
 
@@ -45,7 +48,7 @@ export default function Field({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{withoutTranslation ? label : t(label)}</FormLabel>
+          {nodetype !== "bookmark" && <FormLabel>{withoutTranslation ? label : t(label)}</FormLabel>}
           <FormControl>
             {specificNode && isValidElement(specificNode) ? (
               specificNode
@@ -62,6 +65,18 @@ export default function Field({
                   rows={3}
                   {...field}
                 />
+              ) : nodetype === "bookmark" ? (
+                <Toggle
+                  aria-label="Toggle bookmark"
+                  size="sm"
+                  variant="outline"
+                  pressed={field.value}
+                  onPressedChange={field.onChange}
+                  className={cn("transition-all duration-300 cursor-pointer", field.value ? "bg-safeSpend-primary!" : "")}
+                >
+                  <BookmarkIcon className={field.value ? "fill-white text-white" : ""} />
+                  {t("bookmark-this")}
+                </Toggle>
               ) : (
                 "NOTFOUND"
               )

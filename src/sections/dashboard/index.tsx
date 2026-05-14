@@ -15,6 +15,7 @@ import CategoryOverviewData from "./components/category-overview-data";
 import CreateCategory from "@/components/dialog/create-category";
 import Transactions from "../transactions";
 import { getTranslations } from "next-intl/server";
+import Bookmarks from "./components/bookmarks";
 
 export type CategoryOverview = {
   category: Category;
@@ -35,6 +36,8 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
         name={user.firstName || "User"}
         currency={userData.currency || defaultCurrency.value}
       />}
+
+      {!categoryOverview && <Bookmarks />}
 
       {categoryOverview && categoryOverview.category && <CategoryOverviewData categoryOverview={categoryOverview} />}
       <Overview

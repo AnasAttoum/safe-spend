@@ -36,6 +36,7 @@ export const createTransactionSchema = (t: _Translator<Record<string, any>, "err
 
       return value;
     }),
+    bookmark: z.boolean().optional(),
   });
 export type createTransactionType = z.infer<
   ReturnType<typeof createTransactionSchema>

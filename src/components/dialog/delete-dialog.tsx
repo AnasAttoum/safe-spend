@@ -1,5 +1,6 @@
 "use client";
 
+import { removeBookmark } from "@/actions/bookmark";
 import { deleteCategory } from "@/actions/category";
 import { deleteExchange } from "@/actions/exchange";
 import { deleteTransaction } from "@/actions/transaction";
@@ -22,7 +23,7 @@ import { ReactNode } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  item: "category" | "transaction" | "exchange";
+  item: "category" | "transaction" | "exchange" | "bookmark";
   trigger: ReactNode;
   id: string;
   closeMenu?: () => void
@@ -44,10 +45,13 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
       else if (item === "exchange") {
         return await deleteExchange(formId);
       }
+      else if (item === "bookmark") {
+        return await removeBookmark(formId);
+      }
     },
     onSuccess: () => {
       toast.success(
-        `${item.charAt(0).toUpperCase() + item.slice(1)} ${t("deleted-successfully")}`,
+        `${t(`delete-dialog.${item}`)} ${item === "bookmark" ? t("removed-successfully") : t("deleted-successfully")}`,
         { id }
       );
       queryClient.invalidateQueries({
@@ -69,9 +73,9 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("are-you-sure")}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {`${t("this-cannot-be-undone2")} ${item}.`}
-          </AlertDialogDescription>
+          {item !== "bookmark" && <AlertDialogDescription>
+            {`${t("this-cannot-be-undone2")} ${t(`delete-dialog.${item}`)}.`}
+          </AlertDialogDescription>}
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">
@@ -80,7 +84,7 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
           <AlertDialogAction
             className="cursor-pointer"
             onClick={() => {
-              toast.loading(`${t("deleting")} ${item}...`, { id });
+              toast.loading(`${item === "bookmark" ? t("removing") : t("deleting")} ${t(`delete-dialog.${item}`)}...`, { id });
               mutate(id);
             }}
           >

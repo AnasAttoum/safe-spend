@@ -93,7 +93,7 @@
   --income-light: #c7ffe8;
   --expense: #ff4d6d;
   --expense-dark: #c9184a;
-  --gold: #FDC700;
+  --gold: #fdc700;
 }
 
 .dark {
@@ -136,7 +136,7 @@
   --income-light: oklch(76.5% 0.177 163.223);
   --expense: #ff4d6d;
   --expense-dark: #c9184a;
-  --gold: #FDC700;
+  --gold: #fdc700;
 }
 
 @layer base {
@@ -198,7 +198,8 @@ body {
   height: 50px;
   border-radius: 50%;
   color: var(--safeSpend-primary);
-  background: linear-gradient(currentColor 0 0) center/100% 4px,
+  background:
+    linear-gradient(currentColor 0 0) center/100% 4px,
     linear-gradient(currentColor 0 0) center/4px 100%,
     radial-gradient(
       farthest-side,
@@ -240,10 +241,18 @@ body {
   mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), transparent);
 }
 
-.cardBg{
-  @apply bg-gray-100 dark:bg-black/40 
+.cardBg {
+  @apply bg-gray-100 dark:bg-black/40;
 }
 
-.deleteBtn{
-  @apply cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase
+.deleteBtn {
+  @apply cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase;
+}
+
+.clamp {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

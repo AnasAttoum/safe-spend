@@ -90,7 +90,9 @@
     "exchangeAmount": "Exchange Amount",
     "collectedAmount": "Collected Amount",
     "exchangeRate": "Exchange Rate",
-    "click": "Click to select"
+    "click": "Click to select",
+    "bookmark-this": "Bookmark this",
+    "remove-bookmark": "Remove bookmark"
   },
   "settings": {
     "settings": "Settings",
@@ -153,7 +155,15 @@
   "deleting-your-data": "Deleting your data...",
   "reset-all-data": "Reset all data",
   "deleted-successfully": "deleted successfully",
+  "removed-successfully": "removed successfully",
   "deleting": "Deleting",
+  "removing": "Removing",
+  "delete-dialog":{
+    "category": "Category",
+    "transaction": "Transaction",
+    "exchange": "Exchange",
+    "bookmark": "Bookmark"
+  },
   "reset": "Reset",
   "404": "404 page not found!",
   "go-to-main-page": "Go to Main Page",

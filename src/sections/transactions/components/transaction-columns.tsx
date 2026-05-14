@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { RowActions } from "./row-actions";
 import { useTranslations } from "next-intl";
+import { BookmarkIcon } from "lucide-react";
 
 const TypeCell = ({ type }: { type: string }) => {
   const t = useTranslations();
@@ -37,7 +38,7 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
         category.includes(value.toLowerCase())
       );
     },
-    cell: ({ row }) => <div className="flex-1">{row.original.title}</div>,
+    cell: ({ row }) => <div className="flex gap-1 flex-1">{row.original.bookmark && <BookmarkIcon className="fill-safeSpend-primary text-safeSpend-primary" />}{row.original.title}</div>,
   },
   {
     accessorKey: "type",

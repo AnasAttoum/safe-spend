@@ -90,7 +90,9 @@
     "exchangeAmount": "Umtauschbetrag",
     "collectedAmount": "Erhaltener Betrag",
     "exchangeRate": "Wechselkurs",
-    "click": "Zum Auswählen klicken"
+    "click": "Zum Auswählen klicken",
+    "bookmark-this": "Lesezeichen hinzufügen",
+    "remove-bookmark": "Lesezeichen entfernen"
   },
   "settings": {
     "settings": "Einstellungen",
@@ -153,7 +155,15 @@
   "deleting-your-data": "Ihre Daten werden gelöscht...",
   "reset-all-data": "Alle Daten zurücksetzen",
   "deleted-successfully": "erfolgreich gelöscht",
+  "removed-successfully": "Erfolgreich entfernt",
   "deleting": "Wird gelöscht",
+  "removing": "Wird entfernt",
+  "delete-dialog": {
+    "category": "Kategorie",
+    "transaction": "Transaktion",
+    "exchange": "Wechselkurs",
+    "bookmark": "Lesezeichen"
+  },
   "reset": "Zurücksetzen",
   "404": "404 Seite nicht gefunden!",
   "go-to-main-page": "Zur Hauptseite gehen",

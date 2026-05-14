@@ -6,5 +6,6 @@ export const queryKey = {
   history: "history",
   periods: "periods",
   transaction: "transaction",
+  bookmark: "bookmark",
   exchange: "exchange",
 };

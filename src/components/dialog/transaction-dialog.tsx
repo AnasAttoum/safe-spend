@@ -28,6 +28,8 @@ import { dateToUTCDate } from "@/lib/date-helper";
 import { queryKey } from "@/config/query-key";
 import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 import { useTranslations } from "next-intl";
+import { DeleteDialog } from "./delete-dialog";
+import { BookmarkIcon } from "lucide-react";
 
 type Props = {
   trigger: ReactNode;
@@ -35,15 +37,18 @@ type Props = {
   currency?: string;
   transaction?: getTransactionsHistoryDataResponseType[0];
   closeMenu?: () => void;
+  isBookmark?: boolean;
 };
 
-export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {
+export function TransactionDialog({ trigger, type, currency, transaction, closeMenu, isBookmark }: Props) {
   const t = useTranslations();
   const tErrors = useTranslations("errors");
   const tTransaction = useTranslations("transaction");
 
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+
+  const isEditing = transaction && !isBookmark;
 
   const form = useForm<createTransactionType>({
     resolver: zodResolver(createTransactionSchema(tErrors)),
@@ -66,19 +71,20 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
         date: transaction.date,
         category: { ...transaction.Category, id: transaction.categoryId },
         type: transaction.type as "income" | "expense",
-        currency: transaction.currency
+        currency: transaction.currency,
+        bookmark: false,
       })
   }, [open, transaction, reset])
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (form: createTransactionType | updateTransactionType) => {
-      const res = transaction ? await updateTransaction({ ...form, id: transaction.id }) : await createTransaction(form);
+      const res = isEditing ? await updateTransaction({ ...form, id: transaction.id }) : await createTransaction(form);
       if (res && res.error) {
         throw new Error(res.error);
       }
     },
     onSuccess: () => {
-      toast.success(transaction ? tTransaction("updated-successfully") : tTransaction("created-successfully"), {
+      toast.success(isEditing ? tTransaction("updated-successfully") : tTransaction("created-successfully"), {
         id: "create-transaction",
       });
       setOpen(false);
@@ -90,6 +96,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
         title: "",
         description: "",
         currency,
+        bookmark: false,
       });
 
       queryClient.invalidateQueries({ queryKey: [queryKey.overview] });
@@ -108,7 +115,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
-    toast.loading(transaction ?  tTransaction("updating") : tTransaction("creating"), {
+    toast.loading(isEditing ? tTransaction("updating") : tTransaction("creating"), {
       id: "create-transaction",
     });
     mutate({ ...data, date: dateToUTCDate(data.date) });
@@ -128,6 +135,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             title: "",
             description: "",
             currency,
+            bookmark: false,
           });
         }
       }}
@@ -138,7 +146,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {transaction ? t("update") : t("create-new")}{" "}
+            {isEditing ? t("update") : t("create-new")}{" "}
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
@@ -201,13 +209,35 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             nodetype="textarea"
           />
 
+          {isBookmark ?
+            <DeleteDialog
+              item="bookmark"
+              id={transaction?.id || ""}
+              trigger={
+                <Button className="deleteBtn w-full flex-1 mt-0! normal-case!">
+                  <BookmarkIcon className="fill-white" />
+                  {t("labels.remove-bookmark")}
+                </Button>
+              }
+              closeMenu={() => {
+                queryClient.invalidateQueries({ queryKey: [queryKey.transaction, queryKey.bookmark] });
+                setOpen(false);
+              }}
+            />
+            : <Field
+              control={form.control}
+              name="bookmark"
+              label="bookmark-this"
+              nodetype="bookmark"
+            />}
+
           <DialogFooter>
             <Button
               type="submit"
               className={clsx("cursor-pointer", `${type}Btn`)}
               disabled={isPending}
             >
-              {isPending ? t("loading") : transaction ? t("update") : t("create")}
+              {isPending ? t("loading") : isEditing ? t("update") : t("create")}
             </Button>
           </DialogFooter>
         </FullForm>
