@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-
 import { headerlinks } from "@/config/header-links";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { Link } from "@/lib/localization/navigation";
 
 export default function HeaderLinks() {
   const pathname = usePathname();

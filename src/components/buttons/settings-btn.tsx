@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { routes } from "@/config/routes";
-import Link from "next/link";
 import SettingsIcon from "../icon/lib/settings-icon";
+import { Link } from "@/lib/localization/navigation";
 
 export default function SettingsBtn() {
 

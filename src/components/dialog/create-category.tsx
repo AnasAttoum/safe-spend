@@ -130,7 +130,7 @@ export default function CreateCategory({
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
-              {type}
+              {t(`transaction.${type}`)}
             </span>{" "}
             {tCategory("category")}
           </DialogTitle>

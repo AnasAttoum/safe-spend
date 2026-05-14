@@ -87,8 +87,8 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
             title="type"
             column={table.getColumn("type")}
             options={[
-              { label: "Income", value: t("transaction.income") },
-              { label: "Expence", value: t("transaction.expense") },
+              { label: t("transaction.income"), value: "income" },
+              { label: t("transaction.expense"), value: "expense" },
             ]}
             fixedValue={categoryOverview?.category.type}
           />

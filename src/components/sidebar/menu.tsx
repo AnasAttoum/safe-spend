@@ -5,11 +5,11 @@ import { SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } fr
 import { headerlinks } from '@/config/header-links'
 import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { PoundSterling, Trophy } from 'lucide-react';
 import { routes } from '@/config/routes';
 import { Separator } from '../ui/separator';
 import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/lib/localization/navigation';
 
 export default function Menu(
     // { SYPCurrency }: { SYPCurrency: boolean }
@@ -61,7 +61,7 @@ export default function Menu(
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild className={cn(
                             "relative w-full text-center text-white hover:text-white rounded-md transition-all duration-200 py-7",
-                            routes.syrianPoundToday === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
+                            `/${locale}${routes.syrianPoundToday}` === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
                         )}>
                             <Link href={routes.syrianPoundToday}>
                                 <PoundSterling color="#fff" />
@@ -72,7 +72,7 @@ export default function Menu(
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild className={cn(
                             "relative w-full text-center text-white hover:text-white rounded-md transition-all duration-200 py-7",
-                            routes.goldToday === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
+                            `/${locale}${routes.goldToday}` === pathname && "font-bold bg-safeSpend-light hover:bg-safeSpend-secondary dark:hover:bg-safeSpend-primary"
                         )}>
                             <Link href={routes.goldToday}>
                                 <Trophy color="#fff" />

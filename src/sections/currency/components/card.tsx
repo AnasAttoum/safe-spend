@@ -10,9 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ComboBox } from "./combobox";
-import Link from "next/link";
 import { routes } from "@/config/routes";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/localization/navigation";
 
 export async function CurrencyCard() {
   const t = await getTranslations("currency");

@@ -85,7 +85,12 @@
     "category": "Category",
     "description": "Description",
     "name": "Name",
-    "icon": "Icon"
+    "icon": "Icon",
+    "type": "Type",
+    "exchangeAmount": "Exchange Amount",
+    "collectedAmount": "Collected Amount",
+    "exchangeRate": "Exchange Rate",
+    "click": "Click to select"
   },
   "settings": {
     "settings": "Settings",
@@ -151,7 +156,7 @@
   "reset": "Reset",
   "404": "404 page not found!",
   "go-to-main-page": "Go to Main Page",
-  "exchange-rates":"Exchange rates",
+  "exchange-rates": "Exchange rates",
   "syrian-pound-today": "Syrian Pound Today",
   "gold-today": "Gold Today"
 }

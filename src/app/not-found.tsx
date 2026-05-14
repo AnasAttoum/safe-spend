@@ -1,10 +1,10 @@
 import Header from '@/components/header/header';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/lib/localization/navigation';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 
 
 export async function generateMetadata(): Promise<Metadata> {

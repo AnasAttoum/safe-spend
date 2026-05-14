@@ -44,14 +44,14 @@ export default async function SYPTodayCard({ currencyToday }: Props) {
           }
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-safeSpend-primary text-white py-5">
-          <div>
+          <div className="text-left">
             <span>{t("buy")}: &nbsp;</span>
             <span className="text-2xl font-bold">
               <Count num={buy} />
             </span>
           </div>
           <div className="text-2xl flag">{getFlagEmoji(code)}</div>
-          <div>
+          <div className="text-right">
             <span>{t("sell")}: &nbsp;</span>
             <span className="text-2xl font-bold">
               <Count num={sell} />

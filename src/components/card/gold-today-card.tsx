@@ -30,14 +30,14 @@ export default async function GoldTodayCard({ currencyToday }: Props) {
           </div>
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-gold text-white py-5">
-          <div className="flex flex-col">
+          <div className="flex flex-col text-left">
             <span>{t("buy")}:</span>
             <span className="text-2xl font-bold">
               <Count num={buy} suffix=" £" />
             </span>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col text-right">
             <span>{t("sell")}:</span>
             <span className="text-2xl font-bold">
               <Count num={sell} suffix=" £" />

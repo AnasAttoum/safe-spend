@@ -142,7 +142,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
-              {type}
+              {tTransaction(type)}
             </span>{" "}
             {tTransaction("transaction")}
           </DialogTitle>

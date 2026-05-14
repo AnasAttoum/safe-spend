@@ -1,5 +1,6 @@
 import WaveIcon from "../icon/lib/wave-icon";
 import { TypedCategoriesType } from "@/actions/category";
+import { Link } from "@/lib/localization/navigation";
 import { useTranslations } from "next-intl";
 
 type Props = {

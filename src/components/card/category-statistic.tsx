@@ -3,8 +3,8 @@ import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
 import { getCurrency } from "@/config/currencies";
 import CountUp from "react-countup";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Link } from "@/lib/localization/navigation";
 
 type Props = {
   type: "income" | "expense";

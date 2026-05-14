@@ -85,7 +85,12 @@
     "category": "Kategorie",
     "description": "Beschreibung",
     "name": "Name",
-    "icon": "Symbol"
+    "icon": "Symbol",
+    "type": "Typ",
+    "exchangeAmount": "Umtauschbetrag",
+    "collectedAmount": "Erhaltener Betrag",
+    "exchangeRate": "Wechselkurs",
+    "click": "Zum Auswählen klicken"
   },
   "settings": {
     "settings": "Einstellungen",
