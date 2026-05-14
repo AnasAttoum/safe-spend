@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from 'next-intl';
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -7,6 +8,7 @@ import Bounded from "@/components/bounded";
 import { Toaster } from "@/components/ui/sonner";
 import { AppSidebar } from "@/components/sidebar";
 import SidebarProviderHandler from "@/providers/sidebar-provider-handler";
+import { setRequestLocale } from "next-intl/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,38 +58,47 @@ export function generateViewport() {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  // Ensure that the incoming `locale` is valid
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+    <NextIntlClientProvider>
+      <ClerkProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
-            <SidebarProviderHandler>
-              <AppSidebar />
-              {/* <div className="fixed inset-0 overflow-hidden pointer-events-none -z-50">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <SidebarProviderHandler>
+                <AppSidebar />
+                {/* <div className="fixed inset-0 overflow-hidden pointer-events-none -z-50">
                 <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
                 <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-500"></div>
               </div> */}
-              <Bounded>
-                {children}
-              </Bounded>
-            </SidebarProviderHandler>
-          </ThemeProvider>
-          <Toaster position="top-right" />
-        </body>
-      </html>
-    </ClerkProvider>
+                <Bounded>
+                  {children}
+                </Bounded>
+              </SidebarProviderHandler>
+            </ThemeProvider>
+            <Toaster position="top-right" />
+          </body>
+        </html>
+      </ClerkProvider>
+    </NextIntlClientProvider>
   );
 }

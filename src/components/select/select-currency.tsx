@@ -14,10 +14,12 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { currencies } from "@/config/currencies";
 import CurrencyRow from "./row/currency-row";
+import { useTranslations } from "next-intl";
 
 type Props = { selected: string; onSelect: (val: any) => void };
 
 export default function SelectCurrency({ selected, onSelect }: Props) {
+  const t = useTranslations("currency");
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,13 +29,13 @@ export default function SelectCurrency({ selected, onSelect }: Props) {
           {!!selected ? (
             <CurrencyRow currency={selected} />
           ) : (
-            <span className="text-gray-400 font-normal">Select currency</span>
+            <span className="text-gray-400 font-normal">{t("select")}</span>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
-          <CommandInput placeholder="Search Currency..." className="h-9" />
+          <CommandInput placeholder={t("search")} className="h-9" />
           <CommandList>
             <CommandGroup>
               {currencies.map((curr) => (

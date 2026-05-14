@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
+import { useTranslations } from "next-intl";
 
 type Props = {
   fieldValue: string;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export default function EmojiPicker({ fieldValue, onChange }: Props) {
+  const t = useTranslations("labels")
   const theme = useTheme();
   const [openPicker, setOpenPicker] = useState(false);
 
@@ -23,12 +25,12 @@ export default function EmojiPicker({ fieldValue, onChange }: Props) {
               {fieldValue}
             </span>
           ) : (
-            <div>Click to select</div>
+            <div>{t("click")}</div>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-transparent border-0">
-        <div className="absolute flex justify-center -bottom-16 -left-8 z-50 max-h-[434px] overflow-auto">
+        <div className="absolute flex justify-center -bottom-16 -left-8 z-50 max-h-108.5 overflow-auto">
           <Picker
             data={data}
             onEmojiSelect={(emoji: { native: string }) => {

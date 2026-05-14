@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { routes } from "@/config/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { toast } from "sonner";
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props) {
+  const t = useTranslations();
   const queryClient = useQueryClient();
 
   const router = useRouter();
@@ -45,7 +47,7 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
     },
     onSuccess: () => {
       toast.success(
-        `${item.charAt(0).toUpperCase() + item.slice(1)} deleted successfully`,
+        `${item.charAt(0).toUpperCase() + item.slice(1)} ${t("deleted-successfully")}`,
         { id }
       );
       queryClient.invalidateQueries({
@@ -57,7 +59,7 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
         router.push(routes.categories)
     },
     onError: () => {
-      toast.error("Something went wrong", { id });
+      toast.error(t("something-went-wrong"), { id });
     },
   });
 
@@ -66,23 +68,23 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?!</AlertDialogTitle>
+          <AlertDialogTitle>{t("are-you-sure")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {`This action cannot be undone. This will permanently delete your ${item}.`}
+            {`${t("this-cannot-be-undone2")} ${item}.`}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">
-            Cancel
+            {t("cancel")}
           </AlertDialogCancel>
           <AlertDialogAction
             className="cursor-pointer"
             onClick={() => {
-              toast.loading(`Deleting ${item}...`, { id });
+              toast.loading(`${t("deleting")} ${item}...`, { id });
               mutate(id);
             }}
           >
-            Continue
+            {t("continue")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -5,10 +5,14 @@ import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { defaultCurrency } from "@/config/currencies";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Transactions",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("transaction")
+  return {
+    title: t("transactions"),
+  }
+}
 
 export default async function page() {
 

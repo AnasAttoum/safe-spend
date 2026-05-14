@@ -14,6 +14,7 @@ import { Category } from "@/generated/prisma";
 import CategoryOverviewData from "./components/category-overview-data";
 import CreateCategory from "@/components/dialog/create-category";
 import Transactions from "../transactions";
+import { getTranslations } from "next-intl/server";
 
 export type CategoryOverview = {
   category: Category;
@@ -21,6 +22,7 @@ export type CategoryOverview = {
 }
 
 export default async function Dashboard({ categoryOverview }: { categoryOverview?: CategoryOverview | null }) {
+  const t = await getTranslations("category");
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -53,15 +55,15 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
         <div className="flex flex-wrap items-center gap-3 w-full mt-5">
           <CreateCategory
             type={categoryOverview.category.type as "income" | "expense"}
-            trigger={<Button variant="default" className="primaryBtn flex-1 py-5 uppercase">Update Category</Button>}
+            trigger={<Button variant="default" className="primaryBtn flex-1 py-5 uppercase">{t("update")}</Button>}
             category={categoryOverview.category}
           />
           <DeleteDialog
             item="category"
             id={categoryOverview?.category?.id}
             trigger={
-              <Button className="deleteBtn flex-1 !my-0">
-                Delete Category
+              <Button className="deleteBtn flex-1 my-0!">
+                {t("delete")}
               </Button>
             }
           />

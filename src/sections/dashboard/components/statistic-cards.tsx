@@ -1,4 +1,4 @@
-import { Balancetype } from "@/app/api/statistics/balance/route";
+import { Balancetype } from "@/app/[locale]/api/statistics/balance/route";
 import CardStatistic from "@/components/card/card-statistic";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { queryKey } from "@/config/query-key";
@@ -33,7 +33,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full">
         {!categoryId && <SkeletonWrapper isLoading={isLoading}>
           <CardStatistic
-            title="Income"
+            title="income"
             icon={TrendingUp}
             value={income}
             currency={currency}
@@ -41,7 +41,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
         </SkeletonWrapper>}
         {!categoryId && <SkeletonWrapper isLoading={isLoading}>
           <CardStatistic
-            title="Expense"
+            title="expense"
             icon={TrendingDown}
             value={expense}
             currency={currency}
@@ -49,7 +49,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
         </SkeletonWrapper>}
         <SkeletonWrapper isLoading={isLoading}>
           <CardStatistic
-            title="Balance"
+            title="balance"
             icon="calculator"
             value={balance}
             currency={currency}
@@ -64,7 +64,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
             <div key={el.currency} className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full">
               {!categoryId && <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
-                  title="Income"
+                  title="income"
                   icon={TrendingUp}
                   value={el.income}
                   currency={el.currency}
@@ -72,7 +72,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
               </SkeletonWrapper>}
               {!categoryId && <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
-                  title="Expense"
+                  title="expense"
                   icon={TrendingDown}
                   value={el.expense}
                   currency={el.currency}
@@ -80,7 +80,7 @@ export default function StatisticCards({ from, to, currency, categoryId }: Props
               </SkeletonWrapper>}
               <SkeletonWrapper isLoading={isLoading}>
                 <CardStatistic
-                  title="Balance"
+                  title="balance"
                   icon="calculator"
                   value={el.income - el.expense}
                   currency={el.currency}

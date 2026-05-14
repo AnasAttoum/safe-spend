@@ -3,9 +3,11 @@ import { getHistory } from "@/lib/get-history";
 import { Period, Timeframe } from "@/lib/types";
 import { getHistoryDataSchema } from "@/schema/history";
 import { currentUser } from "@clerk/nextjs/server";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
+  const t = await getTranslations("errors");
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -21,7 +23,7 @@ export async function GET(request: Request) {
     categoryId !== "undefined" &&
     categoryId !== "null";
 
-  const parsedBody = getHistoryDataSchema.safeParse({
+  const parsedBody = getHistoryDataSchema(t).safeParse({
     timeframe,
     year,
     month,
@@ -39,7 +41,7 @@ export async function GET(request: Request) {
       year: parsedBody.data.year,
     },
     currency,
-    parsedBody.data.categoryId
+    parsedBody.data.categoryId,
   );
   return Response.json(periods);
 }
@@ -53,12 +55,24 @@ const getHistoryData = async (
   timeframe: Timeframe,
   period: Period,
   currency: string,
-  categoryId: string | null | undefined = undefined
+  categoryId: string | null | undefined = undefined,
 ) => {
   switch (timeframe) {
     case "month":
-      return await getHistory(userId, currency, period.year, period.month, categoryId);
+      return await getHistory(
+        userId,
+        currency,
+        period.year,
+        period.month,
+        categoryId,
+      );
     case "year":
-      return await getHistory(userId, currency, period.year, undefined,categoryId);
+      return await getHistory(
+        userId,
+        currency,
+        period.year,
+        undefined,
+        categoryId,
+      );
   }
 };

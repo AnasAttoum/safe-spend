@@ -1,7 +1,8 @@
-import { getHistoryDataResponseType } from "@/app/api/history/data/route";
+import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
 import { Separator } from "@/components/ui/separator";
 import { Timeframe } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import React from "react";
 import CountUp from "react-countup";
 import {
@@ -113,23 +114,23 @@ const CustomTooltip = ({ active, payload, timeframe }: any) => {
   });
 
   return (
-    <div className="min-w-[250px] rounded bg-background p-4">
+    <div className="min-w-62.5 rounded bg-background p-4">
       <p className="text-safeSpend-primary font-bold text-lg">{dateFormat}</p>
       <Separator className="my-1" />
       <TooltipRow
-        label="Income"
+        label="income"
         value={income}
         bgColor="bg-income"
         textColor="text-income"
       />
       <TooltipRow
-        label="Expense"
+        label="expense"
         value={expense}
         bgColor="bg-expense"
         textColor="text-expense"
       />
       <TooltipRow
-        label="Balance"
+        label="balance"
         value={income - expense}
         bgColor="bg-safeSpend-primary"
         textColor="text-safeSpend-primary"
@@ -148,18 +149,21 @@ const TooltipRow = ({
   value: number;
   bgColor: string;
   textColor: string;
-}) => (
-  <div className="flex items-center gap-2">
-    <div className={cn("w-4 h-4 rounded-full", bgColor)} />
-    <div className="flex justify-between w-full text-sm">
-      <p>{label}</p>
-      <CountUp
-        duration={0.5}
-        end={value}
-        preserveValue
-        decimals={Number.isInteger(value) ? 0 : 2}
-        className={cn(textColor, 'font-bold')}
-      />
+}) => {
+  const t = useTranslations("transaction");
+  return (
+    <div className="flex items-center gap-2">
+      <div className={cn("w-4 h-4 rounded-full", bgColor)} />
+      <div className="flex justify-between w-full text-sm">
+        <p>{t(label)}</p>
+        <CountUp
+          duration={0.5}
+          end={value}
+          preserveValue
+          decimals={Number.isInteger(value) ? 0 : 2}
+          className={cn(textColor, 'font-bold')}
+        />
+      </div>
     </div>
-  </div>
-);
+  )
+};

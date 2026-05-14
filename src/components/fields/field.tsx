@@ -12,6 +12,7 @@ import { DatePicker } from "./date-picker";
 import SelectCurrency from "../select/select-currency";
 import EmojiPicker from "../emoji-picker";
 import { Textarea } from "../ui/textarea";
+import { useTranslations } from "next-intl";
 
 type Props = {
   control: any;
@@ -21,7 +22,8 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   specificNode?: ReactNode;
-  nodetype?: "date" | "icon" | "currency" |"textarea";
+  nodetype?: "date" | "icon" | "currency" | "textarea";
+  withoutTranslation?: boolean;
 };
 
 export default function Field({
@@ -33,8 +35,9 @@ export default function Field({
   defaultValue = "",
   specificNode,
   nodetype,
+  withoutTranslation = false,
 }: Props) {
-
+  const t = useTranslations("labels");
 
   return (
     <FormField
@@ -42,7 +45,7 @@ export default function Field({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>{withoutTranslation ? label : t(label)}</FormLabel>
           <FormControl>
             {specificNode && isValidElement(specificNode) ? (
               specificNode

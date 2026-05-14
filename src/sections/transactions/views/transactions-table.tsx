@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 import DataTable from "@/components/data-table";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { DataTableFacetedFilter } from "@/components/data-table/faceted-filters";
@@ -18,12 +18,14 @@ import {
 import { useMemo, useState } from "react";
 import { columns } from "../components/transaction-columns";
 import { CategoryOverview } from "@/sections/dashboard";
+import { useTranslations } from "next-intl";
 
 type Props = { from: Date; to: Date; categoryOverview?: CategoryOverview };
 
 const emptyData: any[] = [];
 
 export default function TransactionsTable({ from, to, categoryOverview }: Props) {
+  const t = useTranslations();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -34,7 +36,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
       fetch(
         `/api/transactions?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
       ).then((res) => res.json()),
-  });
+    });
 
   const table = useReactTable({
     data: data || emptyData,
@@ -73,7 +75,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
       <div className="flex flex-wrap gap-2 mb-2">
         {!!categoriesOptions.length && table.getColumn("category") && (
           <DataTableFacetedFilter
-            title="Category"
+            title="category.Category"
             column={table.getColumn("category")}
             options={categoriesOptions}
             fixedValue={categoryOverview?.category.name}
@@ -82,18 +84,18 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
         )}
         {!!data?.length && table.getColumn("type") && (
           <DataTableFacetedFilter
-            title="Type"
+            title="type"
             column={table.getColumn("type")}
             options={[
-              { label: "Income", value: "income" },
-              { label: "Expence", value: "expense" },
+              { label: t("transaction.income"), value: "income" },
+              { label: t("transaction.expense"), value: "expense" },
             ]}
             fixedValue={categoryOverview?.category.type}
           />
         )}
 
         {(data?.length ?? 0) > 1 && <Input
-          placeholder="Search..."
+          placeholder={t("search")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(transaction) =>
             table.getColumn("title")?.setFilterValue(transaction.target.value)

@@ -26,6 +26,7 @@ import Field from "../fields/field";
 import { queryKey } from "@/config/query-key";
 import { SimpleCategory } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type Props = {
   type: "income" | "expense";
@@ -45,9 +46,12 @@ export default function CreateCategory({
   trigger,
   category
 }: Props) {
+  const t = useTranslations();
+  const tErrors = useTranslations("errors");
+  const tCategory = useTranslations("category");
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
-    resolver: zodResolver(createCategorySchema),
+    resolver: zodResolver(createCategorySchema(tErrors)),
     defaultValues: { type },
   });
 
@@ -78,7 +82,7 @@ export default function CreateCategory({
         name: "",
         icon: "",
       });
-      toast.success(`Category ${data.name} ${category ? "updated" : "created"} successfully 🎉`, {
+      toast.success(category ? tCategory("updated-successfully") : tCategory("created-successfully"), {
         id: "create-category",
       });
       setOpen(false);
@@ -86,7 +90,7 @@ export default function CreateCategory({
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? error.message : "Something went wrong!",
+        error instanceof Error ? error.message : t("something-went-wrong"),
         {
           id: "create-category",
         }
@@ -95,7 +99,7 @@ export default function CreateCategory({
   });
 
   const onSubmit = handleSubmit((values: CreateCategorySchemaType) => {
-    toast.loading(category ? "Updating category" : "Creating category", {
+    toast.loading(category ? tCategory("updating") : tCategory("creating"), {
       id: "create-category",
     });
     mutate(values);
@@ -115,32 +119,32 @@ export default function CreateCategory({
         {trigger
           ? trigger
           : <Button variant="outline" className="cursor-pointer">
-            Create new
+            {t("create-new")}
           </Button>
         }
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {category ? "Update" : "Create"}{" "}
+            {category ? t("update") : t("create-new")}{" "}
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
-              {type}
+              {t(`transaction.${type}`)}
             </span>{" "}
-            category
+            {tCategory("category")}
           </DialogTitle>
           {!category && <DialogDescription>
-            create category to group your transactions
+            {tCategory("create-to-group")}
           </DialogDescription>}
         </DialogHeader>
 
         <FullForm form={form} onSubmit={onSubmit}>
-          <Field control={form.control} name="name" label="Name" />
+          <Field control={form.control} name="name" label="name" />
           <Field
             control={form.control}
             name="icon"
-            label="Icon"
+            label="icon"
             nodetype="icon"
           />
 
@@ -154,10 +158,10 @@ export default function CreateCategory({
                 setOpen(false);
               }}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button type="submit" className={cn("flex-1 cursor-pointer", `${type}Btn`)} disabled={isPending}>
-              {isPending ? "Loading..." : category ? "Update" : "Create"}
+              {isPending ? t("loading") : category ? t("update") : t("create")}
             </Button>
           </DialogFooter>
         </FullForm>

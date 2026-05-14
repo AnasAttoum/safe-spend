@@ -20,8 +20,10 @@ import { resetUserData } from "../../actions/reset-user-data";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
 import { queryKey } from "@/config/query-key";
+import { useTranslations } from "next-intl";
 
 export function DeleteMyDataDialog() {
+  const t = useTranslations();
   const queryClient = useQueryClient();
 
   const [open, setOpen] = useState(false);
@@ -35,10 +37,10 @@ export function DeleteMyDataDialog() {
     },
     onSuccess: () => {
       toast.success(
-        `Your data deleted successfully`,
+        t("your-data-deleted"),
         { id: 'delete-my-data' }
       );
-      
+
       router.push(routes.currency);
       queryClient.invalidateQueries({
         queryKey: [queryKey.category, queryKey.history, queryKey.overview, queryKey.periods, queryKey.statistics, queryKey.transaction, queryKey.user],
@@ -46,7 +48,7 @@ export function DeleteMyDataDialog() {
     },
     onError: (error) => {
       console.error("Error:", error)
-      toast.error("Something went wrong", { id: 'delete-my-data' });
+      toast.error(t("something-went-wrong"), { id: 'delete-my-data' });
     },
   });
 
@@ -55,32 +57,32 @@ export function DeleteMyDataDialog() {
       <div className="flex justify-end">
         <AlertDialogTrigger asChild>
           <Button className="deleteBtn">
-            Delete My Data
+            {t("delete-my-data")}
           </Button>
         </AlertDialogTrigger>
       </div>
       <AlertDialogContent onEscapeKeyDown={() => setOpen(false)}>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-red-900">Are you sure?!</AlertDialogTitle>
+          <AlertDialogTitle className="text-red-900">{t("are-you-sure")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {`This action cannot be undone. This will permanently delete your data.`}
+            {t("this-cannot-be-undone")}
             <br />
-            <strong>Warning:</strong> Thats include your categories, transactions, exchanges and your history data.
+            <strong>{t("warning")}:</strong> {t("include-all-your-data")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
             className="cursor-pointer uppercase text-red-900 hover:text-red-700"
             onClick={() => {
-              toast.loading(`Deleting your data...`, { id: 'delete-my-data' });
+              toast.loading(t("deleting-your-data"), { id: 'delete-my-data' });
               mutate();
             }}
             disabled={countDown > 0}
           >
-            {countDown > 0 ? `Reset all data (${countDown})` : "Reset all data"}
+            {countDown > 0 ? `${t("reset-all-data")} (${countDown})` : t("reset-all-data")}
           </AlertDialogCancel>
           <AlertDialogAction className="cursor-pointer">
-            Cancel
+            {t("cancel")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

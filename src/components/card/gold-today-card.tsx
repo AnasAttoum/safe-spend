@@ -2,12 +2,14 @@ import { cn } from "@/lib/utils";
 import { Card } from "../ui/card";
 import Count from "../count-up";
 import { CurrencyToday } from "@/sections/syrian-pound-today";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   currencyToday: CurrencyToday;
 };
 
-export default function GoldTodayCard({ currencyToday }: Props) {
+export default async function GoldTodayCard({ currencyToday }: Props) {
+  const t = await getTranslations();
   const { code, buy, sell, change } = currencyToday;
   return (
     <Card className="rounded-sm transition-all duration-300 group hover:scale-101 hover:-translate-y-1 py-0">
@@ -28,15 +30,15 @@ export default function GoldTodayCard({ currencyToday }: Props) {
           </div>
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-gold text-white py-5">
-          <div className="flex flex-col">
-            <span>Buy:</span>
+          <div className="flex flex-col text-left">
+            <span>{t("buy")}:</span>
             <span className="text-2xl font-bold">
               <Count num={buy} suffix=" £" />
             </span>
           </div>
 
-          <div className="flex flex-col">
-            <span>Sell:</span>
+          <div className="flex flex-col text-right">
+            <span>{t("sell")}:</span>
             <span className="text-2xl font-bold">
               <Count num={sell} suffix=" £" />
             </span>

@@ -1,18 +1,19 @@
 "use client"
 
-import { getHistoryAllCurrenciesResponseType } from "@/app/api/history/all-currencies/route";
+import { getHistoryAllCurrenciesResponseType } from "@/app/[locale]/api/history/all-currencies/route";
 import SelectSpecificCurrencies from "@/components/select/select-specific-currencies";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Card } from "@/components/ui/card";
-import { currencies, defaultCurrency } from "@/config/currencies";
+import { defaultCurrency, getCurrency } from "@/config/currencies";
 import { queryKey } from "@/config/query-key";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export function AllCurrenciesChart() {
-
+  const t = useTranslations();
   const { data, isLoading } = useQuery<getHistoryAllCurrenciesResponseType>({
     queryKey: [queryKey.overview, queryKey.history],
     queryFn: () =>
@@ -54,7 +55,7 @@ export function AllCurrenciesChart() {
                           <div className="grid grid-cols-2 gap-2">
 
                             <div className="flex flex-col">
-                              <span className="text-[0.70rem] uppercase text-muted-foreground">Date</span>
+                              <span className="text-[0.70rem] uppercase text-muted-foreground">{t("labels.date")}</span>
                               <span className="font-bold">
                                 {date.toLocaleDateString("default", {
                                   year: "numeric",
@@ -64,9 +65,9 @@ export function AllCurrenciesChart() {
                             </div>
 
                             <div className="flex flex-col">
-                              <span className="text-[0.70rem] uppercase text-muted-foreground">Value</span>
+                              <span className="text-[0.70rem] uppercase text-muted-foreground">{t("value")}</span>
                               {visibleCurrencies.map((currency) => {
-                                const color = currencies.find((({ value }) => value === currency))?.color
+                                const { color } = getCurrency(currency)
                                 return <span key={currency} className="flex justify-between gap-2 font-bold" style={{ color }}>
                                   <CountUp
                                     duration={0.5}
@@ -100,9 +101,9 @@ export function AllCurrenciesChart() {
                             ? `${(value / 1_000).toFixed(1)}K`
                             : value
                     }
-                    tick={{ fill: currencies.find(({ value }) => value === currency)?.color || 'black' }} // color of tick labels
-                    axisLine={{ stroke: currencies.find(({ value }) => value === currency)?.color || 'black' }} // color of axis line
-                    tickLine={{ stroke: currencies.find(({ value }) => value === currency)?.color || 'black' }} // color of tick lines
+                    tick={{ fill: getCurrency(currency).color || 'black' }} // color of tick labels
+                    axisLine={{ stroke: getCurrency(currency).color || 'black' }} // color of axis line
+                    tickLine={{ stroke: getCurrency(currency).color || 'black' }} // color of tick lines
                   />
                 )}
                 <XAxis
@@ -119,16 +120,16 @@ export function AllCurrenciesChart() {
                   angle={-10}
                 />
                 {visibleCurrencies.map((currency: string) =>
-                  <Line key={currency} yAxisId={currency} type="monotone" dataKey={currency} stroke={currencies.find((({ value }) => value === currency))?.color} strokeWidth={2} dot={false} />
+                  <Line key={currency} yAxisId={currency} type="monotone" dataKey={currency} stroke={getCurrency(currency).color} strokeWidth={2} dot={false} />
                 )}
                 {/* <Line type="monotone" dataKey="value2" stroke="#ff6b00" strokeWidth={2} dot={false} /> */}
               </LineChart>
             </ResponsiveContainer>
           </>
           : <div className="flex flex-col justify-center items-center h-full">
-            <div>No data found</div>
+            <div>{t("no-data-found")}</div>
             <p className="text-gray-500">
-              Try add transactions
+              {t("try-diff-period-or-add-new-transactions")}
             </p>
           </div>}
       </Card>

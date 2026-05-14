@@ -19,7 +19,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Icon from "@/components/icon/icon";
-import { currencies } from "@/config/currencies";
+import { currencies, getCurrency } from "@/config/currencies";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { User } from "@/generated/prisma";
@@ -27,6 +27,7 @@ import { updateUserCurrency } from "@/actions/user";
 import { toast } from "sonner";
 import { queryKey } from "@/config/query-key";
 import PlusIcon from "@/components/icon/lib/plus-icon";
+import { useTranslations } from "next-intl";
 
 type Status = {
   value: string;
@@ -34,6 +35,7 @@ type Status = {
 };
 
 export function ComboBox() {
+  const t = useTranslations();
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectedOption, setselectedOption] = React.useState<Status | null>(
@@ -47,16 +49,14 @@ export function ComboBox() {
 
   React.useEffect(() => {
     if (!data) return;
-    const userCurrency = currencies.find(
-      (currency) => currency.value === data.currency
-    );
+    const userCurrency = getCurrency(data.currency);
     if (userCurrency) setselectedOption(userCurrency);
   }, [data]);
 
   const mutation = useMutation({
     mutationFn: updateUserCurrency,
     onSuccess: (data) => {
-      toast.success("Currency updated successfully 🎉", {
+      toast.success(t("currency.updated-successfully"), {
         id: "updateCurrency",
       });
 
@@ -66,7 +66,7 @@ export function ComboBox() {
     },
 
     onError: () => {
-      toast.error("Something went wrong", {
+      toast.error(t("something-went-wrong"), {
         id: "updateCurrency",
       });
     },
@@ -74,14 +74,14 @@ export function ComboBox() {
 
   const onSelectCurrency = React.useCallback((currency: Status | null) => {
     if (!currency) {
-      toast.error("Please select a currency!");
+      toast.error(t("currency.please-select"));
       return;
     }
-    toast.loading("Updating currency...", {
+    toast.loading(t("currency.updating"), {
       id: "updateCurrency",
     });
     mutation.mutate(currency.value);
-  }, [mutation]);
+  }, [mutation, t]);
 
   if (isDesktop) {
     return (
@@ -97,12 +97,12 @@ export function ComboBox() {
                 <>{selectedOption.label}</>
               ) : (
                 <>
-                  <PlusIcon/> Add Currency
+                  <PlusIcon /> {t("currency.add")}
                 </>
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0" align="start">
+          <PopoverContent className="w-50 p-0" align="start">
             <StatusList
               setOpen={setOpen}
               setselectedOption={onSelectCurrency}
@@ -126,7 +126,7 @@ export function ComboBox() {
               <>{selectedOption.label}</>
             ) : (
               <>
-                <Icon icon="plus" /> Add Currency
+                <Icon icon="plus" /> {t("currency.add")}
               </>
             )}
           </Button>
@@ -151,11 +151,12 @@ function StatusList({
   setOpen: (open: boolean) => void;
   setselectedOption: (status: Status | null) => void;
 }) {
+  const t = useTranslations();
   return (
     <Command>
       <CommandInput placeholder="Filter status..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>{t("no-data-found")}</CommandEmpty>
         <CommandGroup>
           {currencies.map((currency) => (
             <CommandItem
@@ -163,8 +164,7 @@ function StatusList({
               value={currency.value}
               onSelect={(value) => {
                 setselectedOption(
-                  currencies.find((currency) => currency.value === value) ||
-                  null
+                  getCurrency(value) || null
                 );
                 setOpen(false);
               }}

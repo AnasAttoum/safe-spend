@@ -10,11 +10,13 @@ import {
   updateTransactionType,
 } from "@/schema/transaction";
 import { currentUser } from "@clerk/nextjs/server";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export async function createTransaction(form: createTransactionType) {
-  const parsedBody = createTransactionSchema.safeParse(form);
-  if (!parsedBody.success) return { error: parsedBody.error.message };
+  const t = await getTranslations("errors");
+  const parsedBody = createTransactionSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -35,7 +37,7 @@ export async function createTransaction(form: createTransactionType) {
       id: categoryId,
     },
   });
-  if (!categoryRow) return { error: "Category not found!" };
+  if (!categoryRow) return { error: t("category-not-found") };
 
   await prisma.$transaction([
     prisma.transaction.create({
@@ -110,8 +112,9 @@ export async function createTransaction(form: createTransactionType) {
 }
 
 export async function deleteTransaction(form: deleteSchemaType) {
-  const parsedBody = deleteSchema.safeParse(form);
-  if (!parsedBody.success) return { error: "Bad request!" };
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -125,7 +128,7 @@ export async function deleteTransaction(form: deleteSchemaType) {
     },
   });
   if (!transaction) {
-    return { error: "This transaction not exist!" };
+    return { error: t("transaction-not-found") };
   }
 
   return await prisma.$transaction([
@@ -186,8 +189,9 @@ export async function deleteTransaction(form: deleteSchemaType) {
 }
 
 export async function updateTransaction(form: updateTransactionType) {
-  const parsedBody = updateTransactionSchema.safeParse(form);
-  if (!parsedBody.success) return { error: parsedBody.error.message };
+  const t = await getTranslations("errors");
+  const parsedBody = updateTransactionSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -217,8 +221,8 @@ export async function updateTransaction(form: updateTransactionType) {
       },
     }),
   ]);
-  if (!categoryRow) return { error: "Category not found!" };
-  if (!transactionRow) return { error: "Transaction not found!" };
+  if (!categoryRow) return { error: t("category-not-found") };
+  if (!transactionRow) return { error: t("transaction-not-found") };
 
   await prisma.$transaction([
     prisma.transaction.update({

@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
 import DataTable from "@/components/data-table";
 import { DataTableViewOptions } from "@/components/data-table/column-toggle";
 import { Input } from "@/components/ui/input";
@@ -16,12 +16,14 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "../components/exchange-columns";
+import { useTranslations } from "next-intl";
 
 type Props = { from: Date; to: Date };
 
 const emptyData: any[] = [];
 
 export default function ExchangesTable({ from, to }: Props) {
+  const t = useTranslations();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -53,7 +55,7 @@ export default function ExchangesTable({ from, to }: Props) {
     <>
       <div className="flex flex-wrap gap-2 mb-2">
         {(data?.length ?? 0) > 1 && <Input
-          placeholder="Search..."
+          placeholder={t("search")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(exchange) =>
             table.getColumn("title")?.setFilterValue(exchange.target.value)

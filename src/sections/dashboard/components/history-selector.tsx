@@ -1,5 +1,5 @@
-import { getHistoryDataResponseType } from "@/app/api/history/data/route";
-import { getHistoryPeriodsType } from "@/app/api/history/periods/route";
+import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
+import { getHistoryPeriodsType } from "@/app/[locale]/api/history/periods/route";
 import SkeletonWrapper from "@/components/skeleton/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import Chart from "./chart";
 import SelectCurrency from "@/components/select/select-currency";
 import { queryKey } from "@/config/query-key";
+import { useTranslations } from "next-intl";
 
 type Props = {
   timeframe: Timeframe;
@@ -40,6 +41,7 @@ export default function HistorySelector({
   curr,
   setCurr,
 }: Props) {
+  const t = useTranslations();
   const { data, isLoading } = useQuery<getHistoryPeriodsType>({
     queryKey: [queryKey.overview, queryKey.history, queryKey.periods],
     queryFn: () => fetch("/api/history/periods").then((res) => res.json()),
@@ -56,10 +58,10 @@ export default function HistorySelector({
             >
               <TabsList className="grid w-full grid-cols-2 items-center h-full border">
                 <TabsTrigger value="year" className="cursor-pointer">
-                  Year
+                  {t("dashboard.year")}
                 </TabsTrigger>
                 <TabsTrigger value="month" className="cursor-pointer">
-                  Month
+                  {t("dashboard.month")}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -83,11 +85,11 @@ export default function HistorySelector({
           <div className="flex gap-2">
             <Badge variant="outline" className="p-2">
               <div className="w-4 h-4 bg-income rounded-full" />
-              Income
+              {t("transaction.income")}
             </Badge>
             <Badge variant="outline" className="p-2">
               <div className="w-4 h-4 bg-expense rounded-full" />
-              Expense
+              {t("transaction.expense")}
             </Badge>
           </div>
         </div>
@@ -97,9 +99,9 @@ export default function HistorySelector({
             <Chart data={historyData} timeframe={timeframe} />
           ) : (
             <div className="flex flex-col justify-center items-center h-full">
-              <div>No data for the selected period</div>
+              <div>{t("no-data-for-selected-period")}</div>
               <p className="text-gray-500">
-                Try selecting a different period or adding new transactions
+                {t("try-diff-period-or-add-new-transactions")}
               </p>
             </div>
           )}
@@ -117,26 +119,28 @@ const YearSelector = ({
   period: Period;
   setPeriod: (period: Period) => void;
   years: getHistoryPeriodsType["allYears"];
-}) => (
+}) => {
+  const t = useTranslations("dashboard");
+  return(
   <Select
     value={period.year.toString()}
     onValueChange={(newValue) =>
       setPeriod({ year: parseInt(newValue), month: period.month })
     }
   >
-    <SelectTrigger className="w-[125px]">
+    <SelectTrigger className="w-31.25">
       <SelectValue placeholder="Years" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>
-        <SelectLabel>Years</SelectLabel>
+        <SelectLabel>{t("years")}</SelectLabel>
         {years.map((year) => (
           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
         ))}
       </SelectGroup>
     </SelectContent>
   </Select>
-);
+)};
 
 const MonthSelector = ({
   period,
@@ -144,19 +148,21 @@ const MonthSelector = ({
 }: {
   period: Period;
   setPeriod: (period: Period) => void;
-}) => (
+}) => {
+  const t = useTranslations("dashboard");
+  return(
   <Select
     value={period.month.toString()}
     onValueChange={(newValue) =>
       setPeriod({ year: period.year, month: parseInt(newValue) })
     }
   >
-    <SelectTrigger className="w-[125px]">
+    <SelectTrigger className="w-31.25">
       <SelectValue placeholder="Years" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>
-        <SelectLabel>Years</SelectLabel>
+        <SelectLabel>{t("months")}</SelectLabel>
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => {
           const monthStr = new Date(period.year, month, 1).toLocaleString(
             "default",
@@ -167,4 +173,4 @@ const MonthSelector = ({
       </SelectGroup>
     </SelectContent>
   </Select>
-);
+)};

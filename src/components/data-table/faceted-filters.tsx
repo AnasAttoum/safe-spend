@@ -21,10 +21,11 @@ import {
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import FilterIcon from "../icon/lib/filter-icon"
+import { useTranslations } from "next-intl"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
-  title?: string
+  title: string
   options: {
     label: string
     value: string
@@ -41,6 +42,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   fixedValue,
   fixedIcon,
 }: DataTableFacetedFilterProps<TData, TValue>) {
+  const t = useTranslations();
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = fixedValue ? new Set([fixedValue]) : new Set(column?.getFilterValue() as string[])
 
@@ -54,7 +56,7 @@ export function DataTableFacetedFilter<TData, TValue>({
       <PopoverTrigger asChild disabled={!!fixedValue}>
         <Button variant="secondary" size="sm" className="h-8 border-dashed">
           <FilterIcon />
-          {title}
+          {t(title)}
           {fixedValue ?
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
@@ -101,11 +103,11 @@ export function DataTableFacetedFilter<TData, TValue>({
             )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="w-50 p-0" align="start">
         <Command>
-          <CommandInput placeholder={title} />
+          <CommandInput placeholder={t(title)} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("no-data-found")}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)

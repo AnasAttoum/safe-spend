@@ -5,10 +5,14 @@ import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { defaultCurrency } from "@/config/currencies";
 import Exchanges from "@/sections/exchanges";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Exchanges",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("exchange")
+  return {
+    title: t("exchanges"),
+  }
+}
 
 export default async function page() {
 

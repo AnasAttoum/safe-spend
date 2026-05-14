@@ -2,6 +2,7 @@ import { ExchangeDialog } from "@/components/dialog/exchange-dialog";
 import ExchangeIcon from "@/components/icon/lib/exchange-icon";
 import { Button } from "@/components/ui/button";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { useTranslations } from "next-intl";
 
 type Props = {
   dateRange: { from: Date; to: Date };
@@ -10,10 +11,11 @@ type Props = {
 };
 
 export default function Head({ dateRange, setDateRange, currency }: Props) {
+  const t = useTranslations("exchange");
   return (
     <>
       <div className="flex justify-between flex-wrap gap-2 py-3">
-        <h3 className="text-3xl">Exchanges</h3>
+        <h3 className="text-3xl">{t("exchanges")}</h3>
 
         <DateRangePicker
           initialDateFrom={dateRange.from}
@@ -30,7 +32,7 @@ export default function Head({ dateRange, setDateRange, currency }: Props) {
         <ExchangeDialog
           trigger={
             <Button variant="default" className="primaryBtn">
-              New Exchange
+              {t("new")}
               <ExchangeIcon color="#fff" />
             </Button>
           }

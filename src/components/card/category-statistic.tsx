@@ -1,9 +1,10 @@
-import { Categoriestype } from "@/app/api/statistics/category/route";
+import { Categoriestype } from "@/app/[locale]/api/statistics/category/route";
 import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
-import { currencies, defaultCurrency } from "@/config/currencies";
+import { getCurrency } from "@/config/currencies";
 import CountUp from "react-countup";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/lib/localization/navigation";
 
 type Props = {
   type: "income" | "expense";
@@ -11,18 +12,19 @@ type Props = {
 };
 
 export default function CategoryStatistic({ type, data }: Props) {
+  const t = useTranslations();
   const filteredData = data.filter((el) => el.type === type);
 
   return (
     <Card className="w-full py-5">
       <h3 className={`text-${type} text-lg font-bold px-5`}>
-        {type.charAt(0).toUpperCase() + type.slice(1)}s by category:
+        {t(`category.${type}-by`)}:
       </h3>
       {!filteredData.length ? (
         <div className="flex flex-col justify-center items-center h-full px-5">
-          <div>No data for the selected period</div>
+          <div>{t("no-data-for-selected-period")}</div>
           <div className="text-gray-500">
-            Try selecting a different period or try adding new {type + "s"}
+            {t("try-diff-period-or-add-new-transactions")}
           </div>
         </div>
       ) : (
@@ -32,7 +34,7 @@ export default function CategoryStatistic({ type, data }: Props) {
             const total = filteredData
               .filter((data) => data.currency === el.currency)
               .reduce((acc, el) => acc + (el._sum.amount || 0), 0);
-            const { symbol, color } = currencies.find((curr) => curr.value === el.currency) || defaultCurrency;
+            const { symbol, color } = getCurrency(el.currency)
             const percentage = (amount * 100) / (total || amount);
 
             return (

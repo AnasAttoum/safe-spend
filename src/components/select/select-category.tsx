@@ -20,6 +20,7 @@ import { Check } from "lucide-react";
 import CategoryRow from "./row/category-row";
 import { queryKey } from "@/config/query-key";
 import { SimpleCategory } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 type Props = {
   type: "income" | "expense";
@@ -28,7 +29,7 @@ type Props = {
 };
 
 export default function SelectCategory({ type, setValueTransaction, selectedCategory }: Props) {
-
+  const t = useTranslations("category");
   const [open, setOpen] = useState(false);
 
   const { isLoading, data } = useQuery<Category[]>({
@@ -44,13 +45,13 @@ export default function SelectCategory({ type, setValueTransaction, selectedCate
           {!!selectedCategory ? (
             <CategoryRow category={selectedCategory} />
           ) : (
-            <span className="text-gray-400 font-normal">Select category</span>
+            <span className="text-gray-400 font-normal">{t("select")}</span>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
-          <CommandInput placeholder="Search category..." className="h-9" />
+          <CommandInput placeholder={t("search")} className="h-9" />
           <CreateCategory
             type={type}
             setValueTransaction={setValueTransaction}
@@ -63,7 +64,7 @@ export default function SelectCategory({ type, setValueTransaction, selectedCate
               {data && (
                 <>
                   {!data.length ? (
-                    <CommandEmpty>No categories found.</CommandEmpty>
+                    <CommandEmpty>{t("no-category")}</CommandEmpty>
                   ) : (
                     <CommandGroup>
                       {data.map((category) => (

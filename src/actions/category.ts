@@ -14,10 +14,12 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { deleteTransaction } from "./transaction";
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 
 export async function createCategory(form: CreateCategorySchemaType) {
-  const parsedBody = createCategorySchema.safeParse(form);
-  if (!parsedBody.success) return { error: "Bad request!" };
+  const t = await getTranslations("errors");
+  const parsedBody = createCategorySchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -32,7 +34,7 @@ export async function createCategory(form: CreateCategorySchemaType) {
     },
   });
   if (category) {
-    return { error: "This name is already taken!" };
+    return { error: t("name-already-taken") };
     // throw new Error('This name already taken!')
   }
 
@@ -48,8 +50,9 @@ export async function createCategory(form: CreateCategorySchemaType) {
 }
 
 export async function deleteCategory(form: deleteSchemaType) {
-  const parsedBody = deleteSchema.safeParse(form);
-  if (!parsedBody.success) return { error: "Bad request!" };
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -74,7 +77,7 @@ export async function deleteCategory(form: deleteSchemaType) {
   });
 
   await Promise.all(
-    transactionsToDelete.map(({ id }) => deleteTransaction(id))
+    transactionsToDelete.map(({ id }) => deleteTransaction(id)),
   );
 
   return await prisma.category.delete({
@@ -86,7 +89,8 @@ export async function deleteCategory(form: deleteSchemaType) {
 }
 
 export async function getCategory(form: deleteSchemaType) {
-  const parsedBody = deleteSchema.safeParse(form);
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
   if (!parsedBody.success) return null;
 
   const user = await currentUser();
@@ -139,8 +143,9 @@ export async function getCategories() {
 export type TypedCategoriesType = Awaited<ReturnType<typeof getCategories>>;
 
 export async function updateCategory(form: updateCategoryType) {
-  const parsedBody = updateCategorySchema.safeParse(form);
-  if (!parsedBody.success) return { error: "Bad request!" };
+  const t = await getTranslations("errors");
+  const parsedBody = updateCategorySchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -154,7 +159,7 @@ export async function updateCategory(form: updateCategoryType) {
     },
   });
   if (!category) {
-    return { error: "Category not found!" };
+    return { error: t("category-not-found") };
   }
 
   const cat = await prisma.category.update({

@@ -26,7 +26,8 @@ import { toast } from "sonner";
 import clsx from "clsx";
 import { dateToUTCDate } from "@/lib/date-helper";
 import { queryKey } from "@/config/query-key";
-import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
+import { useTranslations } from "next-intl";
 
 type Props = {
   trigger: ReactNode;
@@ -37,11 +38,15 @@ type Props = {
 };
 
 export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {
-  const [open, setOpen] = useState(false);
+  const t = useTranslations();
+  const tErrors = useTranslations("errors");
+  const tTransaction = useTranslations("transaction");
+
   const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   const form = useForm<createTransactionType>({
-    resolver: zodResolver(createTransactionSchema),
+    resolver: zodResolver(createTransactionSchema(tErrors)),
     defaultValues: {
       type,
       date: new Date(),
@@ -73,7 +78,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       }
     },
     onSuccess: () => {
-      toast.success(transaction ? `Transaction updated successfully 🎉` : `Transaction created successfully 🎉`, {
+      toast.success(transaction ? tTransaction("updated-successfully") : tTransaction("created-successfully"), {
         id: "create-transaction",
       });
       setOpen(false);
@@ -94,7 +99,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? error.message : "Something went wrong!",
+        error instanceof Error ? error.message : t("something-went-wrong"),
         {
           id: "create-transaction",
         }
@@ -103,7 +108,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
   });
 
   const onSubmit = handleSubmit((data: createTransactionType) => {
-    toast.loading(transaction ? `Updating transaction...` : `Creating transaction...`, {
+    toast.loading(transaction ?  tTransaction("updating") : tTransaction("creating"), {
       id: "create-transaction",
     });
     mutate({ ...data, date: dateToUTCDate(data.date) });
@@ -130,16 +135,16 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       <DialogTrigger asChild className="cursor-pointer">
         {trigger}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {transaction ? "Update" : "Create a new"}{" "}
+            {transaction ? t("update") : t("create-new")}{" "}
             <span
               className={type === "income" ? "text-income" : "text-expense"}
             >
-              {type}
+              {tTransaction(type)}
             </span>{" "}
-            transaction
+            {tTransaction("transaction")}
           </DialogTitle>
           {/* <DialogDescription>
           Add your transactions
@@ -149,28 +154,29 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           <Field
             control={form.control}
             name="title"
-            label="Title"
-            // description="Transaction title"
+            label="title"
+          // description="Transaction title"
           />
           <Field
             control={form.control}
             name="currency"
-            label="Currency"
+            label="currency"
             // description="Transaction currency"
             nodetype="currency"
           />
           <Field
             control={form.control}
             name="amount"
-            label={`Amount ( ${watch("currency")} )`}
+            label={`${t("labels.amount")} ( ${watch("currency")} )`}
             // description="Transaction amount"
             type="number"
             defaultValue={0}
+            withoutTranslation
           />
           <Field
             control={form.control}
             name="category"
-            label="Category"
+            label="category"
             // description="Transaction category"
             specificNode={
               <SelectCategory
@@ -183,7 +189,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           <Field
             control={form.control}
             name="date"
-            label="Date"
+            label="date"
             // description="Select a date for this transaction"
             nodetype="date"
           />
@@ -191,7 +197,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           <Field
             control={form.control}
             name="description"
-            label="Description"
+            label="description"
             nodetype="textarea"
           />
 
@@ -201,7 +207,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
               className={clsx("cursor-pointer", `${type}Btn`)}
               disabled={isPending}
             >
-              {isPending ? "Loading..." : transaction ? "Update" : "Create"}
+              {isPending ? t("loading") : transaction ? t("update") : t("create")}
             </Button>
           </DialogFooter>
         </FullForm>
