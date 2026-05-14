@@ -15,8 +15,8 @@ import { redirect } from "next/navigation";
 
 export async function createTransaction(form: createTransactionType) {
   const t = await getTranslations("errors");
-  const parsedBody = createTransactionSchema.safeParse(form);
-  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
+  const parsedBody = createTransactionSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -113,7 +113,7 @@ export async function createTransaction(form: createTransactionType) {
 
 export async function deleteTransaction(form: deleteSchemaType) {
   const t = await getTranslations("errors");
-  const parsedBody = deleteSchema.safeParse(form);
+  const parsedBody = deleteSchema(t).safeParse(form);
   if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
@@ -190,8 +190,8 @@ export async function deleteTransaction(form: deleteSchemaType) {
 
 export async function updateTransaction(form: updateTransactionType) {
   const t = await getTranslations("errors");
-  const parsedBody = updateTransactionSchema.safeParse(form);
-  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
+  const parsedBody = updateTransactionSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);

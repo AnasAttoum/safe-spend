@@ -109,7 +109,7 @@
     "max-500": "Maximum 500 characters",
     "max-amount": "Max amount is 1000000000",
     "amount-multiple": "Amount must be a multiple of 0.01",
-    "amount-must-ne-number": "Amount must be a number",
+    "amount-must-be-number": "Amount must be a number",
     "target-must-be-different": "Target currency must be different from exchange currency."
   },
   "loading": "Loading...",

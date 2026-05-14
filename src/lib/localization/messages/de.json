@@ -109,7 +109,7 @@
     "max-500": "Maximal 500 Zeichen",
     "max-amount": "Höchstbetrag ist 1.000.000.000",
     "amount-multiple": "Betrag muss ein Vielfaches von 0,01 sein",
-    "amount-must-ne-number": "Betrag muss eine Zahl sein",
+    "amount-must-be-number": "Betrag muss eine Zahl sein",
     "target-must-be-different": "Die Zielwährung muss sich von der Ausgangswährung unterscheiden."
   },
   "loading": "Wird geladen...",

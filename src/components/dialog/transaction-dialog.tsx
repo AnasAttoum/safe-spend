@@ -39,12 +39,14 @@ type Props = {
 
 export function TransactionDialog({ trigger, type, currency, transaction, closeMenu }: Props) {
   const t = useTranslations();
+  const tErrors = useTranslations("errors");
   const tTransaction = useTranslations("transaction");
+
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
   const form = useForm<createTransactionType>({
-    resolver: zodResolver(createTransactionSchema),
+    resolver: zodResolver(createTransactionSchema(tErrors)),
     defaultValues: {
       type,
       date: new Date(),
@@ -165,10 +167,11 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
           <Field
             control={form.control}
             name="amount"
-            label={`${("labels.amount")} ( ${watch("currency")} )`}
+            label={`${t("labels.amount")} ( ${watch("currency")} )`}
             // description="Transaction amount"
             type="number"
             defaultValue={0}
+            withoutTranslation
           />
           <Field
             control={form.control}

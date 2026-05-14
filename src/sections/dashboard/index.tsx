@@ -63,7 +63,7 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
             id={categoryOverview?.category?.id}
             trigger={
               <Button className="deleteBtn flex-1 my-0!">
-                {("category.delete")}
+                {t("category.delete")}
               </Button>
             }
           />

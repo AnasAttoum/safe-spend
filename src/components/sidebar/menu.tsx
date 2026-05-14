@@ -25,7 +25,7 @@ export default function Menu(
     return (
         <SidebarMenu>
             {headerlinks.map(({ icon: Icon, label, link }) => {
-                const isActive = `/${locale}${link}` === fullPath;
+                const isActive = `/${locale}${link !== "/" ? link : ""}` === fullPath;
                 return link
                     ? (
                         <div key={label} className='flex flex-col gap-1'>

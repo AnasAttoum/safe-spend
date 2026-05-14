@@ -32,12 +32,14 @@ type Props = {
 
 export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props) {
   const t = useTranslations();
+  const tErrors = useTranslations("errors");
   const tExchange = useTranslations("exchange");
+
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
   const form = useForm<createExchangeType>({
-    resolver: zodResolver(createExchangeSchema),
+    resolver: zodResolver(createExchangeSchema(tErrors)),
     defaultValues: {
       date: new Date(),
       exchangeCurrency: currency,

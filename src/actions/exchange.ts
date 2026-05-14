@@ -15,8 +15,8 @@ import { redirect } from "next/navigation";
 
 export async function createExchange(form: createExchangeType) {
   const t = await getTranslations("errors");
-  const parsedBody = createExchangeSchema.safeParse(form);
-  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
+  const parsedBody = createExchangeSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -145,8 +145,8 @@ export async function createExchange(form: createExchangeType) {
 
 export async function deleteExchange(form: deleteSchemaType) {
   const t = await getTranslations("errors");
-  const parsedBody = deleteSchema.safeParse(form);
-  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
+  const parsedBody = deleteSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -239,8 +239,8 @@ export async function deleteExchange(form: deleteSchemaType) {
 
 export async function updateExchange(form: updateExchangeType) {
   const t = await getTranslations("errors");
-  const parsedBody = updateExchangeSchema.safeParse(form);
-  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
+  const parsedBody = updateExchangeSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);

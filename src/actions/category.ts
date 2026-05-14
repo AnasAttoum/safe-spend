@@ -18,7 +18,7 @@ import { getTranslations } from "next-intl/server";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const t = await getTranslations("errors");
-  const parsedBody = createCategorySchema.safeParse(form);
+  const parsedBody = createCategorySchema(t).safeParse(form);
   if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
@@ -51,7 +51,7 @@ export async function createCategory(form: CreateCategorySchemaType) {
 
 export async function deleteCategory(form: deleteSchemaType) {
   const t = await getTranslations("errors");
-  const parsedBody = deleteSchema.safeParse(form);
+  const parsedBody = deleteSchema(t).safeParse(form);
   if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();
@@ -89,7 +89,8 @@ export async function deleteCategory(form: deleteSchemaType) {
 }
 
 export async function getCategory(form: deleteSchemaType) {
-  const parsedBody = deleteSchema.safeParse(form);
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
   if (!parsedBody.success) return null;
 
   const user = await currentUser();
@@ -143,7 +144,7 @@ export type TypedCategoriesType = Awaited<ReturnType<typeof getCategories>>;
 
 export async function updateCategory(form: updateCategoryType) {
   const t = await getTranslations("errors");
-  const parsedBody = updateCategorySchema.safeParse(form);
+  const parsedBody = updateCategorySchema(t).safeParse(form);
   if (!parsedBody.success) return { error: t("bad-request") };
 
   const user = await currentUser();

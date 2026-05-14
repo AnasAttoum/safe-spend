@@ -1,4 +1,3 @@
-import Link from "next/link";
 import WaveIcon from "../icon/lib/wave-icon";
 import { TypedCategoriesType } from "@/actions/category";
 import { useTranslations } from "next-intl";

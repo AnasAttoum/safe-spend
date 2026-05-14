@@ -47,10 +47,11 @@ export default function CreateCategory({
   category
 }: Props) {
   const t = useTranslations();
+  const tErrors = useTranslations("errors");
   const tCategory = useTranslations("category");
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
-    resolver: zodResolver(createCategorySchema),
+    resolver: zodResolver(createCategorySchema(tErrors)),
     defaultValues: { type },
   });
 
@@ -98,7 +99,7 @@ export default function CreateCategory({
   });
 
   const onSubmit = handleSubmit((values: CreateCategorySchemaType) => {
-    toast.loading(category ?  tCategory("updating") : tCategory("creating"), {
+    toast.loading(category ? tCategory("updating") : tCategory("creating"), {
       id: "create-category",
     });
     mutate(values);

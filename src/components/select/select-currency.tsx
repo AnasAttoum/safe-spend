@@ -35,7 +35,7 @@ export default function SelectCurrency({ selected, onSelect }: Props) {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
-          <CommandInput placeholder="Search Currency..." className="h-9" />
+          <CommandInput placeholder={t("search")} className="h-9" />
           <CommandList>
             <CommandGroup>
               {currencies.map((curr) => (
