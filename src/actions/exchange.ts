@@ -10,11 +10,13 @@ import {
   updateExchangeType,
 } from "@/schema/exchange";
 import { currentUser } from "@clerk/nextjs/server";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export async function createExchange(form: createExchangeType) {
+  const t = await getTranslations("errors");
   const parsedBody = createExchangeSchema.safeParse(form);
-  if (!parsedBody.success) return { error: parsedBody.error.message };
+  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -142,8 +144,9 @@ export async function createExchange(form: createExchangeType) {
 }
 
 export async function deleteExchange(form: deleteSchemaType) {
+  const t = await getTranslations("errors");
   const parsedBody = deleteSchema.safeParse(form);
-  if (!parsedBody.success) return { error: parsedBody.error.message };
+  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -157,7 +160,7 @@ export async function deleteExchange(form: deleteSchemaType) {
     },
   });
   if (!exchange) {
-    return { error: "This exchange not exist!" };
+    return { error: t("exchange-not-found") };
   }
 
   await prisma.$transaction([
@@ -235,8 +238,9 @@ export async function deleteExchange(form: deleteSchemaType) {
 }
 
 export async function updateExchange(form: updateExchangeType) {
+  const t = await getTranslations("errors");
   const parsedBody = updateExchangeSchema.safeParse(form);
-  if (!parsedBody.success) return { error: parsedBody.error.message };
+  if (!parsedBody.success) return { error: t(parsedBody.error.message) };
 
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
@@ -258,7 +262,7 @@ export async function updateExchange(form: updateExchangeType) {
     },
   });
   if (!exchange) {
-    return { error: "Exchange not found!" };
+    return { error: t("exchange-not-found") };
   }
 
   await prisma.$transaction([

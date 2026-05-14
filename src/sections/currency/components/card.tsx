@@ -12,14 +12,17 @@ import {
 import { ComboBox } from "./combobox";
 import Link from "next/link";
 import { routes } from "@/config/routes";
+import { getTranslations } from "next-intl/server";
 
-export function CurrencyCard() {
+export async function CurrencyCard() {
+  const t = await getTranslations("currency");
+
   return (
-    <Card className="w-[350px]">
+    <Card className="w-87.5">
       <CardHeader className="text-start">
-        <CardTitle>Add Currency</CardTitle>
+        <CardTitle>{t("add")}</CardTitle>
         <CardDescription>
-          Set your default currency for your transations
+          {t("set-default")}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -31,7 +34,7 @@ export function CurrencyCard() {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button className="w-full cursor-pointer">
-          <Link href={routes.dashboard}>Continue</Link>
+          <Link href={routes.dashboard}>{t("continue")}</Link>
         </Button>
       </CardFooter>
     </Card>

@@ -1,13 +1,15 @@
 import { Metadata } from "next";
 import Dashboard from "@/sections/dashboard";
 import { getCategory } from "@/actions/category";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ categoryId?: string }> }): Promise<Metadata> {
+  const t = await getTranslations("dashboard")
   const { categoryId } = await searchParams;
   const response = await getCategory(categoryId || '')
 
   return {
-    title: response?.category?.name || "Dashboard",
+    title: response?.category?.name || t("dashboard"),
   }
 }
 

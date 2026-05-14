@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { getCategories } from "@/actions/category";
+import { getTranslations } from "next-intl/server";
 
 export default async function Categories() {
+  const t = await getTranslations("category");
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -17,7 +19,7 @@ export default async function Categories() {
   return (
     <>
       <div className="py-3">
-        <h3 className="text-3xl">Categories</h3>
+        <h3 className="text-3xl">{t("categories")}</h3>
       </div>
 
       <div className="flex flex-col gap-3 mt-3">

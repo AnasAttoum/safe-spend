@@ -11,7 +11,7 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="labels.title" />
     ),
     filterFn: (row, _id, value) => {
       const title = row.original.title?.toLowerCase() || "";
@@ -22,7 +22,7 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
     accessorKey: "exchangeAmount",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Exchange Amount" />
+      <DataTableColumnHeader column={column} title="exchange.exchange-amount" />
     ),
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
     cell: ({ row }) => (
@@ -42,7 +42,7 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
     accessorKey: "collectedAmount",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Collected Amount" />
+      <DataTableColumnHeader column={column} title="exchange.collected-amount" />
     ),
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
     cell: ({ row }) => (
@@ -62,7 +62,7 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
     accessorKey: "exchangeRate",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Exchange Rate" />
+      <DataTableColumnHeader column={column} title="exchange.exchange-rate" />
     ),
     cell: ({ row }) => {
       const exchangeRate = row.original.collectedAmount / row.original.exchangeAmount;
@@ -80,7 +80,7 @@ export const columns: ColumnDef<getExchangesHistoryDataResponseType[0]>[] = [
   {
     accessorKey: "date",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date" />
+      <DataTableColumnHeader column={column} title="labels.date" />
     ),
     cell: ({ row }) => {
       const date = new Date(row.original.date);

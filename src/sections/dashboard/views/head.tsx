@@ -4,17 +4,21 @@ import ExchangeIcon from "@/components/icon/lib/exchange-icon";
 import SmileIcon from "@/components/icon/lib/smile-icon";
 import { Button } from "@/components/ui/button";
 import { Plus, Sparkles, Zap } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   name: string;
   currency: string;
 };
 
-export default function Head({ name, currency }: Props) {
+export default async function Head({ name, currency }: Props) {
+  const t = await getTranslations();
+  const tDashboard = await getTranslations("dashboard");
+
   return (
     <div className="text-3xl flex flex-wrap justify-between gap-3 items-center border-b bg-card px-5 py-2">
       <div className="flex gap-3 items-center">
-        Hi, <strong>{name}!</strong> <SmileIcon size={50} />
+        {tDashboard("hi")}, <strong>{name}!</strong> <SmileIcon size={50} />
       </div>
 
       <div className="flex flex-wrap gap-3">
@@ -32,7 +36,7 @@ export default function Head({ name, currency }: Props) {
             trigger={
               <Button variant="outline" className="incomeBtn flex-1 flex">
                 <Plus className="w-4 h-4" />
-                New Income
+                {t("transaction.new-income")}
                 <Sparkles className="w-4 h-4" />
               </Button>
             }
@@ -44,7 +48,7 @@ export default function Head({ name, currency }: Props) {
             trigger={
               <Button variant="outline" className="expenseBtn flex-1">
                 <Plus className="w-5 h-5" />
-                New expense
+                {t("transaction.new-expense")}
                 <Zap className="w-4 h-4" />
               </Button>
             }

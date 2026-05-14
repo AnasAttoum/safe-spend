@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode, useState } from "react";
 import Head from "./views/head";
 import { startOfMonth } from "date-fns";
@@ -11,7 +12,6 @@ export default function Transactions({ currency, categoryOverview }: { currency:
     from: startOfMonth(new Date()),
     to: new Date(),
   });
-
 
   return (
     <>

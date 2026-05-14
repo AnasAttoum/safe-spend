@@ -5,6 +5,7 @@ import Icon from '@/components/icon/icon';
 import MoreIcon from '@/components/icon/lib/more-icon';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react'
 
 export const RowActions = ({
@@ -12,6 +13,7 @@ export const RowActions = ({
 }: {
     transaction: getTransactionsHistoryDataResponseType[0];
 }) => {
+    const t = useTranslations();
     const [openMenu, setOpenMenu] = useState(false)
     return (
         <DropdownMenu open={openMenu} onOpenChange={(open) => setOpenMenu(open)}>
@@ -21,7 +23,7 @@ export const RowActions = ({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <TransactionDialog
                     trigger={
@@ -29,7 +31,7 @@ export const RowActions = ({
                             <div className="flex justify-center">
                                 <Icon icon="pen" />
                             </div>
-                            Edit
+                            {t("edit")}
                         </Button>
                     }
                     type={transaction.type as "income" | "expense"}
@@ -44,7 +46,7 @@ export const RowActions = ({
                             <div className="flex justify-center">
                                 <Icon icon="trash" />
                             </div>
-                            Delete
+                            {t("delete")}
                         </Button>
                     }
                     closeMenu={() => setOpenMenu(false)}

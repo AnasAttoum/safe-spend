@@ -1,14 +1,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComboBox } from "@/sections/currency/components/combobox";
+import { getTranslations } from "next-intl/server";
 import React from "react";
 
-export default function Currency() {
+export default async function Currency() {
+  const t = await getTranslations("currency");
+
   return (
     <Card>
       <CardHeader className="text-start">
-        <CardTitle>Currency</CardTitle>
+        <CardTitle>{t("currency")}</CardTitle>
         <CardDescription>
-          Set your default currency for your transations
+          {t("set")}
         </CardDescription>
       </CardHeader>
       <CardContent>

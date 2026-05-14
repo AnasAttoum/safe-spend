@@ -12,12 +12,14 @@ import {
 } from "../ui/command";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
-import { currencies, Currency, defaultCurrency } from "@/config/currencies";
+import { Currency, getCurrency } from "@/config/currencies";
 import CurrencyRow from "./row/currency-row";
+import { useTranslations } from "next-intl";
 
 type Props = { selected: string[]; onSelect: (val: any) => void; myCurrencies: Currency["value"][] };
 
 export default function SelectSpecificCurrencies({ selected, onSelect, myCurrencies }: Props) {
+  const t = useTranslations("currency")
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,21 +29,21 @@ export default function SelectSpecificCurrencies({ selected, onSelect, myCurrenc
           {selected.length ? (
             <div className="flex items-center gap-2 h-full whitespace-normal">
               {selected.map((el) =>
-                currencies.find((curr) => curr.value === el)?.label || defaultCurrency.label
+                getCurrency(el).label
               ).join(", ")}
             </div>
           ) : (
-            <span className="text-gray-400 font-normal">Select currency</span>
+            <span className="text-gray-400 font-normal">{t("select")}</span>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Command>
-          <CommandInput placeholder="Search Currency..." className="h-9" />
+          <CommandInput placeholder={t("search")} className="h-9" />
           <CommandList>
             <CommandGroup>
               {myCurrencies.map((el) => {
-                const curr = currencies.find(({ value }) => value === el) ?? defaultCurrency;
+                const curr = getCurrency(el);
                 return (
                   <CommandItem
                     key={curr.value}

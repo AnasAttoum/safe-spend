@@ -21,6 +21,7 @@ import { createExchangeSchema, createExchangeType } from "@/schema/exchange";
 import { createExchange, updateExchange } from "@/actions/exchange";
 import { queryKey } from "@/config/query-key";
 import { getExchangesHistoryDataResponseType } from "@/app/[locale]/api/exchanges/route";
+import { useTranslations } from "next-intl";
 
 type Props = {
   trigger: ReactNode;
@@ -30,8 +31,10 @@ type Props = {
 };
 
 export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props) {
-  const [open, setOpen] = useState(false);
+  const t = useTranslations();
+  const tExchange = useTranslations("exchange");
   const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   const form = useForm<createExchangeType>({
     resolver: zodResolver(createExchangeSchema),
@@ -65,7 +68,7 @@ export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props
       }
     },
     onSuccess: () => {
-      toast.success(exchange ? `Exchange updated successfully 🎉` : `Exchange created successfully 🎉`, {
+      toast.success(exchange ? tExchange("updated-successfully") : tExchange("created-successfully"), {
         id: "create-exchange",
       });
       setOpen(false);
@@ -86,7 +89,7 @@ export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? error.message : "Something went wrong!",
+        error instanceof Error ? error.message : t("something-went-wrong"),
         {
           id: "create-exchange",
         }
@@ -95,7 +98,7 @@ export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props
   });
 
   const onSubmit = handleSubmit((data: createExchangeType) => {
-    toast.loading(exchange ? `Updating exchange...` : `Creating exchange...`, {
+    toast.loading(exchange ? tExchange("updating") : tExchange("creating"), {
       id: "create-exchange",
     });
     mutate({ ...data, date: dateToUTCDate(data.date) });
@@ -121,11 +124,11 @@ export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props
       <DialogTrigger asChild className="cursor-pointer">
         {trigger}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {exchange ? "Update" : "Create a new"}{" "}
-            <span className={"text-safeSpend-primary"}>exchange</span>{" "}
+            {exchange ? t("update") : t("create-new")}{" "}
+            <span className={"text-safeSpend-primary"}>{tExchange("exchange")}</span>{" "}
           </DialogTitle>
           {/* <DialogDescription>
           Add your transactions
@@ -135,44 +138,46 @@ export function ExchangeDialog({ trigger, currency, exchange, closeMenu }: Props
           <Field
             control={form.control}
             name="title"
-            label="Title"
+            label="title"
           />
           <Field
             control={form.control}
             name="exchangeCurrency"
-            label="Exchange Currency"
+            label="exchange-currency"
             nodetype="currency"
           />
           <Field
             control={form.control}
             name="exchangeAmount"
-            label={`Amount ( ${watch("exchangeCurrency")} )`}
+            label={`${t("labels.amount")} ( ${watch("exchangeCurrency")} )`}
             // type="number"
             defaultValue={0}
+            withoutTranslation
           />
           <Field
             control={form.control}
             name="targetCurrency"
-            label="Target Currency"
+            label="target-currency"
             nodetype="currency"
           />
           <Field
             control={form.control}
             name="collectedAmount"
-            label={`Amount ${watch("targetCurrency") ? `( ${watch("targetCurrency")} )` : ""
+            label={`${t("labels.amount")} ${watch("targetCurrency") ? `( ${watch("targetCurrency")} )` : ""
               }`}
             defaultValue={0}
+            withoutTranslation
           />
           <Field
             control={form.control}
             name="date"
-            label="Date"
+            label="date"
             nodetype="date"
           />
 
           <DialogFooter>
             <Button type="submit" className="cursor-pointer primaryBtn" disabled={isPending}>
-              {isPending ? "Loading..." : exchange ? "Update" : "Create"}
+              {isPending ? t("loading") : exchange ? t("update") : t("create")}
             </Button>
           </DialogFooter>
         </FullForm>

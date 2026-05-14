@@ -6,6 +6,7 @@ import CreateCategory from "@/components/dialog/create-category";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Sparkles, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   type: "income" | "expense";
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export default function CategoryList({ type, data }: Props) {
+  const t = useTranslations();
   const dataAvailable = data && Array.isArray(data) && data.length;
 
   return (
@@ -25,14 +27,14 @@ export default function CategoryList({ type, data }: Props) {
             <div>
               {type === "income" ? (
                 <div>
-                  <span className="text-income">Incomes</span> Categories
+                  <span className="text-income">{t("category.incomes")}</span>
                 </div>
               ) : (
                 <div>
-                  <span className="text-expense">Expences</span> Categories
+                  <span className="text-expense">{t("category.expences")}</span>
                 </div>
               )}
-              <small className="text-gray-500">Sorted by name</small>
+              <small className="text-gray-500">{t("sorted-by-name")}</small>
             </div>
           </div>
           <CreateCategory type={type} />
@@ -42,7 +44,7 @@ export default function CategoryList({ type, data }: Props) {
       <CardContent>
         {!dataAvailable ? (
           <p className="text-center text-gray-500">
-            Create one to get started...
+            {t("category.create-one")}
           </p>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">

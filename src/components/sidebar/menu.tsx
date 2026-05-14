@@ -9,12 +9,14 @@ import Link from 'next/link';
 import { PoundSterling, Trophy } from 'lucide-react';
 import { routes } from '@/config/routes';
 import { Separator } from '../ui/separator';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Menu(
     // { SYPCurrency }: { SYPCurrency: boolean }
 ) {
-
+    const t = useTranslations();
     const pathname = usePathname();
+    const locale = useLocale();
     const searchParams = useSearchParams();
     const params = searchParams.toString();
 
@@ -23,7 +25,7 @@ export default function Menu(
     return (
         <SidebarMenu>
             {headerlinks.map(({ icon: Icon, label, link }) => {
-                const isActive = link === fullPath;
+                const isActive = `/${locale}${link}` === fullPath;
                 return link
                     ? (
                         <div key={label} className='flex flex-col gap-1'>
@@ -34,7 +36,7 @@ export default function Menu(
                                 )}>
                                     <Link href={link} className='z-10'>
                                         <Icon color="#fff" />
-                                        <span>{label}</span>
+                                        <span>{t(label)}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -44,7 +46,7 @@ export default function Menu(
                         <div key={label}>
                             <Separator />
                             <SidebarGroupLabel className="mt-1 text-gray-300 uppercase">
-                                {label}
+                                {t(label)}
                             </SidebarGroupLabel>
                         </div>
                     )
@@ -53,7 +55,7 @@ export default function Menu(
             <>
                 <Separator className='h-[.5px]!' />
                 <SidebarGroupLabel className="mb-1 text-gray-300 uppercase">
-                    Exchange rates
+                    {t("exchange-rates")}
                 </SidebarGroupLabel>
                 <div className='flex flex-col gap-1'>
                     <SidebarMenuItem>
@@ -63,7 +65,7 @@ export default function Menu(
                         )}>
                             <Link href={routes.syrianPoundToday}>
                                 <PoundSterling color="#fff" />
-                                <span>Syrian Pound Today</span>
+                                <span>{t("syrian-pound-today")}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -74,7 +76,7 @@ export default function Menu(
                         )}>
                             <Link href={routes.goldToday}>
                                 <Trophy color="#fff" />
-                                <span>Gold Today</span>
+                                <span>{t("gold-today")}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

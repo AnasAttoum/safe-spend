@@ -4,8 +4,10 @@ import Currency from "./views/currency";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
+import { getTranslations } from "next-intl/server";
 
 export default async function Settings() {
+  const t = await getTranslations("settings");
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -15,9 +17,9 @@ export default async function Settings() {
   return (
     <>
       <div className="py-3">
-        <h3 className="text-3xl">Settings</h3>
+        <h3 className="text-3xl">{t("settings")}</h3>
         <p className="text-sm text-gray-500">
-          Manage your account settings and categories
+          {t("manage")}
         </p>
       </div>
 

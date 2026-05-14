@@ -2,6 +2,7 @@ import { capitalizeWords, cn } from "@/lib/utils";
 import { Card } from "../ui/card";
 import { CurrencyToday } from "@/sections/syrian-pound-today";
 import Count from "../count-up";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   currencyToday: CurrencyToday;
@@ -22,8 +23,10 @@ const getFlagEmoji = (currencyCode: string) => {
   return String.fromCodePoint(...codePoints);
 };
 
-export default function SYPTodayCard({ currencyToday }: Props) {
+export default async function SYPTodayCard({ currencyToday }: Props) {
+  const t = await getTranslations();
   const { code, buy, sell, change } = currencyToday;
+
   return (
     <Card className="rounded-sm transition-all duration-300 group hover:scale-101 hover:-translate-y-1 py-0">
       <div className="flex flex-col justify-between">
@@ -42,14 +45,14 @@ export default function SYPTodayCard({ currencyToday }: Props) {
         </div>
         <div className="flex justify-between items-center flex-1 px-5 bg-safeSpend-primary text-white py-5">
           <div>
-            <span>Buy: &nbsp;</span>
+            <span>{t("buy")}: &nbsp;</span>
             <span className="text-2xl font-bold">
               <Count num={buy} />
             </span>
           </div>
           <div className="text-2xl flag">{getFlagEmoji(code)}</div>
           <div>
-            <span>Sell: &nbsp;</span>
+            <span>{t("sell")}: &nbsp;</span>
             <span className="text-2xl font-bold">
               <Count num={sell} />
             </span>

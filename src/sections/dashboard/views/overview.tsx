@@ -6,8 +6,10 @@ import { useState } from "react";
 import StatisticCards from "../components/statistic-cards";
 import CategoriesStats from "../components/categories-stats";
 import TotalBalanceCards from "../components/total-balance-cards";
+import { useTranslations } from "next-intl";
 
 export default function Overview({ currency, categoryId }: { currency: string; categoryId?: string }) {
+  const t = useTranslations("dashboard");
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
@@ -15,7 +17,7 @@ export default function Overview({ currency, categoryId }: { currency: string; c
   return (
     <>
       <div className="flex flex-wrap justify-between items-center gap-3 p-5">
-        <h3 className="text-3xl">Overview</h3>
+        <h3 className="text-3xl">{t("overview")}</h3>
         <DateRangePicker
           initialDateFrom={dateRange.from}
           initialDateTo={dateRange.to}

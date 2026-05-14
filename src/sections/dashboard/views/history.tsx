@@ -6,8 +6,10 @@ import HistorySelector from "../components/history-selector";
 import { useQuery } from "@tanstack/react-query";
 import { getHistoryDataResponseType } from "@/app/[locale]/api/history/data/route";
 import { queryKey } from "@/config/query-key";
+import { useTranslations } from "next-intl";
 
 export default function History({ currency, categoryId }: { currency: string; categoryId?: string }) {
+  const t = useTranslations("dashboard")
   const [curr, setCurr] = useState(currency);
   const [timeframe, setTimeframe] = useState<Timeframe>("year");
   const [period, setPeriod] = useState<Period>({
@@ -25,7 +27,7 @@ export default function History({ currency, categoryId }: { currency: string; ca
 
   return (
     <div>
-      <h3 className="text-3xl p-5">History</h3>
+      <h3 className="text-3xl p-5">{t("history")}</h3>
 
       <HistorySelector
         timeframe={timeframe}

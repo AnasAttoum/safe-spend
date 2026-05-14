@@ -9,6 +9,7 @@ import {
 import SkeletonWrapper from "../skeleton/skeleton";
 import { flexRender, Table as TableType } from "@tanstack/react-table";
 import { DataTablePagination } from "./pagination";
+import { useTranslations } from "next-intl";
 
 export default function DataTable({
   isLoading,
@@ -19,6 +20,8 @@ export default function DataTable({
   table: TableType<any>;
   columnsLength: number;
 }) {
+  const t = useTranslations();
+  
   return (
     <div className="rounded-md border">
       <SkeletonWrapper isLoading={isLoading}>
@@ -64,7 +67,7 @@ export default function DataTable({
                   colSpan={columnsLength}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {t("no-data-found")}
                 </TableCell>
               </TableRow>
             )}

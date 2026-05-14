@@ -24,3 +24,14 @@ export const currencies = [
 export const defaultCurrency = currencies[0];
 
 export type Currency = (typeof currencies)[0];
+
+export const getCurrency = (currency: Currency["value"]) => {
+  const currObj = currencies.find((curr) => curr.value === currency) || {
+    value: "",
+    label: "",
+    symbol: "",
+    locale: "",
+    color: "#f00"
+  };
+  return currObj;
+};
