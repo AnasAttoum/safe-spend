@@ -56,6 +56,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       type,
       date: new Date(),
       currency,
+      bookmark: false,
     },
   });
 
@@ -68,11 +69,11 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
         amount: transaction.amount,
         title: transaction.title,
         description: transaction.description,
-        date: transaction.date,
+        date: isBookmark ? new Date() : transaction.date,
         category: { ...transaction.Category, id: transaction.categoryId },
         type: transaction.type as "income" | "expense",
         currency: transaction.currency,
-        bookmark: false,
+        bookmark: isBookmark ? false : transaction.bookmark,
       })
   }, [open, transaction, reset])
 
