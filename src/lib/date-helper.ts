@@ -4,10 +4,10 @@ export const dateToUTCDate = (date: Date) => {
       date.getFullYear(),
       date.getMonth(),
       date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-      date.getMilliseconds()
+      // date.getHours(),
+      // date.getMinutes(),
+      // date.getSeconds(),
+      // date.getMilliseconds()
     )
   );
 };
