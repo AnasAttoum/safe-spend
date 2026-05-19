@@ -13,9 +13,11 @@ export async function GET() {
       userId: user.id,
       bookmark: true,
     },
-    orderBy: {
-      date: "desc",
-    },
+    orderBy: [
+      { type: "desc" },
+      { date: "desc" },
+      { createdAt: "desc" }
+    ],
     include: {
       Category: {
         select: {

@@ -41,7 +41,8 @@ const getHistoryData = async (userId: string, from: Date, to: Date) =>
         lte: to,
       },
     },
-    orderBy: {
-      date: "desc",
-    },
+    orderBy: [
+      { date: "desc" },
+      { createdAt: "desc" }
+    ],
   });
