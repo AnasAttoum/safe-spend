@@ -17,7 +17,7 @@ export default function TotalBalanceCards() {
       <SkeletonWrapper isLoading={isLoading}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {isLoading && <CardBalanceTotal balance={{ currency: 'USD', total: 0, diff: 0 }} />}
-          {data && Array.isArray(data) && data?.map((balance: { currency: string; total: number; diff: number }, index: number) => <CardBalanceTotal key={index} balance={balance} />)}
+          {data && Array.isArray(data) && data?.filter((balance) => !!balance.total || !!balance.diff).map((balance: { currency: string; total: number; diff: number }, index: number) => <CardBalanceTotal key={index} balance={balance} />)}
           {data && !Array.isArray(data) && <CardBalanceTotal balance={data} />}
         </div>
       </SkeletonWrapper>
