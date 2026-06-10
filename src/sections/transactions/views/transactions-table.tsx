@@ -19,6 +19,7 @@ import { useMemo, useState } from "react";
 import { columns } from "../components/transaction-columns";
 import { CategoryOverview } from "@/sections/dashboard";
 import { useTranslations } from "next-intl";
+import { getCurrency } from "@/config/currencies";
 
 type Props = { from: Date; to: Date; categoryOverview?: CategoryOverview };
 
@@ -70,6 +71,23 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
     return Array.from(seen.values());
   }, [data]);
 
+  const currenciesOptions: {
+    label: string;
+    value: string;
+  }[] = useMemo(() => {
+    const seen = new Map();
+    data?.forEach(({ currency}) => {
+      const key = currency;
+      if (!seen.has(key)) {
+        seen.set(key, {
+          label: getCurrency(key).label,
+          value: currency,
+        });
+      }
+    });
+    return Array.from(seen.values());
+  }, [data]);
+
   return (
     <>
       <div className="flex flex-wrap gap-2 mb-2">
@@ -80,6 +98,13 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
             options={categoriesOptions}
             fixedValue={categoryOverview?.category.name}
             fixedIcon={categoryOverview?.category.icon}
+          />
+        )}
+        {!!categoriesOptions.length && table.getColumn("currency") && (
+          <DataTableFacetedFilter
+            title="currency.currency"
+            column={table.getColumn("currency")}
+            options={currenciesOptions}
           />
         )}
         {!!data?.length && table.getColumn("type") && (

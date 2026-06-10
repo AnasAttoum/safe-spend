@@ -73,6 +73,7 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="labels.currency" />
     ),
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
     cell: ({ row }) => row.original.currency,
   },
   {
