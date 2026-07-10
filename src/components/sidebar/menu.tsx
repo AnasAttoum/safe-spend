@@ -5,8 +5,6 @@ import { SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } fr
 import { headerlinks } from '@/config/header-links'
 import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { PoundSterling, Trophy } from 'lucide-react';
-import { routes } from '@/config/routes';
 import { Separator } from '../ui/separator';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/lib/localization/navigation';
@@ -52,7 +50,7 @@ export default function Menu(
                     )
             })}
             {/* {SYPCurrency && */}
-            <>
+            {/* <>
                 <Separator className='h-[.5px]!' />
                 <SidebarGroupLabel className="mb-1 text-gray-300 uppercase">
                     {t("exchange-rates")}
@@ -81,7 +79,7 @@ export default function Menu(
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </div>
-            </>
+            </> */}
             {/* } */}
         </SidebarMenu>
     )

@@ -28,7 +28,7 @@ export default async function SyrianPoundToday() {
       accept: 'application/json',
       'User-agent': 'learning app',
     }
-  }).then(res => { console.log("res: ", res); console.log("res.json(): ", res.json()); return res.json() }).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
+  }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
   const res: ServerResponse = response?.data?.currencies || []
   const currencies: CurrencyToday[] = Object.entries(res)
     .filter(([key]) => key.endsWith(":damascus"))
