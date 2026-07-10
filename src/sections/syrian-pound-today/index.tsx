@@ -25,11 +25,27 @@ export default async function SyrianPoundToday() {
   const response = await fetch(
     process.env.NEXT_PUBLIC_SYRIAN_POUND_TODAY!, {
     headers: {
-      accept: 'application/json',
-      'User-agent': 'learning app',
-    }
-  }).then(res => res.json()).catch((error) => console.error('Error in SYRIAN POUND TODAY Page', error));
-  const res: ServerResponse = response?.data?.currencies || []
+      Accept: "application/json",
+      "User-Agent": "Mozilla/5.0",
+    },
+  })
+  console.log({
+    status: response.status,
+    url: response.url,
+    contentType: response.headers.get("content-type"),
+  });
+
+  const body = await response.text();
+
+  console.log(body);
+
+  if (!response.headers.get("content-type")?.includes("application/json")) {
+    throw new Error("API returned HTML instead of JSON");
+  }
+
+  const parsedResponse = JSON.parse(body);
+
+  const res: ServerResponse = parsedResponse?.data?.currencies || []
   const currencies: CurrencyToday[] = Object.entries(res)
     .filter(([key]) => key.endsWith(":damascus"))
     .map(([key, value]) => {
