@@ -41,6 +41,13 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     cell: ({ row }) => <div className="flex gap-1 flex-1">{row.original.bookmark && <BookmarkIcon className="fill-safeSpend-primary text-safeSpend-primary" />}{row.original.title}</div>,
   },
   {
+    accessorKey: "bookmark",
+    enableHiding: true,
+    filterFn: (row) => {
+      return row.original.bookmark;
+    },
+  },
+  {
     accessorKey: "type",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="type" />

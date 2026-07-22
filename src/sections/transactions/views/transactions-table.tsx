@@ -20,6 +20,7 @@ import { columns } from "../components/transaction-columns";
 import { CategoryOverview } from "@/sections/dashboard";
 import { useTranslations } from "next-intl";
 import { getCurrency } from "@/config/currencies";
+import { DataTableBookmarkFilter } from "@/components/data-table/bookmark-filters";
 
 type Props = { from: Date; to: Date; categoryOverview?: CategoryOverview };
 
@@ -37,7 +38,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
       fetch(
         `/api/transactions?from=${fromUTC.toISOString()}&to=${toUTC.toISOString()}`
       ).then((res) => res.json()),
-    });
+  });
 
   const table = useReactTable({
     data: data || emptyData,
@@ -52,6 +53,11 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
       sorting,
       columnFilters,
     },
+    initialState: {
+      columnVisibility: {
+        isBookmark: false,
+      },
+    }
   });
 
   const categoriesOptions: {
@@ -76,7 +82,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
     value: string;
   }[] = useMemo(() => {
     const seen = new Map();
-    data?.forEach(({ currency}) => {
+    data?.forEach(({ currency }) => {
       const key = currency;
       if (!seen.has(key)) {
         seen.set(key, {
@@ -117,6 +123,9 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
             ]}
             fixedValue={categoryOverview?.category.type}
           />
+        )}
+        {!!data?.length && table.getColumn("bookmark") && (
+          <DataTableBookmarkFilter column={table.getColumn("bookmark")} />
         )}
 
         {(data?.length ?? 0) > 1 && <Input
