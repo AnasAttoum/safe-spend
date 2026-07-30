@@ -18,7 +18,7 @@ export default function Bookmarks() {
   });
 
   return (
-    <div className="flex flex-wrap gap-3 overflow-hidden">
+    <div className="flex flex-wrap gap-x-3 overflow-hidden">
       {!!data?.length && data.map((bookmark) => <TransactionDialog
         key={bookmark.id}
         trigger={
