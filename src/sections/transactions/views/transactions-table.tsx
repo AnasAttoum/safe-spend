@@ -55,7 +55,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
     },
     initialState: {
       columnVisibility: {
-        isBookmark: false,
+        bookmark: false,
       },
     }
   });
