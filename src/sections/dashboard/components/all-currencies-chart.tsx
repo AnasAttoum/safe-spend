@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { Brush, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export function AllCurrenciesChart() {
   const t = useTranslations();
@@ -118,6 +118,20 @@ export function AllCurrenciesChart() {
                     });
                   }}
                   angle={-10}
+                />
+                <Brush
+                  dataKey={(data) => {
+                    const date = new Date(data.year, data.month, data.day ?? 1);
+
+                    return date.toLocaleDateString("default", {
+                      year: "numeric",
+                      month: "short",
+                    });
+                  }}
+                  height={30}
+                  stroke="var(--safeSpend-primary)"
+                  fill="var(--safeSpend-secondary)"
+                  color="var(--safeSpend-primary)"
                 />
                 {visibleCurrencies.map((currency: string) =>
                   <Line key={currency} yAxisId={currency} type="monotone" dataKey={currency} stroke={getCurrency(currency).color} strokeWidth={2} dot={false} />
