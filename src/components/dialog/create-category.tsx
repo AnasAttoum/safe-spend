@@ -126,13 +126,7 @@ export default function CreateCategory({
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {category ? t("update") : t("create-new")}{" "}
-            <span
-              className={type === "income" ? "text-income" : "text-expense"}
-            >
-              {t(`transaction.${type}`)}
-            </span>{" "}
-            {tCategory("category")}
+            {category ? t("category.update") : t("category.create")}{" "}
           </DialogTitle>
           {!category && <DialogDescription>
             {tCategory("create-to-group")}

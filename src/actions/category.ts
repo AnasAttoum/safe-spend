@@ -133,6 +133,9 @@ export async function getCategories() {
         select: { transactions: true },
       },
     },
+    orderBy: {
+      name: "asc",
+    },
   });
 
   return {
