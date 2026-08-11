@@ -16,10 +16,13 @@ import CreateCategory from "@/components/dialog/create-category";
 import Transactions from "../transactions";
 import { getTranslations } from "next-intl/server";
 import Bookmarks from "./components/bookmarks";
+import { MultiDialog } from "@/components/dialog/multi-dialog";
 
 export type CategoryOverview = {
   category: Category;
   transactionsCount: number;
+  allowMakeCategorySingleType: boolean;
+  targetType: "income" | "expense" | null;
 }
 
 export default async function Dashboard({ categoryOverview }: { categoryOverview?: CategoryOverview | null }) {
@@ -56,6 +59,17 @@ export default async function Dashboard({ categoryOverview }: { categoryOverview
 
       {categoryOverview?.category?.id &&
         <div className="flex flex-wrap items-center gap-3 w-full mt-5">
+          {categoryOverview?.category?.type !== "multi"
+            ? <MultiDialog
+              id={categoryOverview?.category?.id}
+            />
+            : categoryOverview?.allowMakeCategorySingleType
+              ? <MultiDialog
+                id={categoryOverview?.category?.id}
+                targetType={categoryOverview?.targetType}
+              />
+              : null
+          }
           <CreateCategory
             type={categoryOverview.category.type as "income" | "expense"}
             trigger={<Button variant="default" className="primaryBtn flex-1 py-5 uppercase">{t("update")}</Button>}

@@ -9,7 +9,7 @@ export default async function CategoryOverviewData({ categoryOverview }: { categ
             <span className="text-7xl" >{categoryOverview.category.icon}</span>
             <div className="flex flex-col w-full truncate">
                 <p className={cn("font-bold w-full truncate",
-                    categoryOverview.category.type === 'income' ? 'text-income' : 'text-expense'
+                    categoryOverview.category.type === 'income' ? 'text-income' : categoryOverview.category.type === 'expense' ? 'text-expense' : 'text-safeSpend-primary'
                 )}>{categoryOverview.category.name}</p>
                 <small className="text-gray-500">({categoryOverview.transactionsCount} {categoryOverview.transactionsCount > 1 ? t("transactions") : t("Transaction")})</small>
             </div>

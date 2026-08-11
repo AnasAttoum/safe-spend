@@ -76,7 +76,11 @@
     "update": "Update Category",
     "delete": "Delete Category",
     "incomes": "Incomes Categories",
-    "expences": "Expences Categories"
+    "expences": "Expences Categories",
+    "make-it-multi": "Multiple types",
+    "make-it-multi-desc": "Allows this category to contain both income and expense transactions.",
+    "make-it-single": "Single Type",
+    "make-it-single-desc": "Restricts this category to either income or expense transactions."
   },
   "labels": {
     "title": "Title",
@@ -162,7 +166,7 @@
   "removed-successfully": "removed successfully",
   "deleting": "Deleting",
   "removing": "Removing",
-  "delete-dialog":{
+  "delete-dialog": {
     "category": "Category",
     "transaction": "Transaction",
     "exchange": "Exchange",

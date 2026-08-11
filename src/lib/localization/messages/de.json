@@ -76,7 +76,11 @@
     "update": "Kategorie aktualisieren",
     "delete": "Kategorie löschen",
     "incomes": "Einnahmekategorien",
-    "expences": "Ausgabekategorien"
+    "expences": "Ausgabekategorien",
+    "make-it-multi": "Mehrere Typen",
+    "make-it-multi-desc": "Ermöglicht es dieser Kategorie, sowohl Einnahmen als auch Ausgaben zu enthalten.",
+    "make-it-single": "Ein einziger Typ",
+    "make-it-single-desc": "Beschränkt diese Kategorie auf entweder Einnahmen oder Ausgaben."
   },
   "labels": {
     "title": "Titel",

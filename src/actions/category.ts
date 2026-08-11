@@ -106,6 +106,7 @@ export async function getCategory(form: deleteSchemaType) {
   });
 
   let transactionsCount = 0;
+  let hasMultipleTypes;
   if (category) {
     const count = await prisma.transaction.aggregate({
       where: {
@@ -115,9 +116,28 @@ export async function getCategory(form: deleteSchemaType) {
       _count: { _all: true },
     });
     transactionsCount = count._count._all;
-  }
 
-  return category ? { category, transactionsCount } : null;
+    hasMultipleTypes = await prisma.transaction.groupBy({
+      by: ["type"],
+      where: {
+        userId: user.id,
+        categoryId: id,
+      },
+    });
+  }
+  const allowMakeCategorySingleType =
+    (hasMultipleTypes || [])?.length === 1 && transactionsCount > 0;
+
+  return category
+    ? {
+        category,
+        transactionsCount,
+        allowMakeCategorySingleType,
+        targetType: allowMakeCategorySingleType
+          ? hasMultipleTypes?.[0]?.type
+          : null,
+      }
+    : null;
 }
 
 export async function getCategories() {
@@ -139,8 +159,12 @@ export async function getCategories() {
   });
 
   return {
-    income: categories.filter(({ type }) => type === "income"),
-    expense: categories.filter(({ type }) => type === "expense"),
+    income: categories.filter(
+      ({ type }) => type === "income" || type === "multi",
+    ),
+    expense: categories.filter(
+      ({ type }) => type === "expense" || type === "multi",
+    ),
   };
 }
 export type TypedCategoriesType = Awaited<ReturnType<typeof getCategories>>;
@@ -175,6 +199,77 @@ export async function updateCategory(form: updateCategoryType) {
       name,
       type,
       icon,
+    },
+  });
+
+  revalidatePath("/");
+  return { data: cat };
+}
+
+export async function makeCategoryMulti(form: string) {
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const id = parsedBody.data;
+
+  const category = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+  if (!category) {
+    return { error: t("category-not-found") };
+  }
+
+  const cat = await prisma.category.update({
+    where: {
+      userId: user.id,
+      id,
+    },
+    data: {
+      type: "multi",
+    },
+  });
+
+  revalidatePath("/");
+  return { data: cat };
+}
+
+export async function makeCategorySingle(
+  form: string,
+  targetType: "income" | "expense",
+) {
+  const t = await getTranslations("errors");
+  const parsedBody = deleteSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const id = parsedBody.data;
+
+  const category = await prisma.category.findFirst({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+  if (!category) {
+    return { error: t("category-not-found") };
+  }
+
+  const cat = await prisma.category.update({
+    where: {
+      userId: user.id,
+      id,
+    },
+    data: {
+      type: targetType,
     },
   });
 

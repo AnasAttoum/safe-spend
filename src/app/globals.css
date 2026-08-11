@@ -226,14 +226,18 @@ body {
 }
 
 .incomeBtn {
-  @apply bg-gradient-to-r from-income to-income-dark text-white hover:from-income-dark hover:text-white border-none;
+  @apply bg-linear-to-r from-income to-income-dark text-white hover:from-income-dark hover:text-white border-none;
 }
 .expenseBtn {
-  @apply bg-gradient-to-r from-expense to-expense-dark text-white hover:from-expense-dark hover:text-white border-none;
+  @apply bg-linear-to-r from-expense to-expense-dark text-white hover:from-expense-dark hover:text-white border-none;
 }
 
 .primaryBtn {
-  @apply bg-gradient-to-r from-safeSpend-light to-safeSpend-primary text-white hover:from-safeSpend-primary hover:text-white border-none;
+  @apply bg-linear-to-r from-safeSpend-light to-safeSpend-primary text-white hover:from-safeSpend-primary hover:text-white border-none;
+}
+
+.multiBtn {
+  @apply bg-linear-to-r from-income via-safeSpend-light to-expense  text-white hover:from-safeSpend-primary hover:to-safeSpend-primary hover:text-white border-none;
 }
 
 .mask-gradient {

@@ -113,7 +113,7 @@ export default function TransactionsTable({ from, to, categoryOverview }: Props)
             options={currenciesOptions}
           />
         )}
-        {!!data?.length && table.getColumn("type") && (
+        {!!data?.length && table.getColumn("type") && categoryOverview?.category?.type !== "multi" && (
           <DataTableFacetedFilter
             title="type"
             column={table.getColumn("type")}

@@ -61,7 +61,7 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="category.Category" />
     ),
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    filterFn: (row, id, value) => value === row.getValue(id),
     cell: ({ row }) => (
       <div>
         {row.original.Category.icon} {row.original.Category.name}
