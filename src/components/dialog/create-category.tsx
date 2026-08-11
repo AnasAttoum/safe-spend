@@ -158,6 +158,9 @@ export default function CreateCategory({
               {isPending ? t("loading") : category ? t("update") : t("create")}
             </Button>
           </DialogFooter>
+          <DialogDescription className="text-xs">
+            {tCategory("make-it-multi-info")}
+          </DialogDescription>
         </FullForm>
       </DialogContent>
     </Dialog>

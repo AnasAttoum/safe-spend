@@ -134,7 +134,7 @@ export async function getCategory(form: deleteSchemaType) {
         transactionsCount,
         allowMakeCategorySingleType,
         targetType: allowMakeCategorySingleType
-          ? hasMultipleTypes?.[0]?.type
+          ? ((hasMultipleTypes?.[0]?.type as "income" | "expense") ?? null)
           : null,
       }
     : null;

@@ -80,7 +80,8 @@
     "make-it-multi": "Multiple types",
     "make-it-multi-desc": "Allows this category to contain both income and expense transactions.",
     "make-it-single": "Single Type",
-    "make-it-single-desc": "Restricts this category to either income or expense transactions."
+    "make-it-single-desc": "Restricts this category to either income or expense transactions.",
+    "make-it-multi-info": "You can change this category to a multi-type category later on the category details page."
   },
   "labels": {
     "title": "Title",

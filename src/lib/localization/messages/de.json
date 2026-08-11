@@ -80,7 +80,8 @@
     "make-it-multi": "Mehrere Typen",
     "make-it-multi-desc": "Ermöglicht es dieser Kategorie, sowohl Einnahmen als auch Ausgaben zu enthalten.",
     "make-it-single": "Ein einziger Typ",
-    "make-it-single-desc": "Beschränkt diese Kategorie auf entweder Einnahmen oder Ausgaben."
+    "make-it-single-desc": "Beschränkt diese Kategorie auf entweder Einnahmen oder Ausgaben.",
+    "make-it-multi-info": "Sie können diese Kategorie später auf der Detailseite für Kategorien als Mehrfach-Typ festlegen."
   },
   "labels": {
     "title": "Titel",
