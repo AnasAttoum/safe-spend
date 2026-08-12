@@ -31,7 +31,7 @@ export default function Overview({ currency, categoryId }: { currency: string; c
       </div>
 
       <div className="flex flex-col gap-5">
-        {!categoryId && <TotalBalanceCards />}
+        <TotalBalanceCards key={categoryId} categoryId={categoryId} />
 
         <StatisticCards from={dateRange.from} to={dateRange.to} currency={currency} categoryId={categoryId} />
 

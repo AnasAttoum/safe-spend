@@ -8,7 +8,7 @@ export async function getHistory(
   currency: string | undefined = undefined,
   year: number | undefined = undefined,
   month: number | undefined = undefined,
-  categoryId: string | null | undefined = undefined
+  categoryId: string | null | undefined = undefined,
 ) {
   const hasCategoryId =
     categoryId &&
@@ -63,146 +63,173 @@ export async function getHistory(
     },
   });
 
-  const groupedTransactions = transactions.reduce((acc, t) => {
-    const monthInDate = t.date.getUTCMonth(); // getMonth() gives 0-11
-    const dayInDate = t.date.getUTCDate() - 1; // getDate() gives 1 to 31
-    const yeaInDate = t.date.getFullYear();
+  const groupedTransactions = transactions.reduce(
+    (acc, t) => {
+      const monthInDate = t.date.getUTCMonth(); // getMonth() gives 0-11
+      const dayInDate = t.date.getUTCDate() - 1; // getDate() gives 1 to 31
+      const yeaInDate = t.date.getFullYear();
 
-    if (monthHistory) {
-      const index = monthInDate.toString() + dayInDate.toString() + t.currency;
+      if (monthHistory) {
+        const index =
+          monthInDate.toString() + dayInDate.toString() + t.currency;
 
-      if (!acc[index])
-        acc[index] = {
-          year: yeaInDate,
-          month: monthInDate,
-          day: dayInDate,
-          income: 0,
-          expense: 0,
-          currency: t.currency,
-        };
-      if (t.type === "income") acc[index].income += t.amount;
-      else acc[index].expense += t.amount;
-    } else {
-      const index = monthInDate.toString() + t.currency;
+        if (!acc[index])
+          acc[index] = {
+            year: yeaInDate,
+            month: monthInDate,
+            day: dayInDate,
+            income: 0,
+            expense: 0,
+            currency: t.currency,
+          };
+        if (t.type === "income") acc[index].income += t.amount;
+        else acc[index].expense += t.amount;
+      } else {
+        const index = monthInDate.toString() + t.currency;
 
-      if (!acc[index])
-        acc[index] = {
-          year: yeaInDate,
-          month: monthInDate,
-          income: 0,
-          expense: 0,
-          currency: t.currency,
-        };
-      if (t.type === "income") acc[index].income += t.amount;
-      else acc[index].expense += t.amount;
-    }
+        if (!acc[index])
+          acc[index] = {
+            year: yeaInDate,
+            month: monthInDate,
+            income: 0,
+            expense: 0,
+            currency: t.currency,
+          };
+        if (t.type === "income") acc[index].income += t.amount;
+        else acc[index].expense += t.amount;
+      }
 
-    return acc;
-  }, {} as Record<string, { year: number; month: number; day?: number; income: number; expense: number; currency: string }>);
+      return acc;
+    },
+    {} as Record<
+      string,
+      {
+        year: number;
+        month: number;
+        day?: number;
+        income: number;
+        expense: number;
+        currency: string;
+      }
+    >,
+  );
   const finalTransactions = Object.values(groupedTransactions).sort(
-    (a, b) => a.month - b.month
+    (a, b) => a.month - b.month,
   );
 
-  const groupedExchanges = exchanges.reduce((acc, e) => {
-    const monthInDate = e.date.getUTCMonth(); // getMonth() gives 0-11
-    const dayInDate = e.date.getUTCDate() - 1; // getDate() gives 1 to 31
-    const yeaInDate = e.date.getFullYear();
+  const groupedExchanges = exchanges.reduce(
+    (acc, e) => {
+      const monthInDate = e.date.getUTCMonth(); // getMonth() gives 0-11
+      const dayInDate = e.date.getUTCDate() - 1; // getDate() gives 1 to 31
+      const yeaInDate = e.date.getFullYear();
 
-    if (monthHistory) {
-      const index = currency
-        ? monthInDate.toString() + dayInDate.toString() + currency
-        : "ERROR";
+      if (monthHistory) {
+        const index = currency
+          ? monthInDate.toString() + dayInDate.toString() + currency
+          : "ERROR";
 
-      const indexExchangeCurrency = currency
-        ? "ERROR"
-        : monthInDate.toString() + dayInDate.toString() + e.exchangeCurrency;
-      const indexTargetCurrency = currency
-        ? "ERROR"
-        : monthInDate.toString() + dayInDate.toString() + e.targetCurrency;
+        const indexExchangeCurrency = currency
+          ? "ERROR"
+          : monthInDate.toString() + dayInDate.toString() + e.exchangeCurrency;
+        const indexTargetCurrency = currency
+          ? "ERROR"
+          : monthInDate.toString() + dayInDate.toString() + e.targetCurrency;
 
-      if (currency) {
-        if (!acc[index])
-          acc[index] = {
-            year: yeaInDate,
-            month: monthInDate,
-            day: dayInDate,
-            income: 0,
-            expense: 0,
-            currency,
-          };
-        if (e.targetCurrency === currency)
-          acc[index].income += e.collectedAmount;
-        if (e.exchangeCurrency === currency)
-          acc[index].expense += e.exchangeAmount;
+        if (currency) {
+          if (!acc[index])
+            acc[index] = {
+              year: yeaInDate,
+              month: monthInDate,
+              day: dayInDate,
+              income: 0,
+              expense: 0,
+              currency,
+            };
+          if (e.targetCurrency === currency)
+            acc[index].income += e.collectedAmount;
+          if (e.exchangeCurrency === currency)
+            acc[index].expense += e.exchangeAmount;
+        } else {
+          if (!acc[indexExchangeCurrency])
+            acc[indexExchangeCurrency] = {
+              year: yeaInDate,
+              month: monthInDate,
+              day: dayInDate,
+              income: 0,
+              expense: 0,
+              currency: e.exchangeCurrency,
+            };
+          if (!acc[indexTargetCurrency])
+            acc[indexTargetCurrency] = {
+              year: yeaInDate,
+              month: monthInDate,
+              day: dayInDate,
+              income: 0,
+              expense: 0,
+              currency: e.targetCurrency,
+            };
+          acc[indexTargetCurrency].income += e.collectedAmount;
+          acc[indexExchangeCurrency].expense += e.exchangeAmount;
+        }
       } else {
-        if (!acc[indexExchangeCurrency])
-          acc[indexExchangeCurrency] = {
-            year: yeaInDate,
-            month: monthInDate,
-            day: dayInDate,
-            income: 0,
-            expense: 0,
-            currency: e.exchangeCurrency,
-          };
-        if (!acc[indexTargetCurrency])
-          acc[indexTargetCurrency] = {
-            year: yeaInDate,
-            month: monthInDate,
-            day: dayInDate,
-            income: 0,
-            expense: 0,
-            currency: e.targetCurrency,
-          };
-        acc[indexTargetCurrency].income += e.collectedAmount;
-        acc[indexExchangeCurrency].expense += e.exchangeAmount;
+        const index = currency ? monthInDate.toString() + currency : "ERROR";
+
+        const indexExchangeCurrency = currency
+          ? "ERROR"
+          : monthInDate.toString() + e.exchangeCurrency;
+        const indexTargetCurrency = currency
+          ? "ERROR"
+          : monthInDate.toString() + e.targetCurrency;
+
+        if (currency) {
+          if (!acc[index])
+            acc[index] = {
+              year: yeaInDate,
+              month: monthInDate,
+              income: 0,
+              expense: 0,
+              currency,
+            };
+          if (e.targetCurrency === currency)
+            acc[index].income += e.collectedAmount;
+          if (e.exchangeCurrency === currency)
+            acc[index].expense += e.exchangeAmount;
+        } else {
+          if (!acc[indexExchangeCurrency])
+            acc[indexExchangeCurrency] = {
+              year: yeaInDate,
+              month: monthInDate,
+              income: 0,
+              expense: 0,
+              currency: e.exchangeCurrency,
+            };
+          if (!acc[indexTargetCurrency])
+            acc[indexTargetCurrency] = {
+              year: yeaInDate,
+              month: monthInDate,
+              income: 0,
+              expense: 0,
+              currency: e.targetCurrency,
+            };
+          acc[indexTargetCurrency].income += e.collectedAmount;
+          acc[indexExchangeCurrency].expense += e.exchangeAmount;
+        }
       }
-    } else {
-      const index = currency ? monthInDate.toString() + currency : "ERROR";
 
-      const indexExchangeCurrency = currency
-        ? "ERROR"
-        : monthInDate.toString() + e.exchangeCurrency;
-      const indexTargetCurrency = currency
-        ? "ERROR"
-        : monthInDate.toString() + e.targetCurrency;
-
-      if (currency) {
-        if (!acc[index])
-          acc[index] = {
-            year: yeaInDate,
-            month: monthInDate,
-            income: 0,
-            expense: 0,
-            currency,
-          };
-        if (e.targetCurrency === currency)
-          acc[index].income += e.collectedAmount;
-        if (e.exchangeCurrency === currency)
-          acc[index].expense += e.exchangeAmount;
-      } else {
-        if (!acc[indexExchangeCurrency])
-          acc[indexExchangeCurrency] = {
-            year: yeaInDate,
-            month: monthInDate,
-            income: 0,
-            expense: 0,
-            currency: e.exchangeCurrency,
-          };
-        if (!acc[indexTargetCurrency])
-          acc[indexTargetCurrency] = {
-            year: yeaInDate,
-            month: monthInDate,
-            income: 0,
-            expense: 0,
-            currency: e.targetCurrency,
-          };
-        acc[indexTargetCurrency].income += e.collectedAmount;
-        acc[indexExchangeCurrency].expense += e.exchangeAmount;
+      return acc;
+    },
+    {} as Record<
+      string,
+      {
+        year: number;
+        month: number;
+        day?: number;
+        income: number;
+        expense: number;
+        currency: string;
       }
-    }
-
-    return acc;
-  }, {} as Record<string, { year: number; month: number; day?: number; income: number; expense: number; currency: string }>);
+    >,
+  );
   const finalExchanges = hasCategoryId
     ? []
     : Object.values(groupedExchanges).sort((a, b) => a.month - b.month);
@@ -223,17 +250,17 @@ export async function getHistory(
   const history: HistoryData[] = [];
   for (let i = 0; i < (monthHistory ? daysInMonth : 12); i++) {
     const monthTransaction = finalTransactions.filter((row) =>
-      monthHistory ? row.day === i : row.month === i
+      monthHistory ? row.day === i : row.month === i,
     );
 
     const monthExchange = finalExchanges.filter((row) =>
-      monthHistory ? row.day === i : row.month === i
+      monthHistory ? row.day === i : row.month === i,
     );
 
     if (!!monthExchange.length) {
       monthExchange.forEach((exchange) => {
         const found = monthTransaction.find(
-          ({ currency }) => currency === exchange.currency
+          ({ currency }) => currency === exchange.currency,
         );
 
         if (found) {
@@ -252,7 +279,7 @@ export async function getHistory(
     ? Array.from({ length: daysInMonth }, (_, i) => {
         const day = i;
         const existing = history.find(
-          (h) => h.year === year && h.month === month && h.day === day
+          (h) => h.year === year && h.month === month && h.day === day,
         );
 
         return (
@@ -272,7 +299,7 @@ export async function getHistory(
             // Try to find a matching transaction
             const existing = history.find(
               (h) =>
-                h.year === year && h.month === month && h.currency === currency
+                h.year === year && h.month === month && h.currency === currency,
             );
 
             return (
@@ -284,14 +311,19 @@ export async function getHistory(
                 currency,
               }
             );
-          })
-        )
+          }),
+        ),
       );
   return completeEmptyMissingData;
 }
 
-export const getHistoryData = async (userId: string) => {
-  const result = (await getHistory(userId)) || [];
+export const getHistoryData = async (
+  userId: string,
+  categoryId: string | null,
+) => {
+  const result =
+  (await getHistory(userId, undefined, undefined, undefined, categoryId)) ||
+  [];
   if (!result || result.length === 0)
     return { uniqeCurrencies: [], allCurrenciesBalance: [] };
 
@@ -319,27 +351,28 @@ export const getHistoryData = async (userId: string) => {
           if (year === currentYear && month > currentMonth) return;
 
           const endOfMonth = new Date(
-            Date.UTC(year, month + 1, 0, 23, 59, 59, 999)
+            Date.UTC(year, month + 1, 0, 23, 59, 59, 999),
           );
           // const endOfMonth = lastDayOfMonth(new Date(year, month));
           const balanceOfThisMonth = await getBalanceStats(
             userId,
             undefined,
-            endOfMonth
+            endOfMonth,
+            categoryId
           );
 
           const stepData: Record<string, number> = {};
           uniqeCurrencies.forEach((curr) => {
             const found = balanceOfThisMonth.find(
-              ({ currency }) => currency === curr
+              ({ currency }) => currency === curr,
             ) || { income: 0, expense: 0 };
             stepData[curr] = found.income - found.expense;
           });
 
           allCurrenciesBalance.push({ year, month, ...stepData });
-        })
+        }),
       );
-    })
+    }),
   );
 
   return {

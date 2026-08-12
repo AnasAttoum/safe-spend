@@ -4,14 +4,17 @@ import { redirect } from "next/navigation";
 import { getHistoryData } from "@/lib/get-history";
 import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request: Request) {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
+
+  const { searchParams } = new URL(request.url);
+  const categoryId = searchParams.get("categoryId");
 
   const userData = await prisma.user.findUnique({ where: { userId: user.id } });
   if (!userData) redirect(routes.currency);
 
-  const { allCurrenciesBalance } = await getHistoryData(user.id);
+  const { allCurrenciesBalance } = await getHistoryData(user.id, categoryId);
 
   if (!allCurrenciesBalance.length)
     return Response.json({
