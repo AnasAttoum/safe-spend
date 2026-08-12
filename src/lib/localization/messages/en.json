@@ -50,6 +50,8 @@
     "transaction": "transaction",
     "Transaction": "Transaction",
     "transactions": "Transactions",
+    "increase": "Increase amount",
+    "increase-info": "Enter the amount to add (NOT THE TOTAL AMOUNT) and it will be automatically added to the transaction total.",
     "create-income": "Create new <span>income transaction</span>",
     "create-expense": "Create new <span>expense transaction</span>",
     "creating": "Creating transaction...",

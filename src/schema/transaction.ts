@@ -2,7 +2,9 @@ import { currencies } from "@/config/currencies";
 import { _Translator } from "next-intl";
 import { z } from "zod";
 
-export const createTransactionSchema = (t: _Translator<Record<string, any>, "errors">) =>
+export const createTransactionSchema = (
+  t: _Translator<Record<string, any>, "errors">,
+) =>
   z.object({
     amount: z.coerce
       .number({
@@ -16,18 +18,24 @@ export const createTransactionSchema = (t: _Translator<Record<string, any>, "err
       .string()
       .min(1, { message: t("required") })
       .max(500, { message: t("max-500") }),
-    description: z.string().max(500, { message: t("max-500") }).optional(),
+    description: z
+      .string()
+      .max(500, { message: t("max-500") })
+      .optional(),
     date: z.coerce.date(),
-    category: z.object({
-      id: z.string().min(1, { message: t("required") }),
-      name: z
-        .string()
-        .min(1, { message: t("required") })
-        .max(100, { message: t("max-100") }),
-      icon: z.string().max(20, { message: t("max-20") }),
-    }, { 
-      required_error: t("required") 
-    }),
+    category: z.object(
+      {
+        id: z.string().min(1, { message: t("required") }),
+        name: z
+          .string()
+          .min(1, { message: t("required") })
+          .max(100, { message: t("max-100") }),
+        icon: z.string().max(20, { message: t("max-20") }),
+      },
+      {
+        required_error: t("required"),
+      },
+    ),
     type: z.union([z.literal("income"), z.literal("expense")]),
     currency: z.custom((value) => {
       const found = currencies.some((currency) => currency.value === value);
@@ -42,7 +50,10 @@ export type createTransactionType = z.infer<
   ReturnType<typeof createTransactionSchema>
 >;
 
-export const updateTransactionSchema = (t: _Translator<Record<string, any>, "errors">) =>
+
+export const updateTransactionSchema = (
+  t: _Translator<Record<string, any>, "errors">,
+) =>
   createTransactionSchema(t).extend({
     id: z
       .string()
@@ -52,4 +63,13 @@ export const updateTransactionSchema = (t: _Translator<Record<string, any>, "err
 
 export type updateTransactionType = z.infer<
   ReturnType<typeof updateTransactionSchema>
+>;
+
+
+export const moreTransactionSchema = (
+  t: _Translator<Record<string, any>, "errors">,
+) => createTransactionSchema(t).pick({ amount: true });
+
+export type moreTransactionType = z.infer<
+  ReturnType<typeof moreTransactionSchema>
 >;

@@ -50,6 +50,8 @@
     "transaction": "Transaktion",
     "Transaction": "Transaktion",
     "transactions": "Transaktionen",
+    "increase": "Betrag erhöhen",
+    "increase-info": "Geben Sie den hinzuzufügenden Betrag ein (NICHT DEN GESAMTBETRAG). Dieser wird automatisch zum Transaktionsbetrag addiert.",
     "create-income": "Neue <span>Einnahmentransaktion</span> erstellen",
     "create-expense": "Neue <span>Ausgabentransaktion</span> erstellen",
     "creating": "Transaktion wird erstellt...",

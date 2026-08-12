@@ -6,6 +6,8 @@ import { deleteSchema, deleteSchemaType } from "@/schema/category";
 import {
   createTransactionSchema,
   createTransactionType,
+  moreTransactionSchema,
+  moreTransactionType,
   updateTransactionSchema,
   updateTransactionType,
 } from "@/schema/transaction";
@@ -344,4 +346,36 @@ export async function updateTransaction(form: updateTransactionType) {
     //   },
     // }),
   ]);
+}
+
+export async function moreTransaction(
+  form: moreTransactionType,
+  transactionId: string,
+) {
+  const t = await getTranslations("errors");
+  const parsedBody = moreTransactionSchema(t).safeParse(form);
+  if (!parsedBody.success) return { error: t("bad-request") };
+
+  const user = await currentUser();
+  if (!user) redirect(routes.signIn);
+
+  const { amount } = parsedBody.data;
+
+  const transactionRow = await prisma.transaction.findFirst({
+    where: {
+      userId: user.id,
+      id: transactionId,
+    },
+  });
+  if (!transactionRow) return { error: t("transaction-not-found") };
+
+  await prisma.transaction.update({
+    where: {
+      userId: user.id,
+      id: transactionId,
+    },
+    data: {
+      amount: transactionRow.amount + amount,
+    },
+  });
 }

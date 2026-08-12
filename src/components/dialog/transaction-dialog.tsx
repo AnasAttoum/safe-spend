@@ -147,7 +147,7 @@ export function TransactionDialog({ trigger, type, currency, transaction, closeM
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>
-            {isEditing ? t("update") : tTransaction.rich("create-" + type, {
+            {isEditing ? <div className={`text-${type}`}>{t("update")}</div> : tTransaction.rich("create-" + type, {
               span: (chunks) => (
                 <span className={type === "income" ? "text-income" : "text-expense"}>
                   {chunks}
