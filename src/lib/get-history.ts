@@ -319,7 +319,7 @@ export async function getHistory(
 
 export const getHistoryData = async (
   userId: string,
-  categoryId: string | null,
+  categoryId?: string | null,
 ) => {
   const result =
   (await getHistory(userId, undefined, undefined, undefined, categoryId)) ||
