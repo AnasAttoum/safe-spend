@@ -14,13 +14,13 @@ import {
   CommandList,
 } from "../ui/command";
 import CreateCategory from "../dialog/create-category";
-import Loading from "../loading/loading";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import CategoryRow from "./row/category-row";
 import { queryKey } from "@/config/query-key";
 import { SimpleCategory } from "@/lib/types";
 import { useTranslations } from "next-intl";
+import LoadingWheel from "../loading/loading-wheel";
 
 type Props = {
   type: "income" | "expense";
@@ -58,7 +58,7 @@ export default function SelectCategory({ type, setValueTransaction, selectedCate
             setOpen={setOpen}
           />
           {isLoading ? (
-            <Loading />
+            <LoadingWheel />
           ) : (
             <CommandList>
               {data && (
