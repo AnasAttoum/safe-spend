@@ -399,7 +399,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
             </div>
           </Button>
         </PopoverTrigger>
-        <PopoverContent align={align} className="w-auto">
+        <PopoverContent align={align} className="w-auto max-h-[calc(var(--radix-popover-content-available-height)-6px)] overflow-scroll">
           <div className="flex py-2">
             <div className="flex">
               <div className="flex flex-col">
@@ -521,7 +521,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                       setPreset(value);
                     }}
                   >
-                    <SelectTrigger className="w-[180px] mx-auto mb-2">
+                    <SelectTrigger className="w-45 mx-auto mb-2">
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -555,8 +555,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               </div>
             </div>
             {!isSmallScreen && (
-              <div className="flex flex-col items-end gap-1 pr-2 pl-6 pb-6">
-                <div className="flex w-full flex-col items-end gap-1 pr-2 pl-6 pb-6">
+              <div className="flex flex-col items-end gap-1 pr-2 pl-6">
+                <div className="flex w-full flex-col items-end gap-1 pr-2 pl-6 pb-3">
                   {PRESETS.map((preset) => (
                     <PresetButton
                       key={preset.name}
@@ -569,33 +569,35 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               </div>
             )}
           </div>
-          <div className="flex justify-end gap-2 py-2 pr-4">
-            <Button
-              onClick={() => {
-                setIsOpen(false);
-                resetValues();
-              }}
-              variant="ghost"
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              onClick={() => {
-                setIsOpen(false);
-                if (
-                  !areRangesEqual(range, openedRangeRef.current || undefined) ||
-                  !areRangesEqual(
-                    rangeCompare,
-                    openedRangeCompareRef.current || undefined
-                  )
-                ) {
-                  onUpdate?.({ range, rangeCompare });
-                }
-              }}
-              className="primaryBtn"
-            >
-              {t("apply")}
-            </Button>
+          <div className="fixed bottom-0 left-0">
+            <div className="flex justify-end gap-2 p-2 bg-accent/50 backdrop-blur-xs rounded-bl-md rounded-tr-md border-b border-l">
+              <Button
+                onClick={() => {
+                  setIsOpen(false);
+                  resetValues();
+                }}
+                variant="ghost"
+              >
+                {t("cancel")}
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsOpen(false);
+                  if (
+                    !areRangesEqual(range, openedRangeRef.current || undefined) ||
+                    !areRangesEqual(
+                      rangeCompare,
+                      openedRangeCompareRef.current || undefined
+                    )
+                  ) {
+                    onUpdate?.({ range, rangeCompare });
+                  }
+                }}
+                className="primaryBtn"
+              >
+                {t("apply")}
+              </Button>
+            </div>
           </div>
         </PopoverContent>
       </Popover>
