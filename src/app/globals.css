@@ -249,6 +249,9 @@ body {
   @apply bg-gray-100 dark:bg-black/40;
 }
 
+.deleteSimpleBtn {
+  @apply cursor-pointer text-white bg-red-700 hover:bg-red-800;
+}
 .deleteBtn {
   @apply cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase;
 }

@@ -19,8 +19,9 @@ import { routes } from "@/config/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { toast } from "sonner";
+import { useCountDown } from "../count-down";
 
 type Props = {
   item: "category" | "transaction" | "exchange" | "bookmark";
@@ -32,8 +33,10 @@ type Props = {
 export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props) {
   const t = useTranslations();
   const queryClient = useQueryClient();
-
   const router = useRouter();
+
+  const [open, setOpen] = useState(false);
+  const countDown = useCountDown(7, open)
 
   const { mutate } = useMutation({
     mutationFn: async (formId: string) => {
@@ -68,7 +71,7 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
   });
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -82,13 +85,14 @@ export function DeleteDialog({ item, trigger, id, closeMenu = () => { } }: Props
             {t("cancel")}
           </AlertDialogCancel>
           <AlertDialogAction
-            className="cursor-pointer"
+            className="deleteSimpleBtn"
             onClick={() => {
               toast.loading(`${item === "bookmark" ? t("removing") : t("deleting")} ${t(`delete-dialog.${item}`)}...`, { id });
               mutate(id);
             }}
+            disabled={countDown > 0}
           >
-            {t("continue")}
+            {`${t("delete")} ${countDown > 0 ? `(${countDown})` : ""}`}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
