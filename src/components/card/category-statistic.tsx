@@ -41,6 +41,7 @@ export default function CategoryStatistic({ type, data }: Props) {
               <Link
                 key={index}
                 href={{ pathname: '/', query: { categoryId: el.categoryId } }}
+                scroll={true}
                 className="flex flex-col gap-2 p-4 hover:bg-gray-100 dark:hover:bg-neutral-950"
               >
                 <div className="flex justify-between">
