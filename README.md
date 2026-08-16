@@ -123,12 +123,12 @@ Safe Spend follows a modern full-stack architecture built around the Next.js App
                    │
                    ▼
 ┌──────────────────────────────────────┐
-│          Application Layer            │
+│          Application Layer           │
 │                                      │
-│       Next.js App Router             │
-│       Server Components              │
-│       Server-side logic              │
-│       API / data operations          │
+│         Next.js App Router           │
+│         Server Components            │
+│         Server-side logic            │
+│        API / data operations         │
 └──────────────────┬───────────────────┘
                    │
           ┌────────┴────────┐
