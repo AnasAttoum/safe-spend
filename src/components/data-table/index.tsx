@@ -23,7 +23,7 @@ export default function DataTable({
   const t = useTranslations();
   
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border backdrop-blur-md">
       <SkeletonWrapper isLoading={isLoading}>
         <Table>
           <TableHeader className="bg-safeSpend-secondary h-14">

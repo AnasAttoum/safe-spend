@@ -256,6 +256,11 @@ body {
   @apply cursor-pointer text-white bg-red-700 hover:bg-red-800 my-5 py-5 px-10 uppercase;
 }
 
+.glass {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 .clamp {
   display: -webkit-box;
   line-clamp: 1;

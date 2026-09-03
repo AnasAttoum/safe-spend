@@ -16,7 +16,7 @@ export default async function Head({ name, currency }: Props) {
   const tDashboard = await getTranslations("dashboard");
 
   return (
-    <div className="text-3xl flex flex-wrap justify-between gap-3 items-center border-b bg-card px-5 py-2">
+    <div className="text-3xl flex flex-wrap justify-between gap-3 items-center border-b bg-card/50 backdrop-blur-md px-5 py-2">
       <div className="flex gap-3 items-center">
         {tDashboard("hi")}, <strong>{name}!</strong> <SmileIcon size={50} />
       </div>

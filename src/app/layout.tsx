@@ -76,6 +76,13 @@ export default async function RootLayout({
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            style={{
+              backgroundImage: "url('/assets/background.svg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
+            }}
           >
             <ThemeProvider
               attribute="class"
