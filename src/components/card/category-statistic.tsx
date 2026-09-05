@@ -21,7 +21,7 @@ export default function CategoryStatistic({ type, data }: Props) {
         {t(`category.${type}-by`)}:
       </h3>
       {!filteredData.length ? (
-        <div className="flex flex-col justify-center items-center h-full px-5">
+        <div className="flex flex-col justify-center items-center text-center h-full px-5">
           <div>{t("no-data-for-selected-period")}</div>
           <div className="text-gray-500">
             {t("try-diff-period-or-add-new-transactions")}

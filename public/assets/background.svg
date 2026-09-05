@@ -11,7 +11,7 @@
     <radialGradient id="blueGlow"
       cx="0" cy="0" r="1"
       gradientUnits="userSpaceOnUse"
-      gradientTransform="translate(650 170) rotate(120) scale(130 520)">
+      gradientTransform="translate(1050 170) rotate(120) scale(2000 1000)">
       <stop offset="0" stop-color="#1677FF" stop-opacity=".20"/>
       <stop offset=".45" stop-color="#0B4DA8" stop-opacity=".0"/>
       <stop offset="1" stop-color="#06152A" stop-opacity="0"/>
