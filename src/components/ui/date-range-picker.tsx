@@ -399,8 +399,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
             </div>
           </Button>
         </PopoverTrigger>
-        <PopoverContent align={align} className="w-auto max-h-[calc(var(--radix-popover-content-available-height)-6px)] overflow-scroll">
-          <div className="flex py-2">
+        <PopoverContent align={align} className="w-auto max-h-[calc(var(--radix-popover-content-available-height)-6px)] overflow-auto p-0!">
+          <div className="flex py-2 p-5">
             <div className="flex">
               <div className="flex flex-col">
                 <div className="flex flex-col lg:flex-row gap-2 px-3 justify-end items-center lg:items-start pb-4 lg:pb-0">
@@ -569,8 +569,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               </div>
             )}
           </div>
-          <div className="fixed bottom-0 left-0">
-            <div className="flex justify-end gap-2 p-2 bg-accent/50 backdrop-blur-xs rounded-bl-md rounded-tr-md border-b border-l">
+          <div className="sticky flex bottom-0 left-0">
+            <div className="flex justify-end gap-2 p-2 bg-accent/50 backdrop-blur-md rounded-bl-md rounded-tr-md border-b border-l">
               <Button
                 onClick={() => {
                   setIsOpen(false);
