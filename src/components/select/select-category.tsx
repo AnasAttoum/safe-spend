@@ -49,7 +49,10 @@ export default function SelectCategory({ type, setValueTransaction, selectedCate
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 h-80">
+      <PopoverContent
+        className="w-80 h-80"
+        onOpenAutoFocus={(event: Event) => { event.preventDefault(); }}
+      >
         <Command>
           <CommandInput placeholder={t("search")} className="h-9" />
           <CreateCategory
