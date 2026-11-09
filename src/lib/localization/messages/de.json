@@ -1,4 +1,19 @@
 {
+  "auth": {
+    "tagline": "Ihr sicherer Ort für Ihre Finanzen",
+    "welcome-back": "Willkommen zurück",
+    "login-description": "Melden Sie sich an und verwalten Sie Ihr Geld mit einem guten Gefühl.",
+    "forgot-password": "Passwort vergessen?",
+    "show-password": "Passwort anzeigen",
+    "hide-password": "Passwort ausblenden",
+    "login": "Anmelden",
+    "new-to-app": "Neu bei Safe Spend?",
+    "create-account": "Konto erstellen",
+    "peace-of-mind": "Ein gutes Gefühl",
+    "starts-here": "beginnt hier",
+    "feature-description": "Behalten Sie Ihre Ausgaben im Blick, planen Sie Ihre Ziele und treffen Sie jeden Tag bessere Finanzentscheidungen.",
+    "security-promise": "Ihre finanzielle Sicherheit hat für uns höchste Priorität"
+  },
   "currency": {
     "currency": "Währung",
     "set": "Legen Sie Ihre Standardwährung für Ihre Transaktionen fest",
@@ -86,6 +101,8 @@
     "make-it-multi-info": "Sie können diese Kategorie später auf der Detailseite für Kategorien als Mehrfach-Typ festlegen."
   },
   "labels": {
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
     "title": "Titel",
     "exchange-currency": "Ausgangswährung",
     "amount": "Betrag",

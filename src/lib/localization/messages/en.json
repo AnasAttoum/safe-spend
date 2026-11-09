@@ -1,4 +1,19 @@
 {
+  "auth": {
+    "tagline": "Your safe space for managing money",
+    "welcome-back": "Welcome back",
+    "login-description": "Sign in and manage your money with confidence.",
+    "forgot-password": "Forgot password?",
+    "show-password": "Show password",
+    "hide-password": "Hide password",
+    "login": "Sign in",
+    "new-to-app": "New to Safe Spend?",
+    "create-account": "Create an account",
+    "peace-of-mind": "Peace of mind",
+    "starts-here": "starts here",
+    "feature-description": "Track your spending, plan your goals, and make smarter financial decisions every day.",
+    "security-promise": "Your financial security is our priority"
+  },
   "currency": {
     "currency": "Currency",
     "set": "Set your default currency for your transations",
@@ -86,6 +101,8 @@
     "make-it-multi-info": "You can change this category to a multi-type category later on the category details page."
   },
   "labels": {
+    "email": "Email",
+    "password": "Password",
     "title": "Title",
     "exchange-currency": "Exchange Currency",
     "amount": "Amount",

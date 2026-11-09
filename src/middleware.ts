@@ -1,30 +1,64 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { jwtVerify } from "jose";
+import { defaultLocale, locales, routing } from "@/lib/localization/routing";
 import createMiddleware from "next-intl/middleware";
-import { routing } from './lib/localization/routing';
+import { NextRequest, NextResponse } from "next/server";
+import { routes } from "@/config/routes";
 
-const handleI18nRouting = createMiddleware(routing);
+export default async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const authCookie = request.cookies.get("auth");
 
-const isPublicRoute = createRouteMatcher([
-  '/sign-in(.*)',
-  '/sign-up(.*)'
-])
-
-export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect()
+  let locale = defaultLocale;
+  let pathWithoutLocale = pathname;
+  
+  for (const loc of locales) {
+    if (pathname.startsWith(`/${loc}`)) {
+      locale = loc;
+      pathWithoutLocale = pathname.slice(loc.length + 1) || "/";
+      break;
+    }
   }
-  return handleI18nRouting(req);
-})
+
+   if (authCookie) {
+    try {
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      await jwtVerify(authCookie.value, secret);
+    } catch {
+      const response = NextResponse.redirect(
+        new URL(`/${locale}/${routes.signIn}`, request.url)
+      );
+
+      response.cookies.delete("auth");
+      return response;
+    }
+  }
+
+  if (pathWithoutLocale !== routes.signIn && !authCookie) {
+    return NextResponse.redirect(
+      new URL(`${locale}/${routes.signIn}`, request.url),
+    );
+  }
+
+  if (pathWithoutLocale === routes.signIn && authCookie) {
+    return NextResponse.redirect(
+      new URL(`/${locale}`, request.url),
+    );
+  }
+
+  // Step 1: Use the incoming request (example)
+  //   const defaultLocale: localesType = request.headers.get('x-your-custom-locale') as localesType || myDefaultLocale;
+
+  // Step 2: Create and call the next-intl middleware (example)
+  const handleI18nRouting = createMiddleware(routing);
+  const response = handleI18nRouting(request);
+
+  // Step 3: Alter the response (example)
+  //   response.headers.set('x-your-custom-locale', defaultLocale);
+
+  return response;
+}
 
 export const config = {
-  matcher: [
-    // next intl
-    '/', 
-    '/(de|en)/:path*',
-
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
-}
+  // Match only internationalized pathnames
+  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
+};
