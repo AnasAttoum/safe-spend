@@ -11,7 +11,7 @@ export default async function Categories() {
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
-  const userData = await prisma.user.findUnique({ where: { userId: user.id } });
+  const userData = await prisma.user.findUnique({ where: { id: user.id } });
   if (!userData) redirect(routes.currency);
 
   const categories = await getCategories()

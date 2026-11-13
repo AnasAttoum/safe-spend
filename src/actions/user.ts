@@ -19,7 +19,7 @@ export async function updateUserCurrency(currency: string) {
 
   const updatedUser = await prisma.user.update({
     where: {
-      userId: user.id,
+      id: user.id,
     },
     data: {
       currency,

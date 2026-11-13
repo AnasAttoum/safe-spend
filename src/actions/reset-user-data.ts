@@ -15,6 +15,6 @@ export async function resetUserData() {
     prisma.exchange.deleteMany({ where: { userId: user.id } }),
     // prisma.monthTable.deleteMany({ where: { userId: user.id } }),
     // prisma.yearTable.deleteMany({ where: { userId: user.id } }),
-    prisma.user.delete({ where: { userId: user.id } }),
+    prisma.user.delete({ where: { id: user.id } }),
   ]);
 }

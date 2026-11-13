@@ -10,14 +10,14 @@ export async function GET() {
 
   let userSettings = await prisma.user.findUnique({
     where: {
-      userId: user.id,
+      id: user.id,
     },
   });
 
   if (!userSettings)
     userSettings = await prisma.user.create({
       data: {
-        userId: user.id,
+        id: user.id,
         currency: "USD",
       },
     });
