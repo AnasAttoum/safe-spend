@@ -6,7 +6,7 @@ import { routes } from "@/config/routes";
 
 export default async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const authCookie = request.cookies.get("auth");
+  const authCookie = request.cookies.get("session");
 
   let locale = defaultLocale;
   let pathWithoutLocale = pathname;
@@ -21,7 +21,7 @@ export default async function proxy(request: NextRequest) {
 
    if (authCookie) {
     try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
       await jwtVerify(authCookie.value, secret);
     } catch {
       const response = NextResponse.redirect(

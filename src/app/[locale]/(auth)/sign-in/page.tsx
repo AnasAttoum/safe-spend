@@ -11,22 +11,55 @@ import Logo from "@/components/logo";
 import PasswordField from "@/components/fields/password";
 import { ShieldCheckIcon } from "lucide-react";
 import { Link } from "@/lib/localization/navigation";
-
-type LoginFormValues = {
-  email: string;
-  password: string;
-};
+import { useMutation } from "@tanstack/react-query";
+import { signInSchema, signInType } from "@/schema/auth";
+import { toast } from "sonner";
+import { routes } from "@/config/routes";
+import { useRouter } from "next/navigation";
+import { signIn } from "@/actions/user";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SignIn() {
   const t = useTranslations();
   const tAuth = useTranslations("auth");
+  const tErrors = useTranslations("errors");
 
-  const form = useForm<LoginFormValues>({
+  const router = useRouter();
+
+  const form = useForm<signInType>({
+    resolver: zodResolver(signInSchema(tErrors)),
     defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit = form.handleSubmit(async (values) => {
-    console.log(values);
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (form: signInType) => {
+      const res = await signIn(form);
+      if (res && res.error) {
+        throw new Error(res.error);
+      }
+      return res.data!;
+    },
+    onSuccess: async ({ fName }: { fName: string }) => {
+      toast.success(tAuth("signIn-success", { fName }), {
+        id: "signIn",
+      });
+      router.push(routes.dashboard);
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : t("something-went-wrong"),
+        {
+          id: "signIn",
+        }
+      );
+    },
+  });
+
+  const onSubmit = form.handleSubmit((data: signInType) => {
+    toast.loading(t("loading"), {
+      id: "signIn",
+    });
+    mutate(data);
   });
 
   return (
@@ -46,18 +79,18 @@ export default function SignIn() {
             <ThemeBtn />
             <LocaleSwitcher />
           </div>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">{tAuth("login-description")}</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">{tAuth("signIn-description")}</p>
 
           <FullForm form={form} onSubmit={onSubmit}>
             <div className="mt-8 space-y-5">
               <Field control={form.control} name="email" label="email" type="email" />
-              <PasswordField control={form.control} name="password"/>
+              <PasswordField control={form.control} name="password" />
 
               <div className="flex items-center justify-end gap-3">
                 <Link href="/forgot-password" className="text-xs font-medium text-safeSpend-primary transition hover:text-safeSpend-secondary">{tAuth("forgot-password")}</Link>
               </div>
               <Button type="submit" disabled={form.formState.isSubmitting} className="primaryBtn h-13 w-full">
-                {form.formState.isSubmitting ? t("loading") : tAuth("login")}
+                {isPending ? t("loading") : tAuth("signIn")}
               </Button>
             </div>
           </FullForm>

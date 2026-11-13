@@ -1,18 +1,18 @@
 {
   "auth": {
+    "signIn-success": "It’s great to have you back, {name}!",
     "tagline": "Your safe space for managing money",
     "welcome-back": "Welcome back",
-    "login-description": "Sign in and manage your money with confidence.",
+    "signIn-description": "Sign in and manage your money with confidence.",
     "forgot-password": "Forgot password?",
-    "show-password": "Show password",
-    "hide-password": "Hide password",
-    "login": "Sign in",
+    "signIn": "Sign in",
     "new-to-app": "New to Safe Spend?",
     "create-account": "Create an account",
     "peace-of-mind": "Peace of mind",
     "starts-here": "starts here",
     "feature-description": "Track your spending, plan your goals, and make smarter financial decisions every day.",
-    "security-promise": "Your financial security is our priority"
+    "security-promise": "Your financial security is our priority",
+    "account-created-successfully": "Your account has been created successfully."
   },
   "currency": {
     "currency": "Currency",
@@ -120,7 +120,9 @@
     "click": "Click to select",
     "bookmark": "Bookmark",
     "bookmark-this": "Bookmark this",
-    "remove-bookmark": "Remove bookmark"
+    "remove-bookmark": "Remove bookmark",
+    "show-password": "Show password",
+    "hide-password": "Hide password"
   },
   "settings": {
     "settings": "Settings",
@@ -137,15 +139,21 @@
     "exchange-not-found": "This exchange not exist!",
     "transaction-not-found": "This transaction not exist!",
     "invalid-currency": "Invalid currency!",
+    "invalid-email": "Invalid Email!",
     "required": "Required",
     "greater-than-0": "Amount must be greater than 0",
+    "min-8": "Minimum 8 characters",
     "max-20": "Maximum 20 characters",
     "max-100": "Maximum 100 characters",
     "max-500": "Maximum 500 characters",
     "max-amount": "Max amount is 1000000000",
     "amount-multiple": "Amount must be a multiple of 0.01",
     "amount-must-be-number": "Amount must be a number",
-    "target-must-be-different": "Target currency must be different from exchange currency."
+    "target-must-be-different": "Target currency must be different from exchange currency.",
+    "at-least-one-number": "Password must contain at least one number.",
+    "at-least-one-uppercase": "Password must contain at least one uppercase letter.",
+    "at-least-one-lowercase": "Password must contain at least one lowercase letter.",
+    "invalid-credentials": "Invalid email or password."
   },
   "loading": "Loading...",
   "apply": "Apply",

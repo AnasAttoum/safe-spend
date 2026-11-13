@@ -1,12 +1,11 @@
 {
   "auth": {
+    "signIn-success": "Schön, dass du wieder da bist, {fName}!",
     "tagline": "Ihr sicherer Ort für Ihre Finanzen",
     "welcome-back": "Willkommen zurück",
-    "login-description": "Melden Sie sich an und verwalten Sie Ihr Geld mit einem guten Gefühl.",
+    "signIn-description": "Melden Sie sich an und verwalten Sie Ihr Geld mit einem guten Gefühl.",
     "forgot-password": "Passwort vergessen?",
-    "show-password": "Passwort anzeigen",
-    "hide-password": "Passwort ausblenden",
-    "login": "Anmelden",
+    "signIn": "Anmelden",
     "new-to-app": "Neu bei Safe Spend?",
     "create-account": "Konto erstellen",
     "peace-of-mind": "Ein gutes Gefühl",
@@ -120,7 +119,9 @@
     "click": "Zum Auswählen klicken",
     "bookmark": "Lesezeichen",
     "bookmark-this": "Lesezeichen hinzufügen",
-    "remove-bookmark": "Lesezeichen entfernen"
+    "remove-bookmark": "Lesezeichen entfernen",
+    "show-password": "Passwort anzeigen",
+    "hide-password": "Passwort ausblenden"
   },
   "settings": {
     "settings": "Einstellungen",
@@ -137,15 +138,22 @@
     "exchange-not-found": "Dieser Umtausch existiert nicht!",
     "transaction-not-found": "Diese Transaktion existiert nicht!",
     "invalid-currency": "Ungültige Währung!",
+    "invalid-email": "Ungültige E-Mail!",
     "required": "Erforderlich",
     "greater-than-0": "Betrag muss größer als 0 sein",
+    "min-8": "Mindestens 8 Zeichen",
     "max-20": "Maximal 20 Zeichen",
     "max-100": "Maximal 100 Zeichen",
     "max-500": "Maximal 500 Zeichen",
     "max-amount": "Höchstbetrag ist 1.000.000.000",
     "amount-multiple": "Betrag muss ein Vielfaches von 0,01 sein",
     "amount-must-be-number": "Betrag muss eine Zahl sein",
-    "target-must-be-different": "Die Zielwährung muss sich von der Ausgangswährung unterscheiden."
+    "target-must-be-different": "Die Zielwährung muss sich von der Ausgangswährung unterscheiden.",
+    "at-least-one-number": "Das Passwort muss mindestens eine Zahl enthalten.",
+    "at-least-one-uppercase": "Das Passwort muss mindestens einen Großbuchstaben enthalten.",
+    "at-least-one-lowercase": "Das Passwort muss mindestens einen Kleinbuchstaben enthalten.",
+    "account-created-successfully": "Dein Konto wurde erfolgreich erstellt.",
+    "invalid-credentials": "Ungültige E-Mail-Adresse oder falsches Passwort."
   },
   "loading": "Wird geladen...",
   "apply": "Anwenden",
