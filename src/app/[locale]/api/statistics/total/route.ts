@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const categoryId = searchParams.get("categoryId");
 
-  const userData = await prisma.user.findUnique({ where: { userId: user.id } });
+  const userData = await prisma.user.findUnique({ where: { id: user.id } });
   if (!userData) redirect(routes.currency);
 
   const { allCurrenciesBalance } = await getHistoryData(user.id, categoryId);

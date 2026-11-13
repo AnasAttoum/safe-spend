@@ -26,7 +26,7 @@ model User {
   lName        String
   email        String  @unique
   password     String
-  currency     String
+  currency     String  @default("")
   profileImage String?
 }
 

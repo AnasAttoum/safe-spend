@@ -17,10 +17,9 @@ type LoginFormValues = {
   password: string;
 };
 
-export default function SafeSpendLogin() {
+export default function SignIn() {
   const t = useTranslations();
   const tAuth = useTranslations("auth");
-
 
   const form = useForm<LoginFormValues>({
     defaultValues: { email: "", password: "" },
