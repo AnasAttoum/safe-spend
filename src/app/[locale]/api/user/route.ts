@@ -8,19 +8,19 @@ export async function GET() {
 
   if (!user) redirect("/");
 
-  let userSettings = await prisma.user.findUnique({
+  const userSettings = await prisma.user.findUnique({
     where: {
       id: user.id,
     },
   });
 
-  if (!userSettings)
-    userSettings = await prisma.user.create({
-      data: {
-        id: user.id,
-        currency: "USD",
-      },
-    });
+  // if (!userSettings)
+  //   userSettings = await prisma.user.create({
+  //     data: {
+  //       id: user.id,
+  //       currency: "USD",
+  //     },
+  //   });
 
     revalidatePath('/')
     return Response.json(userSettings)
