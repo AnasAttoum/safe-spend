@@ -1,5 +1,4 @@
 import Logo from "@/components/logo";
-import { UserButton } from "@clerk/nextjs";
 import SettingsBtn from "@/components/buttons/settings-btn";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ThemeBtn from "@/components/buttons/theme-btn";
@@ -19,7 +18,6 @@ export default function DesktopHeader() {
         <SettingsBtn />
         <ThemeBtn />
         <LocaleSwitcher />
-        <UserButton />
       </div>
     </header>
   );

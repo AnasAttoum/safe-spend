@@ -3,12 +3,29 @@
 import bcrypt from "bcryptjs";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
-import { createSession } from "@/lib/session";
+import { createSession, getSessionUserId } from "@/lib/session";
 import { signInSchema, signInType } from "@/schema/auth";
 import { updateUserCurrencySchema } from "@/schema/user";
-import { currentUser } from "@clerk/nextjs/server";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
+
+export async function currentUser() {
+  const userId = await getSessionUserId();
+  if (!userId) redirect(routes.signIn);
+
+  return prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      fName: true,
+      lName: true,
+      email: true,
+      currency: true,
+      profileImage: true,
+    },
+  });
+}
+export type currentUserType = ReturnType<typeof currentUser>;
 
 export async function signIn(data: signInType) {
   const t = await getTranslations("errors");

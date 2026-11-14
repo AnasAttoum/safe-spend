@@ -1,4 +1,4 @@
-import { getTransactionsHistoryDataResponseType } from '@/app/[locale]/api/transactions/route';
+import { getTransactionsHistoryDataResponseType } from '@/app/api/transactions/route';
 import { DeleteDialog } from '@/components/dialog/delete-dialog';
 import { MoreTransactionDialog } from '@/components/dialog/more-transaction-dialog';
 import { TransactionDialog } from '@/components/dialog/transaction-dialog';

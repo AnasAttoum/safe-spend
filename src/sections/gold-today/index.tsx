@@ -1,9 +1,9 @@
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import GoldTodayCard from "@/components/card/gold-today-card";
 import { CurrencyToday, ServerResponse } from "../syrian-pound-today";
+import { currentUser } from "@/actions/user";
 
 export type karatToday = {
   karat: string;

@@ -1,7 +1,7 @@
+import { currentUser } from "@/actions/user";
 import { routes } from "@/config/routes";
 import { getBalanceStats } from "@/lib/get-balance-stats";
 import { overviewSchema } from "@/schema/overview";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {

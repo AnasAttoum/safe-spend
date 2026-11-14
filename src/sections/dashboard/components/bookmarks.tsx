@@ -1,6 +1,6 @@
 "use client";
 
-import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
 import { TransactionDialog } from "@/components/dialog/transaction-dialog";
 import { Button } from "@/components/ui/button";
 import { queryKey } from "@/config/query-key";
@@ -15,7 +15,7 @@ export default function Bookmarks() {
       fetch(
         `/api/bookmarks`
       ).then((res) => res.json()),
-  });
+    });
 
   return (
     <div className="flex flex-wrap gap-x-3 overflow-hidden">

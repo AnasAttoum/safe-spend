@@ -1,8 +1,8 @@
 import { routes } from "@/config/routes";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getHistoryData } from "@/lib/get-history";
 import { prisma } from "@/lib/prisma";
+import { currentUser } from "@/actions/user";
 
 export async function GET(request: Request) {
   const user = await currentUser();

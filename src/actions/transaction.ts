@@ -11,9 +11,9 @@ import {
   updateTransactionSchema,
   updateTransactionType,
 } from "@/schema/transaction";
-import { currentUser } from "@clerk/nextjs/server";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { currentUser } from "./user";
 
 export async function createTransaction(form: createTransactionType) {
   const t = await getTranslations("errors");

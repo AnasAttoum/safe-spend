@@ -1,8 +1,8 @@
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import SYPTodayCard from "@/components/card/syp-today-card";
+import { currentUser } from "@/actions/user";
 
 export type CurrencyToday = {
   code: string;

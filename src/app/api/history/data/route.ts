@@ -1,8 +1,8 @@
+import { currentUser } from "@/actions/user";
 import { routes } from "@/config/routes";
 import { getHistory } from "@/lib/get-history";
 import { Period, Timeframe } from "@/lib/types";
 import { getHistoryDataSchema } from "@/schema/history";
-import { currentUser } from "@clerk/nextjs/server";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 

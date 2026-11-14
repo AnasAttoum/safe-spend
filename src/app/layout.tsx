@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { setRequestLocale } from "next-intl/server";
+import SidebarProviderHandler from "@/providers/sidebar-provider-handler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,35 +69,35 @@ export default async function RootLayout({
 
   return (
     <NextIntlClientProvider>
-      <ClerkProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            style={{
-              backgroundImage: "url('/assets/background.svg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed",
-            }}
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          style={{
+            backgroundImage: "url('/assets/background.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
+          }}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
           >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-                {/* <div className="fixed inset-0 overflow-hidden pointer-events-none -z-50">
+            <SidebarProviderHandler>
+              {/* <div className="fixed inset-0 overflow-hidden pointer-events-none -z-50">
                 <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
                 <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-500"></div>
               </div> */}
-                  {children}
-            </ThemeProvider>
-            <Toaster position="top-right" />
-          </body>
-        </html>
-      </ClerkProvider>
+              {children}
+            </SidebarProviderHandler>
+          </ThemeProvider>
+          <Toaster position="top-right" />
+        </body>
+      </html>
     </NextIntlClientProvider>
   );
 }

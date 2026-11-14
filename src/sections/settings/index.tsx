@@ -1,10 +1,10 @@
-import { currentUser } from "@clerk/nextjs/server";
 import { DeleteMyDataDialog } from "@/components/dialog/delete-my-data-dialog";
 import Currency from "./views/currency";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
+import { currentUser } from "@/actions/user";
 
 export default async function Settings() {
   const t = await getTranslations("settings");

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import Transactions from "@/sections/transactions";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { defaultCurrency } from "@/config/currencies";
 import { getTranslations } from "next-intl/server";
+import { currentUser } from "@/actions/user";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("transaction")

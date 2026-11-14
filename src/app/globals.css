@@ -173,15 +173,6 @@ body {
   overflow-y: scroll;
 }
 
-/* CLERK */
-.cl-internal-1hp5nqm,
-.cl-internal-1dauvpw {
-  display: none;
-}
-.cl-userButtonPopoverCard {
-  margin-top: 6px;
-}
-
 /* LOADING */
 .loader {
   display: inline-flex;
