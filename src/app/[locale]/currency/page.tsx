@@ -9,5 +9,5 @@ export default async function page() {
   if (!user) {
     redirect(routes.signIn);
   }
-  return <CurrencyView firstName={user.firstName || ""} />;
+  return <CurrencyView fName={user.fName || ""} />;
 }

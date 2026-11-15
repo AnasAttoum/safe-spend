@@ -5,16 +5,16 @@ import LocaleSwitcher from "@/components/buttons/locale-switcher";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
-  firstName: string;
+  fName: string;
 };
 
-export default async function CurrencyView({ firstName }: Props) {
+export default async function CurrencyView({ fName }: Props) {
   const t = await getTranslations("currency");
 
   return (
     <div className="flex flex-col gap-3 text-center">
       <h2 className="text-3xl flex justify-center items-center gap-2">
-        {t("welcome")}{firstName !== "" && <>, <strong>{firstName}</strong>!</>}
+        {t("welcome")}{fName !== "" && <>, <strong>{fName}</strong>!</>}
         <Icon icon="welcome" size={50} />
       </h2>
 
