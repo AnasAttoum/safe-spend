@@ -1,6 +1,8 @@
 "use server";
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
+import { redirect } from "next/navigation";
+import { routes } from "@/config/routes";
 
 const secret = new TextEncoder().encode(process.env.SESSION_SECRET!);
 
@@ -32,4 +34,11 @@ export async function getSessionUserId() {
   } catch {
     return null;
   }
+}
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+
+  redirect(routes.signIn);
 }

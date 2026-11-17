@@ -11,7 +11,9 @@
     "peace-of-mind": "Ein gutes Gefühl",
     "starts-here": "beginnt hier",
     "feature-description": "Behalten Sie Ihre Ausgaben im Blick, planen Sie Ihre Ziele und treffen Sie jeden Tag bessere Finanzentscheidungen.",
-    "security-promise": "Ihre finanzielle Sicherheit hat für uns höchste Priorität"
+    "security-promise": "Ihre finanzielle Sicherheit hat für uns höchste Priorität",
+    "my-profile": "Mein Profil",
+    "logout": "Abmelden"
   },
   "currency": {
     "currency": "Währung",

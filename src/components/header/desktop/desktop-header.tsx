@@ -3,6 +3,7 @@ import SettingsBtn from "@/components/buttons/settings-btn";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ThemeBtn from "@/components/buttons/theme-btn";
 import LocaleSwitcher from "@/components/buttons/locale-switcher";
+import UserMenu from "@/components/buttons/user-menu";
 
 export default function DesktopHeader() {
   return (
@@ -18,6 +19,7 @@ export default function DesktopHeader() {
         <SettingsBtn />
         <ThemeBtn />
         <LocaleSwitcher />
+        <UserMenu />
       </div>
     </header>
   );

@@ -38,7 +38,7 @@ export default function PasswordField({
           <FormLabel>{t(label)}</FormLabel>
 
           <FormControl>
-            <InputGroup>
+            <InputGroup className="h-9">
               <InputGroupInput
                 {...field}
                 type={showPassword ? "text" : "password"}

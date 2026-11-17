@@ -63,7 +63,7 @@ export default function SignIn() {
   });
 
   return (
-    <div className="relative grid min-h-screen overflow-hidden bg-background text-foreground lg:grid-cols-2">
+    <div className="relative grid min-h-screen overflow-hidden bg-background text-foreground lg:grid-cols-2 w-full">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_0%_100%,color-mix(in_oklch,var(--safeSpend-primary)_18%,transparent),transparent_42%),radial-gradient(ellipse_at_90%_0%,color-mix(in_oklch,var(--safeSpend-secondary)_10%,transparent),transparent_35%)]" />
 
       <section className="relative z-10 flex min-h-screen items-center justify-center px-5 pb-20 pt-28 sm:px-10 lg:px-14">
@@ -86,9 +86,9 @@ export default function SignIn() {
               <Field control={form.control} name="email" label="email" type="email" />
               <PasswordField control={form.control} name="password" />
 
-              <div className="flex items-center justify-end gap-3">
+              {/* <div className="flex items-center justify-end gap-3">
                 <Link href="/forgot-password" className="text-xs font-medium text-safeSpend-primary transition hover:text-safeSpend-secondary">{tAuth("forgot-password")}</Link>
-              </div>
+              </div> */}
               <Button type="submit" disabled={form.formState.isSubmitting} className="primaryBtn h-13 w-full">
                 {isPending ? t("loading") : tAuth("signIn")}
               </Button>
