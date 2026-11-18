@@ -12,7 +12,7 @@ export default async function CurrencyView({ fName }: Props) {
   const t = await getTranslations("currency");
 
   return (
-    <div className="flex flex-col gap-3 text-center">
+    <div className="flex flex-col gap-3 text-center w-full items-center">
       <h2 className="text-3xl flex justify-center items-center gap-2">
         {t("welcome")}{fName !== "" && <>, <strong>{fName}</strong>!</>}
         <Icon icon="welcome" size={50} />

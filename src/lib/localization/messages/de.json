@@ -1,11 +1,15 @@
 {
   "auth": {
     "signIn-success": "Schön, dass du wieder da bist, {fName}!",
+    "signUp-success": "Ihr Konto wurde erfolgreich erstellt, {fName}!",
     "tagline": "Ihr sicherer Ort für Ihre Finanzen",
     "welcome-back": "Willkommen zurück",
     "signIn-description": "Melden Sie sich an und verwalten Sie Ihr Geld mit einem guten Gefühl.",
+    "signUp-description": "Erstellen Sie ein Konto und verwalten Sie Ihr Geld von Anfang an mit einem guten Gefühl.",
     "forgot-password": "Passwort vergessen?",
     "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "already-have-account": "Hast du bereits ein Konto?",
     "new-to-app": "Neu bei Safe Spend?",
     "create-account": "Konto erstellen",
     "peace-of-mind": "Ein gutes Gefühl",
@@ -102,8 +106,11 @@
     "make-it-multi-info": "Sie können diese Kategorie später auf der Detailseite für Kategorien als Mehrfach-Typ festlegen."
   },
   "labels": {
+    "fName": "Vorname",
+    "lName": "Nachname",
     "email": "E-Mail-Adresse",
     "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
     "title": "Titel",
     "exchange-currency": "Ausgangswährung",
     "amount": "Betrag",
@@ -155,7 +162,9 @@
     "at-least-one-uppercase": "Das Passwort muss mindestens einen Großbuchstaben enthalten.",
     "at-least-one-lowercase": "Das Passwort muss mindestens einen Kleinbuchstaben enthalten.",
     "account-created-successfully": "Dein Konto wurde erfolgreich erstellt.",
-    "invalid-credentials": "Ungültige E-Mail-Adresse oder falsches Passwort."
+    "invalid-credentials": "Ungültige E-Mail-Adresse oder falsches Passwort.",
+    "passwords-dont-match": "Passwörter stimmen nicht überein",
+    "email-already-exists": "Diese E-Mail-Adresse ist bereits registriert"
   },
   "loading": "Wird geladen...",
   "apply": "Anwenden",

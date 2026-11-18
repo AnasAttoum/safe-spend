@@ -15,6 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function layout({ children }: Props) {
   return (
-    <div className="h-dvh flex justify-center items-center">{children}</div>
+    <div className="w-full h-dvh flex justify-center items-center">{children}</div>
   );
 }

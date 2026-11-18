@@ -2,7 +2,7 @@ import { jwtVerify } from "jose";
 import { defaultLocale, locales, routing } from "@/lib/localization/routing";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { routes } from "@/config/routes";
+import { publicRoutes, routes } from "@/config/routes";
 
 export default async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -20,26 +20,26 @@ export default async function proxy(request: NextRequest) {
   }
 
    if (authCookie) {
-    try {
-      const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
+     try {
+       const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
       await jwtVerify(authCookie.value, secret);
     } catch {
       const response = NextResponse.redirect(
         new URL(`/${locale}/${routes.signIn}`, request.url)
       );
-
+      
       response.cookies.delete("auth");
       return response;
     }
   }
 
-  if (pathWithoutLocale !== routes.signIn && !authCookie) {
+  if (!publicRoutes.includes(pathWithoutLocale) && !authCookie) {
     return NextResponse.redirect(
       new URL(`${locale}/${routes.signIn}`, request.url),
     );
   }
 
-  if (pathWithoutLocale === routes.signIn && authCookie) {
+  if (publicRoutes.includes(pathWithoutLocale) && authCookie) {
     return NextResponse.redirect(
       new URL(`/${locale}`, request.url),
     );

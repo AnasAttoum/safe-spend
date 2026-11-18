@@ -17,11 +17,13 @@ export async function GET(request: Request) {
   const { allCurrenciesBalance } = await getHistoryData(user.id, categoryId);
 
   if (!allCurrenciesBalance.length)
-    return Response.json({
-      currency: userData.currency,
-      total: 0,
-      diff: 0,
-    });
+    return Response.json([
+      {
+        currency: userData.currency,
+        total: 0,
+        diff: 0,
+      },
+    ]);
 
   const date = new Date();
   const thisYear = date.getUTCFullYear();
@@ -36,7 +38,7 @@ export async function GET(request: Request) {
   const lastBalance = allCurrenciesBalance[lastIndex];
 
   const allCurrencies = Object.keys(lastBalance).filter(
-    (key) => key !== "year" && key !== "month"
+    (key) => key !== "year" && key !== "month",
   );
 
   const defaultBalance = {
@@ -46,12 +48,12 @@ export async function GET(request: Request) {
   };
   const balanceThisMonth: Record<string, number> =
     allCurrenciesBalance.find(
-      (bal) => bal.year === thisYear && bal.month === thisMonth
+      (bal) => bal.year === thisYear && bal.month === thisMonth,
     ) || defaultBalance;
 
   const balanceLastMonth: Record<string, number> =
     allCurrenciesBalance.find(
-      (bal) => bal.year === lastMonthYear && bal.month === lastMonth
+      (bal) => bal.year === lastMonthYear && bal.month === lastMonth,
     ) || defaultBalance;
 
   const resultWithDiffThisMonth = allCurrencies.map((currency) => {

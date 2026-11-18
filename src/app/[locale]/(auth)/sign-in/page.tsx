@@ -39,11 +39,11 @@ export default function SignIn() {
       }
       return res.data!;
     },
-    onSuccess: async ({ fName }: { fName: string }) => {
+    onSuccess: async ({ fName, currency }: { fName: string; currency: string }) => {
       toast.success(tAuth("signIn-success", { fName }), {
         id: "signIn",
       });
-      router.push(routes.dashboard);
+      router.push(!!currency ? routes.dashboard : routes.currency);
     },
     onError: (error) => {
       toast.error(

@@ -1,11 +1,15 @@
 {
   "auth": {
-    "signIn-success": "It’s great to have you back, {name}!",
+    "signIn-success": "It’s great to have you back, {fName}!",
+    "signUp-success": "Your account has been created successfully, {fName}!",
     "tagline": "Your safe space for managing money",
     "welcome-back": "Welcome back",
     "signIn-description": "Sign in and manage your money with confidence.",
+    "signUp-description": "Create an account and start managing your money with confidence.",
     "forgot-password": "Forgot password?",
     "signIn": "Sign in",
+    "signUp": "Sign up",
+    "already-have-account": "Already have an account?",
     "new-to-app": "New to Safe Spend?",
     "create-account": "Create an account",
     "peace-of-mind": "Peace of mind",
@@ -103,8 +107,11 @@
     "make-it-multi-info": "You can change this category to a multi-type category later on the category details page."
   },
   "labels": {
+    "fName": "First name",
+    "lName": "Last name",
     "email": "Email",
     "password": "Password",
+    "confirmPassword": "Confirm password",
     "title": "Title",
     "exchange-currency": "Exchange Currency",
     "amount": "Amount",
@@ -155,7 +162,9 @@
     "at-least-one-number": "Password must contain at least one number.",
     "at-least-one-uppercase": "Password must contain at least one uppercase letter.",
     "at-least-one-lowercase": "Password must contain at least one lowercase letter.",
-    "invalid-credentials": "Invalid email or password."
+    "invalid-credentials": "Invalid email or password.",
+    "passwords-dont-match": "Passwords don’t match",
+    "email-already-exists": "Email already exists"
   },
   "loading": "Loading...",
   "apply": "Apply",

@@ -13,3 +13,5 @@ export const routes = {
   syrianPoundToday: "/syrian-pound-today",
   goldToday: "/gold-today",
 };
+
+export const publicRoutes = [routes.signIn, routes.signUp];
