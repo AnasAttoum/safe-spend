@@ -96,7 +96,6 @@ export async function signUp(data: signUpType) {
 
     return { data: { fName: user.fName } };
   } catch {
-    // يغطي أيضًا حالة إنشاء الحسابين بالبريد نفسه في الوقت نفسه.
     return { error: t("email-already-exists") };
   }
 }

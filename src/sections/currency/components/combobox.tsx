@@ -28,6 +28,8 @@ import { toast } from "sonner";
 import { queryKey } from "@/config/query-key";
 import PlusIcon from "@/components/icon/lib/plus-icon";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/lib/localization/navigation";
+import { routes } from "@/config/routes";
 
 type Status = {
   value: string;
@@ -36,6 +38,9 @@ type Status = {
 
 export function ComboBox() {
   const t = useTranslations();
+
+  const router = useRouter();
+
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectedOption, setselectedOption] = React.useState<Status | null>(
@@ -63,6 +68,7 @@ export function ComboBox() {
       setselectedOption(
         currencies.find((currency) => currency.value === data.currency) || null
       );
+      router.replace(routes.dashboard);
     },
 
     onError: () => {
