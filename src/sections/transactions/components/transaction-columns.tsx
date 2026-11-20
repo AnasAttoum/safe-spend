@@ -31,11 +31,17 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
       <DataTableColumnHeader column={column} title="labels.title" />
     ),
     filterFn: (row, _id, value) => {
+      const search = String(value).toLowerCase();
       const title = row.original.title?.toLowerCase() || "";
       const category = row.original.Category?.name?.toLowerCase() || "";
+      const description = row.original.description?.toLowerCase() || "";
+      const amount = String(row.original.amount) || "";
+
       return (
-        title.includes(value.toLowerCase()) ||
-        category.includes(value.toLowerCase())
+        title.includes(search) ||
+        category.includes(search) ||
+        description.includes(search)||
+        amount.includes(search)
       );
     },
     cell: ({ row }) => <div className="flex gap-1 flex-1">{row.original.bookmark && <BookmarkIcon className="fill-safeSpend-primary text-safeSpend-primary" />}{row.original.title}</div>,
@@ -97,6 +103,13 @@ export const columns: ColumnDef<getTransactionsHistoryDataResponseType[0]>[] = [
         day: "2-digit",
       });
     },
+  },
+  {
+    accessorKey: "description",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="labels.description" />
+    ),
+    cell: ({ row }) => <div className="max-w-xs truncate">{row.original.description}</div>,
   },
   {
     accessorKey: "Actions",
