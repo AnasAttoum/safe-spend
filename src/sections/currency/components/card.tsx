@@ -1,18 +1,14 @@
 import * as React from "react";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { ComboBox } from "./combobox";
-import { routes } from "@/config/routes";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/lib/localization/navigation";
 
 export async function CurrencyCard() {
   const t = await getTranslations("currency");
@@ -32,11 +28,11 @@ export async function CurrencyCard() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      {/* <CardFooter className="flex justify-between">
         <Button className="w-full cursor-pointer">
           <Link href={routes.dashboard}>{t("continue")}</Link>
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

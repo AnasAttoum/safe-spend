@@ -23,7 +23,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { moreTransaction } from "@/actions/transaction";
 import { toast } from "sonner";
 import { queryKey } from "@/config/query-key";
-import { getTransactionsHistoryDataResponseType } from "@/app/[locale]/api/transactions/route";
+import { getTransactionsHistoryDataResponseType } from "@/app/api/transactions/route";
 import { useTranslations } from "next-intl";
 import Icon from "../icon/icon";
 

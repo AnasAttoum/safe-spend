@@ -1,7 +1,3 @@
-import { routes } from "@/config/routes";
-import { prisma } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import React from "react";
 import Head from "./views/head";
 import Overview from "./views/overview";
@@ -17,6 +13,7 @@ import Transactions from "../transactions";
 import { getTranslations } from "next-intl/server";
 import Bookmarks from "./components/bookmarks";
 import { MultiDialog } from "@/components/dialog/multi-dialog";
+import { currentUser } from "@/actions/user";
 
 export type CategoryOverview = {
   category: Category;
@@ -28,32 +25,28 @@ export type CategoryOverview = {
 export default async function Dashboard({ categoryOverview }: { categoryOverview?: CategoryOverview | null }) {
   const t = await getTranslations("category");
   const user = await currentUser();
-  if (!user) redirect(routes.signIn);
-
-  const userData = await prisma.user.findUnique({ where: { id: user.id } });
-  if (!userData) redirect(routes.currency);
 
   return (
     <>
       {!categoryOverview && <Head
-        name={user.firstName || "User"}
-        currency={userData.currency || defaultCurrency.value}
+        name={user?.fName || "User"}
+        currency={user?.currency || defaultCurrency.value}
       />}
 
       {!categoryOverview && <Bookmarks />}
 
       {categoryOverview && categoryOverview.category && <CategoryOverviewData categoryOverview={categoryOverview} />}
       <Overview
-        currency={userData.currency || defaultCurrency.value}
+        currency={user?.currency || defaultCurrency.value}
         categoryId={categoryOverview?.category?.id}
       />
 
       {categoryOverview && categoryOverview.category && <Transactions
-        currency={userData.currency || defaultCurrency.value}
+        currency={user?.currency || defaultCurrency.value}
         categoryOverview={categoryOverview}
       />}
 
-      <History currency={userData.currency || defaultCurrency.value} categoryId={categoryOverview?.category?.id} />
+      <History currency={user?.currency || defaultCurrency.value} categoryId={categoryOverview?.category?.id} />
 
       {!categoryOverview?.category?.id && <AllTimeHistory />}
 

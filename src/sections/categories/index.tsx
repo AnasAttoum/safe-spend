@@ -1,10 +1,10 @@
-import { currentUser } from "@clerk/nextjs/server";
 import CategoryList from "./views/category-list";
 import { redirect } from "next/navigation";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
 import { getCategories } from "@/actions/category";
 import { getTranslations } from "next-intl/server";
+import { currentUser } from "@/actions/user";
 
 export default async function Categories() {
   const t = await getTranslations("category");

@@ -10,17 +10,17 @@ import {
   updateCategorySchema,
   updateCategoryType,
 } from "@/schema/category";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { deleteTransaction } from "./transaction";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { currentUser } from "./user";
 
 export async function createCategory(form: CreateCategorySchemaType) {
   const t = await getTranslations("errors");
   const parsedBody = createCategorySchema(t).safeParse(form);
   if (!parsedBody.success) return { error: t("bad-request") };
-
+  
   const user = await currentUser();
   if (!user) redirect(routes.signIn);
 
@@ -28,7 +28,7 @@ export async function createCategory(form: CreateCategorySchemaType) {
 
   const category = await prisma.category.findFirst({
     where: {
-      userId: user.id,
+      userId: user?.id,
       name,
       type,
     },
@@ -40,7 +40,7 @@ export async function createCategory(form: CreateCategorySchemaType) {
 
   const cat = await prisma.category.create({
     data: {
-      userId: user.id,
+      userId: user?.id,
       name,
       type,
       icon,

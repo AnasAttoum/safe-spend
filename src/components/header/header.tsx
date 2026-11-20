@@ -1,9 +1,9 @@
 import DesktopHeader from "./desktop/desktop-header";
 
-export default function Header() {
+export default function Header({ simple = false }: { simple?: boolean }) {
   return (
     <>
-      <DesktopHeader />
+      <DesktopHeader simple={simple} />
       {/* <MobileHeader /> */}
     </>
   );
